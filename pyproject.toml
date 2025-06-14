@@ -1,0 +1,73 @@
+[project]
+name = "flet-charts"
+version = "0.2.0"
+description = "A Flet extension for creating interactive charts and graphs."
+readme = "README.md"
+authors = [{ name = "Flet contributors", email = "hello@flet.dev" }]
+license = "Apache-2.0"
+requires-python = ">=3.10"
+dependencies = [
+    "flet",
+]
+
+[project.urls]
+Homepage = "https://flet.dev"
+Documentation = "https://flet-dev.github.io/flet-charts"
+Repository = "https://github.com/flet-dev/flet-charts"
+Issues = "https://github.com/flet-dev/flet-charts/issues"
+
+[tool.setuptools.package-data]
+"flutter.flet_charts" = ["**/*"]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.2.0",
+    "ruff>=0.11.7",
+]
+docs = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+    "mkdocstrings-python-xref",
+    "mike",
+    "markdown>=3.6",
+    "pymdown-extensions",
+    "mkdocs-glightbox",
+    "pygments>=2.16",
+]
+
+[tool.uv.sources]
+flet = { git = "https://github.com/flet-dev/flet", subdirectory = "sdk/python/packages/flet", rev = "v1" }
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+fix = true
+show-fixes = true
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I"
+]
+ignore = ["F401"]
+preview = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

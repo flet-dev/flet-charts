@@ -1,0 +1,191 @@
+# Project information
+site_name: "flet-charts"
+site_url: https://flet-dev.github.io/flet-charts/
+site_author: Flet Contributors
+site_description: A Flet extension for creating interactive charts and graphs.
+
+# Repository
+edit_uri: edit/main/docs/
+repo_name: flet-dev/flet-charts
+repo_url: https://github.com/flet-dev/flet-charts
+
+# Copyright
+copyright: Copyright &copy; 2025 Flet Contributors
+
+# Theme
+theme:
+  name: "material"
+  favicon: 'images/favicon.ico'
+  logo: 'images/logo.svg'
+  icon:
+    annotation: material/plus-circle
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: pink
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: pink
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+    - scheme: slate
+      primary: indigo
+      accent: pink
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+  features:
+    - content.action.edit
+    - content.action.view
+    - content.action.annotate
+    - content.action.copy
+    - content.action.tooltips
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    # - navigation.tabs
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.footer
+    - navigation.top
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/flet-dev
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/bCFXYgZR3b
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/fletdev
+    - icon: fontawesome/brands/bluesky
+      link: https://bsky.app/profile/fletdev.bsky.social
+
+# Navigation
+nav:
+  - Getting Started: index.md
+  - API Reference:
+      - Charts:
+        - BarChart: bar_chart.md
+        - LineChart: line_chart.md
+        - MatplotlibChart: matplotlib_chart.md
+        - PieChart: pie_chart.md
+        - PlotlyChart: plotly_chart.md
+        - ScatterChart: scatter_chart.md
+      - BarChartGroup: bar_chart_group.md
+      - BarChartRod: bar_chart_rod.md
+      - BarChartRodStackItem: bar_chart_rod_stack_item.md
+      - ChartAxis: chart_axis.md
+      - ChartAxisLabel: chart_axis_label.md
+      - LineChartData: line_chart_data.md
+      - LineChartDataPoint: line_chart_data_point.md
+      - PieChartSection: pie_chart_section.md
+      - ScatterChartSpot: scatter_chart_spot.md
+      - Types:
+          - ChartPointShape:
+              - ChartCirclePoint: types/chart_circle_point.md
+              - ChartCrossPoint: types/chart_cross_point.md
+              - ChartSquarePoint: types/chart_square_point.md
+          - ChartGridLines: types/chart_grid_lines.md
+          - ChartHorizontalAlignment: types/chart_horizontal_alignment.md
+          - ChartPointLine: types/chart_point_line.md
+          - Events:
+            - BarChartEvent: types/bar_chart_event.md
+            - ChartEventType: types/chart_event_type.md
+            - LineChartEvent: types/line_chart_event.md
+            - PieChartEvent: types/pie_chart_event.md
+            - ScatterChartEvent: types/scatter_chart_event.md
+          - LineChartEventSpot: types/line_chart_event_spot.md
+          - Tooltip:
+            - BarChartTooltip: types/bar_chart_tooltip.md
+            - BarChartRodTooltip: types/bar_chart_rod_tooltip.md
+            - BarChartTooltipDirection: types/bar_chart_tooltip_direction.md
+            - ChartDataPointTooltip: types/chart_data_point_tooltip.md
+            - LineChartTooltip: types/line_chart_tooltip.md
+            - LineChartDataPointTooltip: types/line_chart_data_point_tooltip.md
+            - ScatterChartTooltip: types/scatter_chart_tooltip.md
+            - ScatterChartSpotTooltip: types/scatter_chart_spot_tooltip.md
+
+  - Changelog: changelog.md
+  - License: license.md
+
+# Validation
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+
+# Watch
+watch:
+  - docs
+  - src
+
+# Plugins
+plugins:
+  # - footnotes
+  - search:
+      lang: en
+  - mike:
+      alias_type: symlink
+  - glightbox
+  - mkdocstrings:
+      default_handler: python_xref
+      handlers:
+        python_xref:
+          options:
+            relative_crossrefs: true
+            docstring_style: google
+            show_signature_annotations: true
+            signature_crossrefs: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_bases: true
+            show_source: false
+            group_by_category: true
+            show_category_heading: false
+            show_labels: false
+            show_if_no_docstring: true
+            docstring_section_style: spacy
+            filters:
+              - "!^_"   # Exclude private members starting with only one underscore
+              - "!before_update"
+          inventories:
+            - url: https://docs.python.org/3/objects.inv
+              domains: [ py, std ]
+            - url: https://typing-extensions.readthedocs.io/en/latest/objects.inv
+
+# Markdown Extensions
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: "#"
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
