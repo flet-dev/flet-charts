@@ -131,8 +131,7 @@ class _ScatterChartControlState extends State<ScatterChartControl> {
           return (constraints.maxHeight == double.infinity)
               ? ConstrainedBox(
                   constraints: const BoxConstraints(maxHeight: 300),
-                  child: chart,
-                )
+                  child: chart)
               : chart;
         }));
   }

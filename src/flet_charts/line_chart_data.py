@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import flet as ft
 
-from .chart_point_shape import ChartPointLine, ChartPointShape
 from .line_chart_data_point import LineChartDataPoint
+from .types import ChartPointLine, ChartPointShape
 
 __all__ = ["LineChartData"]
 

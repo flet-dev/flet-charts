@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from enum import Enum
 from typing import Optional
 
 import flet as ft
@@ -93,94 +92,113 @@ class ScatterChart(ft.ConstrainedControl):
     List of [`ScatterChartSpot`][(p).]s to show on the chart.
     """
 
-    animate: Optional[ft.AnimationValue] = None
+    animation: ft.AnimationValue = field(
+        default_factory=lambda: ft.Animation(
+            duration=ft.Duration(milliseconds=150), curve=ft.AnimationCurve.LINEAR
+        )
+    )
     """
-    TBD
+    Controls chart implicit animation.
+
+    Value is of [`AnimationValue`](https://flet.dev/docs/reference/types/animationvalue)
+    type.
     """
 
     interactive: bool = True
     """
-    TBD
+    Enables automatic tooltips when hovering chart bars.
     """
 
     handle_built_in_touches: bool = True
     """
-    TBD
+    Whether to show a tooltip popup on top of the spots if a touch occurs.
     """
 
-    long_press_duration: Optional[int] = None
+    long_press_duration: Optional[ft.DurationValue] = None
     """
-    TBD
+    The duration of a long press on the chart.
     """
 
     bgcolor: Optional[ft.ColorValue] = None
     """
-    TBD
+    The chart's background color.
     """
 
     border: Optional[ft.Border] = None
     """
-    TBD
+    The border around the chart.
     """
 
     horizontal_grid_lines: Optional[ft.ChartGridLines] = None
     """
-    TBD
+    Controls drawing of chart's horizontal lines.
+
+    Value is of type [`ChartGridLines`][(p).].
     """
 
     vertical_grid_lines: Optional[ft.ChartGridLines] = None
     """
-    TBD
+    Controls drawing of chart's vertical lines.
+
+    Value is of type [`ChartGridLines`][(p).].
     """
 
     left_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
-    TBD
+    Configures the appearance of the left axis, its title and labels.
+
+    Value is of type [`ChartAxis`][(p).].
     """
 
     top_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
-    TBD
+    Configures the appearance of the top axis, its title and labels.
+
+    Value is of type [`ChartAxis`][(p).].
     """
 
     right_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
-    TBD
+    Configures the appearance of the right axis, its title and labels.
+
+    Value is of type [`ChartAxis`][(p).].
     """
 
     bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
-    TBD
+    Configures the appearance of the bottom axis, its title and labels.
+
+    Value is of type [`ChartAxis`][(p).].
     """
 
     baseline_x: Optional[ft.Number] = None
     """
-    TBD
+    The baseline value for X axis.
     """
 
     min_x: Optional[ft.Number] = None
     """
-    TBD
+    The minimum displayed value for X axis.
     """
 
     max_x: Optional[ft.Number] = None
     """
-    TBD
+    The maximum displayed value for X axis.
     """
 
     baseline_y: Optional[ft.Number] = None
     """
-    TBD
+    Baseline value for Y axis.
     """
 
     min_y: Optional[ft.Number] = None
     """
-    TBD
+    The minimum displayed value for Y axis.
     """
 
     max_y: Optional[ft.Number] = None
     """
-    TBD
+    The maximum displayed value for Y axis.
     """
 
     tooltip: Optional[ScatterChartTooltip] = None
@@ -190,5 +208,7 @@ class ScatterChart(ft.ConstrainedControl):
 
     on_event: ft.OptionalEventCallable[ScatterChartEvent] = None
     """
-    TBD
+    Fires when an event occurs on the chart.
+    
+    Event handler receives an instance of [`ScatterChartEvent`][(p).].
     """

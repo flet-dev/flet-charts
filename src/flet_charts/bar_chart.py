@@ -179,28 +179,28 @@ class BarChart(ft.ConstrainedControl):
 
     left_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
-    Configures the appearance of the left axis, its title and labels.
+    The appearance of the left axis, its title and labels.
 
     Value is of type [`ChartAxis`][(p).].
     """
 
     top_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
-    Configures the appearance of the top axis, its title and labels.
+    The appearance of the top axis, its title and labels.
 
     Value is of type [`ChartAxis`][(p).].
     """
 
     right_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
-    Configures the appearance of the right axis, its title and labels.
+    The appearance of the right axis, its title and labels.
 
     Value is of type [`ChartAxis`][(p).].
     """
 
     bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
-    Configures the appearance of the bottom axis, its title and labels.
+    The appearance of the bottom axis, its title and labels.
 
     Value is of type [`ChartAxis`][(p).].
     """
@@ -212,12 +212,12 @@ class BarChart(ft.ConstrainedControl):
 
     min_y: Optional[ft.Number] = None
     """
-    Configures the minimum displayed value for Y axis.
+    The minimum displayed value for Y axis.
     """
 
     max_y: Optional[ft.Number] = None
     """
-    Configures the maximum displayed value for Y axis.
+    The maximum displayed value for Y axis.
     """
 
     tooltip: Optional[BarChartTooltip] = None
@@ -225,10 +225,11 @@ class BarChart(ft.ConstrainedControl):
     The tooltip configuration for the chart.
     """
 
-    on_event: ft.OptionalEventCallable["BarChartEvent"] = None
+    on_event: ft.OptionalEventCallable[BarChartEvent] = None
     """
     Fires when a bar is hovered or clicked.
 
-    Event handler receives an instance of
-    [`BarChartEvent`](https://flet.dev/docs/reference/types/barchartevent).
+    Event handler receives an instance of [`BarChartEvent`][(p).].
     """
+
+    __internals: dict = field(init=False, repr=False, default_factory=lambda: {"tooltip": False})
