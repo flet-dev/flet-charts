@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
+from typing import Any, Optional
 
 import flet as ft
 
@@ -66,8 +66,6 @@ class BarChartTooltip:
     horizontal_offset: Optional[ft.Number] = None
     """
     Applies horizontal offset for showing tooltip.
-
-    Defaults to `0`.
     """
 
     border_side: Optional[ft.BorderSide] = None
@@ -99,7 +97,7 @@ class BarChartTooltip:
 class BarChartEvent(ft.ControlEvent):
     type: ChartEventType
     """
-    Event's type such as `PointerHoverEvent`, `PointerExitEvent`, etc.
+    The type of event that occurred on the chart.
     """
 
     group_index: Optional[int] = None
@@ -177,28 +175,28 @@ class BarChart(ft.ConstrainedControl):
     Value is of type [`ChartGridLines`][(p).].
     """
 
-    left_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
+    left_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     The appearance of the left axis, its title and labels.
 
     Value is of type [`ChartAxis`][(p).].
     """
 
-    top_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
+    top_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     The appearance of the top axis, its title and labels.
 
     Value is of type [`ChartAxis`][(p).].
     """
 
-    right_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
+    right_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     The appearance of the right axis, its title and labels.
 
     Value is of type [`ChartAxis`][(p).].
     """
 
-    bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
+    bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     The appearance of the bottom axis, its title and labels.
 
@@ -232,4 +230,6 @@ class BarChart(ft.ConstrainedControl):
     Event handler receives an instance of [`BarChartEvent`][(p).].
     """
 
-    __internals: dict = field(init=False, repr=False, default_factory=lambda: {"tooltip": False})
+    def __post_init__(self, ref: Optional[ft.Ref[Any]]):
+        super().__post_init__(ref)
+        self._internals["skip_properties"] = ["tooltip"]

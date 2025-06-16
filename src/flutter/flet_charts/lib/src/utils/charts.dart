@@ -192,25 +192,26 @@ Color defaultGetDotStrokeColor(
   return color.darken();
 }
 
-AxisTitles parseAxisTitles(Control? axis) {
-  if (axis == null) {
+AxisTitles parseAxisTitles(Control? control) {
+  if (control == null) {
     return const AxisTitles(sideTitles: SideTitles(showTitles: false));
   }
 
   return AxisTitles(
-      axisNameWidget: axis.buildWidget("title"),
-      axisNameSize: axis.getDouble("title_size", 16)!,
+      axisNameWidget: control.buildWidget("title"),
+      axisNameSize: control.getDouble("title_size", 16)!,
       sideTitles: SideTitles(
-        showTitles: axis.getBool("show_labels", true)!,
-        reservedSize: axis.getDouble("labels_size", 22)!,
-        interval: axis.getDouble("labels_interval"),
-        getTitlesWidget: axis.children("labels").isEmpty
+        showTitles: control.getBool("show_labels", true)!,
+        reservedSize: control.getDouble("label_size", 22)!,
+        interval: control.getDouble("label_spacing"),
+        getTitlesWidget: control.children("labels").isEmpty
             ? defaultGetTitle
-            : (value, meta) {
-                var label = axis
+            : (double value, TitleMeta meta) {
+                var label = control
                     .children("labels")
                     .firstWhereOrNull((l) => l.getDouble("value") == value);
-                return label?.buildWidget("label") ?? const SizedBox.shrink();
+                return label?.buildTextOrWidget("label") ??
+                    const SizedBox.shrink();
               },
       ));
 }

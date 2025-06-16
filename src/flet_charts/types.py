@@ -93,8 +93,6 @@ class ChartSquarePoint(ChartPointShape):
     size: ft.Number = 4.0
     """
     The size of the square.
-
-    Defaults to `4.0`.
     """
 
     stroke_color: Optional[ft.ColorValue] = None
@@ -105,8 +103,6 @@ class ChartSquarePoint(ChartPointShape):
     stroke_width: ft.Number = 1.0
     """
     The stroke width to use for the square.
-
-    Defaults to `1.0`.
     """
 
     def __post_init__(self):
@@ -124,15 +120,11 @@ class ChartCrossPoint(ChartPointShape):
     size: ft.Number = 8.0
     """
     The size of the cross-mark.
-
-    Defaults to `8.0`.
     """
 
     width: ft.Number = 2.0
     """
     The thickness of the cross-mark.
-
-    Defaults to `2.0`.
     """
 
     def __post_init__(self):
@@ -162,36 +154,36 @@ class ChartPointLine:
 class ChartEventType(Enum):
     """The type of event that occurred on the chart."""
 
-    PAN_END = "PanEnd"
+    PAN_END = "panEnd"
     """
     When a pointer that was previously in contact with 
     the screen and moving is no longer in contact with the screen.
     """
 
-    PAN_CANCEL = "PanCancel"
+    PAN_CANCEL = "panCancel"
     """
     When the pointer that previously triggered a pan-start did not complete.
     """
 
-    POINTER_EXIT = "PointerExit"
+    POINTER_EXIT = "pointerExit"
     """
     The pointer has moved with respect to the device while the 
     pointer is or is not in contact with the device, and exited our chart.
     """
 
-    LONG_PRESS_END = "LongPressEnd"
+    LONG_PRESS_END = "longPressEnd"
     """
     When a pointer stops contacting the screen after a long press 
     gesture was detected. Also reports the position where the 
     pointer stopped contacting the screen.
     """
 
-    TAP_UP = "TapUp"
+    TAP_UP = "tapUp"
     """
     When a pointer that will trigger a tap has stopped contacting the screen.
     """
 
-    TAP_CANCEL = "TapCancel"
+    TAP_CANCEL = "tapCancel"
     """
     When the pointer that previously triggered a tap-down will not end up causing a tap.
     """

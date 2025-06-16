@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Any, Optional
 
 import flet as ft
 
@@ -25,12 +25,11 @@ class BarChartRodTooltip(ChartDataPointTooltip):
 
 @ft.control("BarChartRod")
 class BarChartRod(ft.BaseControl):
-    """"""
+    """A bar rod in a [`BarChartGroup`][(p).]."""
 
     stack_items: list[BarChartRodStackItem] = field(default_factory=list)
     """
-    Optional list of [`BarChartRodStackItem`](https://flet.dev/docs/reference/types/
-    barchartrodstackitem) objects to draw a stacked bar.
+    Optional list of [`BarChartRodStackItem`][(p).] objects to draw a stacked bar.
     """
 
     from_y: ft.Number = 0
@@ -108,6 +107,8 @@ class BarChartRod(ft.BaseControl):
     show_tooltip: bool = True
     """
     Whether a tooltip should be shown on top of hovered bar.
-
-    Defaults to `True`.
     """
+
+    def __post_init__(self, ref: Optional[ft.Ref[Any]]):
+        super().__post_init__(ref)
+        self._internals["skip_properties"] = ["tooltip"]

@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Any
 
 import flet as ft
 
@@ -212,3 +212,7 @@ class ScatterChart(ft.ConstrainedControl):
     
     Event handler receives an instance of [`ScatterChartEvent`][(p).].
     """
+
+    def __post_init__(self, ref: Optional[ft.Ref[Any]]):
+        super().__post_init__(ref)
+        self._internals["skip_properties"] = ["tooltip"]

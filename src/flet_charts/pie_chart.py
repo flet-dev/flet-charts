@@ -15,7 +15,7 @@ class PieChartEvent(ft.ControlEvent):
     """
     Type of the event.
 
-    Value is of type [`PieChartEventType`](https://flet.dev/docs/reference/types/piecharteventtype).
+    Value is of type [`PieChartEventType`][(p).].
     """
 
     section_index: Optional[int] = None
@@ -42,7 +42,7 @@ class PieChart(ft.ConstrainedControl):
 
     sections: list[PieChartSection] = field(default_factory=list)
     """
-    A list of [`PieChartSection`](https://flet.dev/docs/reference/types/piechartsection)
+    A list of [`PieChartSection`][(p).]
     controls drawn in a circle.
     """
 
@@ -83,5 +83,5 @@ class PieChart(ft.ConstrainedControl):
     """
     Fires when a chart section is hovered or clicked.
 
-    Event data is an instance [`PieChartEvent`](https://flet.dev/docs/reference/types/piechartevent).
+    Event data is an instance [`PieChartEvent`][(p).].
     """

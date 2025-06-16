@@ -45,7 +45,7 @@ class _LineChartControlState extends State<LineChartControl> {
         }
 
         spots.clear();
-        for (var spot in lineBar.children("data_points")) {
+        for (var spot in lineBar.children("points")) {
           spot.notifyParent = true;
           spots.add(FlSpot(spot.getDouble("x")!, spot.getDouble("y")!));
         }
@@ -90,7 +90,7 @@ class _LineChartControlState extends State<LineChartControl> {
       barsData.add(barData);
 
       var spotIndex = 0;
-      for (var p in ds.children("data_points")) {
+      for (var p in ds.children("points")) {
         if (!interactive && p.getBool("selected", false)!) {
           selectedPoints
               .add(LineBarSpot(barData, barIndex, barData.spots[spotIndex]));
@@ -159,7 +159,7 @@ class _LineChartControlState extends State<LineChartControl> {
                 FlLine? dotLine = parseSelectedFlLine(
                     widget.control
                         .children("data_series")[barIndex]
-                        .children("data_points")[index]
+                        .children("points")[index]
                         .get("selected_below_line"),
                     Theme.of(context),
                     barData.color,
@@ -186,7 +186,7 @@ class _LineChartControlState extends State<LineChartControl> {
                       var dotPainter = parseChartSelectedDotPainter(
                           widget.control
                               .children("data_series")[barIndex]
-                              .children("data_points")[index]
+                              .children("points")[index]
                               .get("selected_point"),
                           Theme.of(context),
                           barData.color,
@@ -202,10 +202,7 @@ class _LineChartControlState extends State<LineChartControl> {
               }).toList();
             },
             touchTooltipData: parseLineTouchTooltipData(
-                widget.control.get("tooltip"),
-                context,
-                widget.control,
-                const LineTouchTooltipData())!,
+                context, widget.control, const LineTouchTooltipData())!,
             touchCallback: widget.control.getBool("on_event", false)!
                 ? (evt, resp) {
                     var eventData = LineChartEventData.fromDetails(evt, resp);

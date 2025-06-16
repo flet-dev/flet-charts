@@ -17,7 +17,7 @@ class BarChartGroup(ft.BaseControl):
 
     rods: list[BarChartRod] = field(default_factory=list)
     """
-    The list of [`BarChartRod`](https://flet.dev/docs/reference/types/barchartrod)
+    The list of [`BarChartRod`][(p).]
     objects to display in the group.
     """
 
@@ -25,8 +25,6 @@ class BarChartGroup(ft.BaseControl):
     """
     If set to `True` bar rods are drawn on top of each other; otherwise bar rods
     are drawn next to each other.
-
-    Defaults to `False`.
     """
 
     spacing: Optional[ft.Number] = None

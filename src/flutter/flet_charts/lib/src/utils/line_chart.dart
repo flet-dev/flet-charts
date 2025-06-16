@@ -75,34 +75,36 @@ LineTooltipItem? parseLineTooltipItem(
 }
 
 LineTouchTooltipData? parseLineTouchTooltipData(
-    dynamic value, BuildContext context, Control control,
+    BuildContext context, Control control,
     [LineTouchTooltipData? defaultValue]) {
-  if (value == null) return defaultValue;
+  final tooltip = control.get("tooltip");
+  if (tooltip == null) return defaultValue;
 
   final theme = Theme.of(context);
 
   return LineTouchTooltipData(
-    getTooltipColor: (LineBarSpot spot) =>
-        parseColor("bgcolor", theme, const Color.fromRGBO(96, 125, 139, 1))!,
-    tooltipBorderRadius: parseBorderRadius("border_radius"),
-    tooltipMargin: parseDouble("margin", 16)!,
-    tooltipPadding: parsePadding(
-        "padding", const EdgeInsets.symmetric(horizontal: 16, vertical: 8))!,
-    maxContentWidth: parseDouble("max_width", 120)!,
-    rotateAngle: parseDouble("rotate_angle", 0.0)!,
-    tooltipHorizontalOffset: parseDouble("horizontal_offset", 0)!,
-    tooltipBorder:
-        parseBorderSide("border_side", theme, defaultValue: BorderSide.none)!,
-    fitInsideHorizontally: parseBool("fit_inside_horizontally", false)!,
-    fitInsideVertically: parseBool("fit_inside_vertically", false)!,
+    getTooltipColor: (LineBarSpot spot) => parseColor(
+        tooltip["bgcolor"], theme, const Color.fromRGBO(96, 125, 139, 1))!,
+    tooltipBorderRadius: parseBorderRadius(tooltip["border_radius"]),
+    tooltipMargin: parseDouble(tooltip["margin"], 16)!,
+    tooltipPadding: parsePadding(tooltip["padding"],
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 8))!,
+    maxContentWidth: parseDouble(tooltip["max_width"], 120)!,
+    rotateAngle: parseDouble(tooltip["rotate_angle"], 0.0)!,
+    tooltipHorizontalOffset: parseDouble(tooltip["horizontal_offset"], 0)!,
+    tooltipBorder: parseBorderSide(tooltip["border_side"], theme,
+        defaultValue: BorderSide.none)!,
+    fitInsideHorizontally:
+        parseBool(tooltip["fit_inside_horizontally"], false)!,
+    fitInsideVertically: parseBool(tooltip["fit_inside_vertically"], false)!,
     showOnTopOfTheChartBoxArea:
-        parseBool("show_on_top_of_chart_box_area", false)!,
+        parseBool(tooltip["show_on_top_of_chart_box_area"], false)!,
     getTooltipItems: (List<LineBarSpot> touchedSpots) {
       return touchedSpots
           .map((LineBarSpot spot) => parseLineTooltipItem(
               control
                   .children("data_series")[spot.barIndex]
-                  .children("data_points")[spot.spotIndex],
+                  .children("points")[spot.spotIndex],
               spot,
               context))
           .nonNulls
@@ -132,7 +134,7 @@ LineChartBarData parseLineChartBarData(
   var belowLineCutoffY = chartData.getDouble("below_line_cutoff_y");
 
   Map<FlSpot, Control> spots = {
-    for (var e in chartData.children("data_points"))
+    for (var e in chartData.children("points"))
       FlSpot(e.getDouble("x", 0)!, e.getDouble("y", 0)!): e
   };
   return LineChartBarData(
@@ -142,7 +144,7 @@ LineChartBarData parseLineChartBarData(
           chartData.getDouble("prevent_curve_over_shooting_threshold", 10.0)!,
       spots: barSpots[chartData.id] ?? [],
       showingIndicators: chartData
-          .children("data_points")
+          .children("points")
           .asMap()
           .entries
           .where(
@@ -150,7 +152,7 @@ LineChartBarData parseLineChartBarData(
           .map((e) => e.key)
           .toList(),
       isCurved: chartData.getBool("curved", false)!,
-      isStrokeCapRound: chartData.getBool("stroke_cap_round", false)!,
+      isStrokeCapRound: chartData.getBool("rounded_stroke_cap", false)!,
       barWidth: chartData.getDouble("stroke_width", 2.0)!,
       dashArray: dashPattern != null
           ? (dashPattern as List).map((e) => parseInt(e)).nonNulls.toList()
@@ -163,7 +165,7 @@ LineChartBarData parseLineChartBarData(
             var allDotsPainter = parseChartDotPainter(
                 chartData.get("point"), theme, barColor, barGradient, percent);
             var dotPainter = parseChartDotPainter(
-                chartData.children("data_points")[index].get("point"),
+                chartData.children("points")[index].get("point"),
                 theme,
                 barColor,
                 barGradient,

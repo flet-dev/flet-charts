@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 import flet as ft
 
@@ -34,9 +34,10 @@ class LineChartDataPoint(ft.BaseControl):
     The position of a point on `Y` axis.
     """
 
-    selected: Optional[bool] = None
+    selected: bool = False
     """
-    Draw the point as selected when `LineChart.interactive` is set to False.
+    Draw the point as selected when [`LineChart.interactive`][(p).] 
+    is set to `False`.
     """
 
     point: Union[None, bool, ChartPointShape] = None
@@ -53,18 +54,14 @@ class LineChartDataPoint(ft.BaseControl):
     Value is of type [`ChartPointShape`][(p).].
     """
 
-    show_above_line: Optional[bool] = None
+    show_above_line: bool = True
     """
     Whether to display a line above data point.
-
-    Defaults to `True`.
     """
 
-    show_below_line: Optional[bool] = None
+    show_below_line: bool = True
     """
     Whether to display a line below data point.
-
-    Defaults to `True`.
     """
 
     selected_below_line: Union[None, bool, ChartPointLine] = None
@@ -72,8 +69,7 @@ class LineChartDataPoint(ft.BaseControl):
     A vertical line drawn between selected line point and the bottom adge of the chart.
 
     The value is either `True` - draw a line with default style, `False` - do not draw a
-    line under selected point, or an instance of
-    [`ChartPointLine`](https://flet.dev/docs/reference/types/chartpointline) class to
+    line under selected point, or an instance of [`ChartPointLine`][(p).] class to
     specify line style to draw.
     """
 
@@ -86,3 +82,7 @@ class LineChartDataPoint(ft.BaseControl):
     """
     Whether a tooltip should be shown on top of hovered data point.
     """
+
+    def __post_init__(self, ref: Optional[ft.Ref[Any]]):
+        super().__post_init__(ref)
+        self._internals["skip_properties"] = ["tooltip"]

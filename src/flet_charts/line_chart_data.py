@@ -11,18 +11,15 @@ __all__ = ["LineChartData"]
 
 @ft.control("LineChartData")
 class LineChartData(ft.BaseControl):
-    data_points: list[LineChartDataPoint] = field(default_factory=list)
+    points: list[LineChartDataPoint] = field(default_factory=list)
     """
-    A list of points (dots) of
-    [`LineChartDataPoint`](https://flet.dev/docs/reference/types/linechartdatapoint)
+    A list of points (dots) of [`LineChartDataPoint`][(p).]
     type representing a single chart line.
     """
 
-    curved: Optional[bool] = None
+    curved: bool = False
     """
     Set to `True` to draw chart line as a curve.
-
-    Defaults to `False`.
     """
 
     color: ft.ColorValue = ft.Colors.CYAN
@@ -37,16 +34,14 @@ class LineChartData(ft.BaseControl):
     Value is of type [`Gradient`](https://flet.dev/docs/reference/types/gradient).
     """
 
-    stroke_width: Optional[ft.Number] = None
+    stroke_width: ft.Number = 2.0
     """
     The width of a chart line.
     """
 
-    stroke_cap_round: Optional[bool] = None
+    rounded_stroke_cap: bool = False
     """
-    Set to `True` to draw rounded line caps.
-
-    Defaults to `False`.
+    Whether to draw rounded line caps.
     """
 
     prevent_curve_over_shooting: bool = False
@@ -57,8 +52,6 @@ class LineChartData(ft.BaseControl):
     prevent_curve_over_shooting_threshold: ft.Number = 10.0
     """
     Threshold to prevent overshooting algorithm.
-
-    Defaults to `10.0`.
     """
 
     dash_pattern: Optional[list[int]] = None
@@ -69,7 +62,7 @@ class LineChartData(ft.BaseControl):
     drawn.
     """
 
-    shadow: Optional[ft.BoxShadow] = None
+    shadow: ft.BoxShadow = field(default_factory=lambda: ft.BoxShadow(color=ft.Colors.TRANSPARENT))
     """
     Shadow to drop by a chart line.
 
@@ -96,7 +89,7 @@ class LineChartData(ft.BaseControl):
     """
     A vertical line drawn between a line point and the top edge of the chart.
 
-    Value is of type [`ChartPointLine`](https://flet.dev/docs/reference/types/chartpointline).
+    Value is of type [`ChartPointLine`][(p).].
     """
 
     below_line_bgcolor: Optional[ft.ColorValue] = None
@@ -119,7 +112,7 @@ class LineChartData(ft.BaseControl):
     """
     A vertical line drawn between a line point and the bottom edge of the chart.
 
-    Value is of type [`ChartPointLine`](https://flet.dev/docs/reference/types/chartpointline).
+    Value is of type [`ChartPointLine`][(p).].
     """
 
     selected_below_line: Union[None, bool, ChartPointLine] = None
@@ -127,7 +120,7 @@ class LineChartData(ft.BaseControl):
     A vertical line drawn between selected line point and the bottom adge of the
     chart. The value is either `True` - draw a line with default style, `False` - do
     not draw a line under selected point, or an instance of
-    [`ChartPointLine`](https://flet.dev/docs/reference/types/chartpointline) class to
+    [`ChartPointLine`][(p).] class to
     specify line style to draw.
     """
 
@@ -136,13 +129,12 @@ class LineChartData(ft.BaseControl):
     Defines the appearance and shape of a line point (dot).
 
     Value is of type bool (`True` - draw a point with default style or `False` - do
-    not draw a line point) or of type
-    [`ChartPointShape`](https://flet.dev/docs/reference/types/chartpointshape).
+    not draw a line point) or of type [`ChartPointShape`][(p).].
     """
 
     selected_point: Union[None, bool, ChartPointShape] = None
     """
     Defines the appearance and shape of a selected line point.
 
-    Value is of type [`ChartPointShape`](https://flet.dev/docs/reference/types/chartpointshape).
+    Value is of type [`ChartPointShape`][(p).].
     """

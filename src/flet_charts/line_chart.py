@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Any, Optional
 
 import flet as ft
 
@@ -43,7 +43,7 @@ class LineChartEvent(ft.ControlEvent):
 
 @dataclass
 class LineChartTooltip:
-    """Configuration of the tooltip for [`LineChart`][..]s."""
+    """Configuration of the tooltip for [`LineChart`][(p).]s."""
 
     bgcolor: ft.ColorValue = "#FF607D8B"
     """
@@ -163,44 +163,42 @@ class LineChart(ft.ConstrainedControl):
     """
     Controls drawing of chart's horizontal lines.
 
-    Value is of type [`ChartGridLines`](https://flet.dev/docs/reference/types/chartgridlines).
+    Value is of type [`ChartGridLines`][(p).].
     """
 
     vertical_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's vertical lines.
 
-    Value is of type [`ChartGridLines`](https://flet.dev/docs/reference/types/chartgridlines).
+    Value is of type [`ChartGridLines`][(p).].
     """
 
-    left_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
+    left_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     Defines the appearance of the left axis, its title and labels.
 
-    Value is of type [`ChartAxis`](https://flet.dev/docs/reference/types/chartaxis) 
-    class.
+    Value is of type [`ChartAxis`][(p).].
     """
 
-    top_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
+    top_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     Defines the appearance of the top axis, its title and labels.
 
-    Value is of type [`ChartAxis`](https://flet.dev/docs/reference/types/chartaxis).
+    Value is of type [`ChartAxis`][(p).].
     """
 
-    right_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
+    right_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     Defines the appearance of the right axis, its title and labels.
 
-    Value is of type [`ChartAxis`](https://flet.dev/docs/reference/types/chartaxis) 
-    class.
+    Value is of type [`ChartAxis`][(p).].
     """
 
-    bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
+    bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     Defines the appearance of the bottom axis, its title and labels.
 
-    Value is of type [`ChartAxis`](https://flet.dev/docs/reference/types/chartaxis).
+    Value is of type [`ChartAxis`][(p).].
     """
 
     baseline_x: Optional[ft.Number] = None
@@ -246,13 +244,17 @@ class LineChart(ft.ConstrainedControl):
     """
     Fires when a chart line is hovered or clicked.
 
-    Value is of type [`LineChartEvent`](https://flet.dev/docs/reference/types/linechartevent).
+    Value is of type [`LineChartEvent`][(p).].
     """
 
     _skip_inherited_notifier: Optional[bool] = None
     """
     TBD
     """
+
+    def __post_init__(self, ref: Optional[ft.Ref[Any]]):
+        super().__post_init__(ref)
+        self._internals["skip_properties"] = ["tooltip"]
 
     def init(self):
         super().init()

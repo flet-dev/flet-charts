@@ -6,7 +6,7 @@ import flet as ft
 __all__ = ["BarChartRodStackItem"]
 
 
-@ft.control("i")
+@ft.control("BarChartRodStackItem")
 class BarChartRodStackItem(ft.BaseControl):
     from_y: Optional[ft.Number] = None
     """

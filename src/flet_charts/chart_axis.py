@@ -1,12 +1,12 @@
 from dataclasses import field
-from typing import Optional
+from typing import Optional, Union
 
 import flet as ft
 
 __all__ = ["ChartAxis", "ChartAxisLabel"]
 
 
-@ft.control("l")
+@ft.control("ChartAxisLabel")
 class ChartAxisLabel(ft.BaseControl):
     """
     Configures a custom label for specific value.
@@ -17,13 +17,15 @@ class ChartAxisLabel(ft.BaseControl):
     A value to draw label for.
     """
 
-    label: Optional[ft.Control] = None
+    label: Optional[Union[ft.Control, str]] = None
     """
-    A `Control` to draw as a label.
+    The label to display for the specified `value`.
+    
+    Can be a string or a `Control`.
     """
 
 
-@ft.control("a")
+@ft.control("ChartAxis")
 class ChartAxis(ft.BaseControl):
     """
     Configures chart axis.
@@ -47,16 +49,16 @@ class ChartAxis(ft.BaseControl):
 
     labels: list[ChartAxisLabel] = field(default_factory=list)
     """
-    The list of [`ChartAxisLabel`][...]
+    The list of [`ChartAxisLabel`][(p).]
     objects to set custom axis labels for only specific values.
     """
 
-    labels_interval: Optional[ft.Number] = None
+    label_spacing: Optional[ft.Number] = None
     """
     The interval between automatic labels.
     """
 
-    labels_size: ft.Number = 22
+    label_size: ft.Number = 22
     """
     Width or height of labels area.
     """
