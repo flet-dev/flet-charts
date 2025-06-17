@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flet/flet.dart';
@@ -49,7 +48,7 @@ PieChartSectionData parsePieChartSectionData(
     title: title,
     titleStyle: section.getTextStyle("title_style", theme),
     borderSide: section.getBorderSide("border_side", theme,
-        defaultValue: BorderSide.none),
+        defaultValue: BorderSide.none)!,
     titlePositionPercentageOffset: section.getDouble("title_position"),
     badgeWidget: section.buildWidget("badge_content"),
     badgePositionPercentageOffset: section.getDouble("badge_position"),

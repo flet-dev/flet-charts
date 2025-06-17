@@ -10,6 +10,10 @@ __all__ = ["PieChartSection"]
 class PieChartSection(ft.BaseControl):
     """
     Configures a [PieChart][(p).] section.
+
+    Raises:
+        AssertionError: If [`title_position`][(c).] or
+        [`badge_position`][(c).] is not between `0.0` and `1.0` inclusive.
     """
 
     value: ft.Number
@@ -56,10 +60,10 @@ class PieChartSection(ft.BaseControl):
     
     Note:
         Must be between `0.0` (near the center) 
-        and `1.0`(near the outside of the pie chart).
+        and `1.0`(near the outside of the chart) inclusive.
     """
 
-    badge_content: Optional[ft.Control] = None
+    badge: Optional[ft.Control] = None
     """
     An optional `Control` drawn in the middle of a section.
     """
@@ -72,14 +76,14 @@ class PieChartSection(ft.BaseControl):
     
     Note:
         Must be between `0.0` (near the center) 
-        and `1.0`(near the outside of the pie chart).
+        and `1.0`(near the outside of the chart) inclusive.
     """
 
     def before_update(self):
         super().before_update()
         assert self.title_position is None or (0.0 <= self.title_position <= 1.0), (
-            "title_position must be between 0.0 and 1.0"
+            f"title_position ({self.title_position}) must be between 0.0 and 1.0 inclusive"
         )
         assert self.badge_position is None or (0.0 <= self.badge_position <= 1.0), (
-            "badge_position must be between 0.0 and 1.0"
+            f"badge_position ({self.badge_position}) must be between 0.0 and 1.0 inclusive"
         )

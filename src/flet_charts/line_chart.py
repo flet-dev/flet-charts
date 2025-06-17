@@ -255,7 +255,4 @@ class LineChart(ft.ConstrainedControl):
     def __post_init__(self, ref: Optional[ft.Ref[Any]]):
         super().__post_init__(ref)
         self._internals["skip_properties"] = ["tooltip"]
-
-    def init(self):
-        super().init()
-        self._skip_inherited_notifier = True
+        self._internals["skip_inherited_notifier"] = True
