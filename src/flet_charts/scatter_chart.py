@@ -1,11 +1,11 @@
 from dataclasses import dataclass, field
-from typing import Optional, Any
+from typing import Any, Optional
 
 import flet as ft
 
 from .chart_axis import ChartAxis
 from .scatter_chart_spot import ScatterChartSpot
-from .types import ChartEventType, ChartHorizontalAlignment
+from .types import ChartEventType, ChartGridLines, ChartHorizontalAlignment
 
 __all__ = ["ScatterChart", "ScatterChartEvent", "ScatterChartTooltip"]
 
@@ -129,14 +129,14 @@ class ScatterChart(ft.ConstrainedControl):
     The border around the chart.
     """
 
-    horizontal_grid_lines: Optional[ft.ChartGridLines] = None
+    horizontal_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's horizontal lines.
 
     Value is of type [`ChartGridLines`][(p).].
     """
 
-    vertical_grid_lines: Optional[ft.ChartGridLines] = None
+    vertical_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's vertical lines.
 

@@ -51,7 +51,7 @@ class LineChartEventDataSpot extends Equatable {
 
 LineTooltipItem? parseLineTooltipItem(
     Control dataPoint, LineBarSpot spot, BuildContext context) {
-  if (!dataPoint.getBool("show_tooltip")!) return null;
+  if (!dataPoint.getBool("show_tooltip", true)!) return null;
 
   final theme = Theme.of(context);
 

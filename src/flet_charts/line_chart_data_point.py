@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Optional, Union
 
 import flet as ft
@@ -73,16 +73,13 @@ class LineChartDataPoint(ft.BaseControl):
     specify line style to draw.
     """
 
-    tooltip: Optional[LineChartDataPointTooltip] = None
+    tooltip: LineChartDataPointTooltip = field(default_factory=lambda: LineChartDataPointTooltip())
     """
     Configuration of the tooltip for this data point.
     """
 
     show_tooltip: bool = True
     """
-    Whether a tooltip should be shown on top of hovered data point.
+    Whether the [`tooltip`][..] should be shown on top of hovered data point.
     """
 
-    def __post_init__(self, ref: Optional[ft.Ref[Any]]):
-        super().__post_init__(ref)
-        self._internals["skip_properties"] = ["tooltip"]

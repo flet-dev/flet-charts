@@ -3,7 +3,7 @@ from typing import Any, Optional, Union
 
 import flet as ft
 
-from .types import ChartDataPointTooltip
+from .types import ChartDataPointTooltip, ChartPointShape
 
 __all__ = ["ScatterChartSpot", "ScatterChartSpotTooltip"]
 
@@ -95,7 +95,7 @@ class ScatterChartSpot(ft.BaseControl):
     TBD
     """
 
-    point: Union[None, bool, ft.ChartPointShape] = None
+    point: Union[None, bool, ChartPointShape] = None
     """
     TBD
     """
