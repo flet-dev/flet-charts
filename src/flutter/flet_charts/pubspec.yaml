@@ -19,8 +19,7 @@ dependencies:
   fl_chart: 1.0.0
 
   # flet: 0.70.0
-  flet:
-    path: /Users/ndonkohenri/PycharmProjects/flet-dev/flet/packages/flet
+  flet: ^0.25.2
 
 dev_dependencies:
   flutter_test:
