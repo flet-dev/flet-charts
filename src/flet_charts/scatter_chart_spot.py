@@ -100,8 +100,3 @@ class ScatterChartSpot(ft.BaseControl):
     TBD
     """
 
-    def __post_init__(self, ref: Optional[ft.Ref[Any]]):
-        super().__post_init__(ref)
-        self._internals["skip_properties"] = ["tooltip"]
-
-

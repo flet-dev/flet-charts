@@ -80,6 +80,6 @@ class LineChartDataPoint(ft.BaseControl):
 
     show_tooltip: bool = True
     """
-    Whether the [`tooltip`][..] should be shown on top of hovered data point.
+    Whether the [`tooltip`][..] should be shown when this data point is hovered over.
     """
 
