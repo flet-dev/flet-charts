@@ -93,6 +93,7 @@ nav:
       - ScatterChartSpot: scatter_chart_spot.md
       - Types:
           - ChartPointShape:
+              - types/chart_point_shape.md
               - ChartCirclePoint: types/chart_circle_point.md
               - ChartCrossPoint: types/chart_cross_point.md
               - ChartSquarePoint: types/chart_square_point.md
@@ -139,6 +140,7 @@ plugins:
   - mike:
       alias_type: symlink
   - glightbox
+  - section-index
   - mkdocstrings:
       default_handler: python_xref
       handlers:

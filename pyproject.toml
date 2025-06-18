@@ -33,6 +33,7 @@ docs = [
     "markdown>=3.6",
     "pymdown-extensions",
     "mkdocs-glightbox",
+    "mkdocs-section-index",
     "pygments>=2.16",
 ]
 

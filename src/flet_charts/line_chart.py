@@ -32,7 +32,7 @@ class LineChartEventSpot:
 class LineChartEvent(ft.ControlEvent):
     type: ChartEventType
     """
-    The type of event that occured. type such as `PointerHoverEvent`, `PointerExitEvent`, etc.
+    The type of event that occured.
     """
 
     spots: list[LineChartEventSpot]
@@ -204,8 +204,6 @@ class LineChart(ft.ConstrainedControl):
     baseline_x: Optional[ft.Number] = None
     """
     Baseline value for X axis.
-
-    Defaults to `0`.
     """
 
     min_x: Optional[ft.Number] = None
@@ -221,8 +219,6 @@ class LineChart(ft.ConstrainedControl):
     baseline_y: Optional[ft.Number] = None
     """
     Baseline value for Y axis.
-
-    Defaults to `0`.
     """
 
     min_y: Optional[ft.Number] = None
@@ -245,11 +241,6 @@ class LineChart(ft.ConstrainedControl):
     Fires when a chart line is hovered or clicked.
 
     Value is of type [`LineChartEvent`][(p).].
-    """
-
-    _skip_inherited_notifier: Optional[bool] = None
-    """
-    TBD
     """
 
     def __post_init__(self, ref: Optional[ft.Ref[Any]]):

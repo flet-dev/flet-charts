@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flet/flet.dart';
@@ -163,14 +162,14 @@ LineChartBarData parseLineChartBarData(
           show: true,
           getDotPainter: (spot, percent, barData, index) {
             var allDotsPainter = parseChartDotPainter(
-                chartData.get("point"), theme, barColor, barGradient, percent);
+                chartData.get("point"), theme, percent, barColor, barGradient);
             var dotPainter = parseChartDotPainter(
                 chartData.children("points")[index].get("point"),
                 theme,
+                percent,
                 barColor,
-                barGradient,
-                percent);
-            return dotPainter ?? allDotsPainter ?? getInvisiblePainter();
+                barGradient);
+            return dotPainter ?? allDotsPainter ?? invisibleDotPainter;
           }),
       aboveBarData: aboveLineBgcolor != null ||
               aboveLineGradient != null ||

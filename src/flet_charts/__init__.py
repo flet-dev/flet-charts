@@ -16,8 +16,10 @@ from .line_chart import (
 )
 from .line_chart_data import LineChartData
 from .line_chart_data_point import LineChartDataPoint, LineChartDataPointTooltip
+from .matplotlib_chart import MatplotlibChart
 from .pie_chart import PieChart, PieChartEvent
 from .pie_chart_section import PieChartSection
+from .plotly_chart import PlotlyChart
 from .scatter_chart import ScatterChart, ScatterChartEvent, ScatterChartTooltip
 from .scatter_chart_spot import ScatterChartSpot, ScatterChartSpotTooltip
 from .types import (

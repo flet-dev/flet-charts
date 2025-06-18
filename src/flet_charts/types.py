@@ -26,8 +26,6 @@ class ChartGridLines:
     interval: Optional[ft.Number] = None
     """
     The interval between grid lines.
-
-    Defaults to `1`.
     """
 
     color: Optional[ft.ColorValue] = None
@@ -35,11 +33,9 @@ class ChartGridLines:
     The [color](https://flet.dev/docs/reference/colors) of a grid line.
     """
 
-    width: Optional[ft.Number] = None
+    width: ft.Number = 2.0
     """
     The width of a grid line.
-
-    Defaults to `1`.
     """
 
     dash_pattern: Optional[list[int]] = None
@@ -50,13 +46,25 @@ class ChartGridLines:
     """
 
 
-@dataclass(kw_only=True)
+@dataclass(kw_only=True)  # todo
 class ChartPointShape:
-    type: str = ""
+    """
+    Base class for chart point shapes.
+
+    See usable subclasses:
+
+    * [`ChartCirclePoint`][(p).]
+    * [`ChartCrossPoint`][(p).]
+    * [`ChartSquarePoint`][(p).]
+    """
+
+    _type: Optional[str] = field(init=False, repr=False, compare=False, default=None)
 
 
 @dataclass
 class ChartCirclePoint(ChartPointShape):
+    """Draws a circle."""
+
     color: Optional[ft.ColorValue] = None
     """
     The fill [color](https://flet.dev/docs/reference/colors) to use for the circle.
@@ -75,16 +83,16 @@ class ChartCirclePoint(ChartPointShape):
     stroke_width: ft.Number = 0
     """
     The stroke width to use for the circle.
-
-    Defaults to `1.0`.
     """
 
     def __post_init__(self):
-        self.type = "circle"
+        self._type = "ChartCirclePoint"
 
 
 @dataclass
 class ChartSquarePoint(ChartPointShape):
+    """Draws a square."""
+
     color: Optional[ft.ColorValue] = None
     """
     The fill [color](https://flet.dev/docs/reference/colors) to use for the square.
@@ -106,11 +114,13 @@ class ChartSquarePoint(ChartPointShape):
     """
 
     def __post_init__(self):
-        self.type = "square"
+        self._type = "ChartSquarePoint"
 
 
 @dataclass
 class ChartCrossPoint(ChartPointShape):
+    """Draws a cross-mark(X)."""
+
     color: Optional[ft.ColorValue] = None
     """
     The fill [color](https://flet.dev/docs/reference/colors) to use for the 
@@ -128,7 +138,7 @@ class ChartCrossPoint(ChartPointShape):
     """
 
     def __post_init__(self):
-        self.type = "cross"
+        self._type = "ChartCrossPoint"
 
 
 @dataclass
@@ -140,7 +150,7 @@ class ChartPointLine:
     The line's [color](https://flet.dev/docs/reference/colors).
     """
 
-    width: Optional[float] = None
+    width: ft.Number = 2
     """
     The line's width.
     """
@@ -267,6 +277,7 @@ class ChartDataPointTooltip:
 
 class ChartHorizontalAlignment(Enum):
     """Defines an element's horizontal alignment to given point."""
+
     LEFT = "left"
     """Element shown on the left side of the given point."""
 

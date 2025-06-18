@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flet/flet.dart';
 import 'package:flutter/material.dart';
+
 import 'utils/bar_chart.dart';
 import 'utils/charts.dart';
 
@@ -56,8 +57,10 @@ class _BarChartControlState extends State<BarChartControl> {
           bottomTitles: bottomTitles,
         ),
         borderData: FlBorderData(show: border != null, border: border),
-        gridData: parseChartGridData("horizontal_grid_lines",
-            "vertical_grid_lines", theme, widget.control),
+        gridData: parseChartGridData(
+            widget.control.get("horizontal_grid_lines"),
+            widget.control.get("vertical_grid_lines"),
+            theme),
         groupsSpace: widget.control.getDouble("spacing"),
         barGroups: barGroups,
         barTouchData: BarTouchData(

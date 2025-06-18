@@ -1,9 +1,7 @@
-import 'package:collection/collection.dart';
-import 'package:equatable/equatable.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flet/flet.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flet/flet.dart';
 import 'utils/charts.dart';
 import 'utils/scatter_chart.dart';
 
@@ -20,12 +18,13 @@ class ScatterChartControl extends StatefulWidget {
 class _ScatterChartControlState extends State<ScatterChartControl> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     var animation = widget.control.getAnimation(
         "animation",
         ImplicitAnimationDetails(
             duration: const Duration(milliseconds: 150),
             curve: Curves.linear))!;
-    var border = widget.control.getBorder("border", Theme.of(context));
+    var border = widget.control.getBorder("border", theme);
 
     var leftTitles = parseAxisTitles(widget.control.child("left_axis"));
     var topTitles = parseAxisTitles(widget.control.child("top_axis"));
@@ -44,13 +43,14 @@ class _ScatterChartControlState extends State<ScatterChartControl> {
           xError: spot.get('x_error'),
           yError: spot.get('y_error'),
           dotPainter: spot.get("point") != null
-              ? parseChartDotPainter(
-                  spot.get("point"), Theme.of(context), null, null, 0)
+              ? parseChartDotPainter(spot.get("point"), theme, 0, null, null)
               : FlDotCirclePainter(
                   radius: spot.getDouble("radius"),
-                  color: spot.getColor("color", context) ??
+                  color: spot.getColor(
+                      "color",
+                      context,
                       Colors.primaries[
-                          ((x * y) % Colors.primaries.length).toInt()],
+                          ((x * y) % Colors.primaries.length).toInt()])!,
                 ));
     }).toList();
 
@@ -75,8 +75,10 @@ class _ScatterChartControlState extends State<ScatterChartControl> {
           bottomTitles: bottomTitles,
         ),
         borderData: FlBorderData(show: border != null, border: border),
-        gridData: parseChartGridData("horizontal_grid_lines",
-            "vertical_grid_lines", Theme.of(context), widget.control),
+        gridData: parseChartGridData(
+            widget.control.get("horizontal_grid_lines"),
+            widget.control.get("vertical_grid_lines"),
+            theme),
         scatterTouchData: ScatterTouchData(
             enabled: interactive,
             touchCallback: widget.control.getBool("on_event", false)!
@@ -100,8 +102,8 @@ class _ScatterChartControlState extends State<ScatterChartControl> {
           },
           getLabelTextStyleFunction: (spotIndex, spot) {
             var dp = widget.control.children("spots")[spotIndex];
-            var labelStyle = dp.getTextStyle(
-                "label_style", Theme.of(context), const TextStyle())!;
+            var labelStyle =
+                dp.getTextStyle("label_style", theme, const TextStyle())!;
             if (labelStyle.color == null) {
               labelStyle =
                   labelStyle.copyWith(color: spot.dotPainter.mainColor);

@@ -3,36 +3,48 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flet/flet.dart';
 import 'package:flutter/material.dart';
 
-FlGridData parseChartGridData(String horizontalPropName,
-    String verticalPropName, ThemeData theme, Control control) {
-  var hv = control.get(horizontalPropName);
-  var vv = control.get(verticalPropName);
-  if (hv == null && vv == null) {
+FlDotPainter invisibleDotPainter =
+    FlDotCirclePainter(radius: 0, strokeWidth: 0);
+FlLine invisibleLine = const FlLine(strokeWidth: 0);
+
+FlGridData parseChartGridData(
+    dynamic horizontal, dynamic vertical, ThemeData theme) {
+  if (horizontal == null && vertical == null) {
     return const FlGridData(show: false);
   }
 
-  var hLine = flineFromJSON(theme, hv);
-  var vLine = flineFromJSON(theme, vv);
+  var hLine = parseFlLine(horizontal, theme);
+  var vLine = parseFlLine(vertical, theme);
 
   return FlGridData(
     show: true,
-    drawHorizontalLine: hv != null,
-    horizontalInterval: hv != null && hv["interval"] != null
-        ? parseDouble(hv["interval"])
-        : null,
+    drawHorizontalLine: horizontal != null,
+    horizontalInterval:
+        horizontal != null ? parseDouble(horizontal["interval"]) : null,
     getDrawingHorizontalLine:
         hLine == null ? defaultGridLine : (value) => hLine,
-    drawVerticalLine: vv != null,
-    verticalInterval: vv != null && vv["interval"] != null
-        ? parseDouble(vv["interval"])
-        : null,
+    drawVerticalLine: vertical != null,
+    verticalInterval:
+        vertical != null ? parseDouble(vertical["interval"]) : null,
     getDrawingVerticalLine: vLine == null ? defaultGridLine : (value) => vLine,
   );
 }
 
 FlLine? parseFlLine(dynamic value, ThemeData theme, [FlLine? defaultValue]) {
-  if (value == null) return defaultValue;
-  return flineFromJSON(theme, value);
+  if (value == null ||
+      (value['color'] == null &&
+          value['width'] == null &&
+          value['dash_pattern'] == null)) {
+    return defaultValue;
+  }
+
+  return FlLine(
+      color: parseColor(value['color'], theme, Colors.black)!,
+      strokeWidth: parseDouble(value['width'], 2)!,
+      dashArray: (value['dash_pattern'] as List?)
+          ?.map((e) => parseInt(e))
+          .nonNulls
+          .toList());
 }
 
 FlLine? parseSelectedFlLine(
@@ -41,138 +53,71 @@ FlLine? parseSelectedFlLine(
   if (value == null) return defaultValue;
 
   if (value == false) {
-    return getInvisibleLine();
+    return invisibleLine;
   } else if (value == true) {
     return FlLine(
-        color: defaultGetPointColor(color, gradient, 0), strokeWidth: 3);
+        color: getDefaultPointColor(0, color, gradient), strokeWidth: 3);
   }
-  return FlLine(
-      color: value['color'] != null
-          ? parseColor(value['color'] as String, theme, Colors.black)!
-          : defaultGetPointColor(color, gradient, 0),
-      strokeWidth: parseDouble(value['width'], 2)!,
-      dashArray: value['dash_pattern'] != null
-          ? (value['dash_pattern'] as List)
-              .map((e) => parseInt(e))
-              .nonNulls
-              .toList()
-          : null);
-}
 
-FlLine? flineFromJSON(theme, j) {
-  if (j == null ||
-      (j['color'] == null && j['width'] == null && j['dash_pattern'] == null)) {
-    return null;
-  }
-  return FlLine(
-      color: parseColor(j['color'] as String?, theme, Colors.black)!,
-      strokeWidth: parseDouble(j['width'], 2)!,
-      dashArray: j['dash_pattern'] != null
-          ? (j['dash_pattern'] as List)
-              .map((e) => parseInt(e))
-              .nonNulls
-              .toList()
-          : null);
+  return parseFlLine(value, theme, defaultValue)?.copyWith(
+      color: parseColor(
+          value['color'], theme, defaultGetDotStrokeColor(0, color, gradient)));
 }
 
 FlDotPainter? parseChartDotPainter(dynamic value, ThemeData theme,
-    Color? barColor, Gradient? barGradient, double percentage,
-    [FlDotPainter? defaultValue]) {
-  if (value == null) return defaultValue;
-
-  if (value == false) {
-    return getInvisiblePainter();
+    double percentage, Color? barColor, Gradient? barGradient,
+    {FlDotPainter? defaultValue, bool selected = false}) {
+  if (value == null) {
+    return defaultValue;
+  } else if (value == false) {
+    return invisibleDotPainter;
   } else if (value == true) {
-    return getDefaultPainter(barColor, barGradient, percentage);
+    return getDefaultDotPainter(percentage, barColor, barGradient,
+        selected: selected);
   }
-  return chartDotPainterFromJSON(
-      theme, value, barColor, barGradient, percentage, defaultValue);
-}
+  var type = value["_type"];
+  var strokeWidth = parseDouble(value["stroke_width"]);
+  var size = parseDouble(value["size"]);
+  var color = parseColor(value['color'], theme);
+  var strokeColor = parseColor(value['stroke_color'], theme,
+      defaultGetDotStrokeColor(percentage, barColor, barGradient))!;
 
-FlDotPainter? parseChartSelectedDotPainter(dynamic value, ThemeData theme,
-    Color? barColor, Gradient? barGradient, double percentage,
-    [FlDotPainter? defaultValue]) {
-  if (value == null) return defaultValue;
-
-  if (value == false) {
-    return getInvisiblePainter();
-  } else if (value == true) {
-    return getDefaultSelectedPainter(barColor, barGradient, percentage);
-  }
-  return chartDotPainterFromJSON(
-      theme, value, barColor, barGradient, percentage);
-}
-
-FlDotPainter? chartDotPainterFromJSON(
-    ThemeData theme,
-    Map<dynamic, dynamic> json,
-    Color? barColor,
-    Gradient? barGradient,
-    double percentage,
-    [FlDotPainter? defaultValue]) {
-  String type = json["type"];
-  if (type == "circle") {
+  if (type == "ChartCirclePoint") {
     return FlDotCirclePainter(
-        color: json['color'] != null
-            ? parseColor(json['color'] as String, theme) ?? Colors.green
-            : defaultGetPointColor(barColor, barGradient, percentage),
-        radius: parseDouble(json["radius"]),
-        strokeColor: json['stroke_color'] != null
-            ? parseColor(json['color'] as String, theme) ??
-                const Color.fromRGBO(76, 175, 80, 1)
-            : defaultGetDotStrokeColor(barColor, barGradient, percentage),
-        strokeWidth: parseDouble(json["stroke_width"], 0.0)!);
-  } else if (type == "square") {
+        color: color ?? getDefaultPointColor(percentage, barColor, barGradient),
+        radius: parseDouble(value["radius"]),
+        strokeColor: strokeColor,
+        strokeWidth: strokeWidth ?? 0.0);
+  } else if (type == "ChartSquarePoint") {
     return FlDotSquarePainter(
-        color: json['color'] != null
-            ? parseColor(json['color'] as String, theme) ?? Colors.green
-            : defaultGetPointColor(barColor, barGradient, percentage),
-        size: parseDouble(json["size"], 4.0)!,
-        strokeColor: json['stroke_color'] != null
-            ? parseColor(json['color'] as String, theme) ??
-                const Color.fromRGBO(76, 175, 80, 1)
-            : defaultGetDotStrokeColor(barColor, barGradient, percentage),
-        strokeWidth: parseDouble(json["stroke_width"], 1.0)!);
-  } else if (type == "cross") {
+        color: color ?? getDefaultPointColor(percentage, barColor, barGradient),
+        size: size ?? 4.0,
+        strokeColor: strokeColor,
+        strokeWidth: strokeWidth ?? 1.0);
+  } else if (type == "ChartCrossPoint") {
     return FlDotCrossPainter(
-      color: json['color'] != null
-          ? parseColor(json['color'] as String, theme) ?? Colors.green
-          : defaultGetDotStrokeColor(barColor, barGradient, percentage),
-      size: parseDouble(json["size"], 8.0)!,
-      width: parseDouble(json["width"], 2.0)!,
+      color:
+          color ?? defaultGetDotStrokeColor(percentage, barColor, barGradient),
+      size: size ?? 8.0,
+      width: parseDouble(value["width"], 2.0)!,
     );
   }
   return defaultValue;
 }
 
-FlDotPainter getInvisiblePainter() {
-  return FlDotCirclePainter(radius: 0, strokeWidth: 0);
-}
-
-FlLine getInvisibleLine() {
-  return const FlLine(strokeWidth: 0);
-}
-
-FlDotPainter getDefaultPainter(
-    Color? barColor, Gradient? barGradient, double percentage) {
+FlDotPainter getDefaultDotPainter(
+    double percentage, Color? barColor, Gradient? barGradient,
+    {bool selected = false}) {
   return FlDotCirclePainter(
-      radius: 4,
-      color: defaultGetPointColor(barColor, barGradient, percentage),
-      strokeColor: defaultGetDotStrokeColor(barColor, barGradient, percentage),
-      strokeWidth: 1);
+    radius: selected ? 8 : 4,
+    strokeWidth: selected ? 2 : 1,
+    color: getDefaultPointColor(percentage, barColor, barGradient),
+    strokeColor: defaultGetDotStrokeColor(percentage, barColor, barGradient),
+  );
 }
 
-FlDotPainter getDefaultSelectedPainter(
-    Color? barColor, Gradient? barGradient, double percentage) {
-  return FlDotCirclePainter(
-      radius: 8,
-      color: defaultGetPointColor(barColor, barGradient, percentage),
-      strokeColor: defaultGetDotStrokeColor(barColor, barGradient, percentage),
-      strokeWidth: 2);
-}
-
-Color defaultGetPointColor(
-    Color? barColor, Gradient? barGradient, double percentage) {
+Color getDefaultPointColor(
+    double percentage, Color? barColor, Gradient? barGradient) {
   if (barGradient != null && barGradient is LinearGradient) {
     return lerpGradient(
         barGradient.colors, barGradient.getSafeColorStops(), percentage / 100);
@@ -180,15 +125,9 @@ Color defaultGetPointColor(
   return barGradient?.colors.first ?? barColor ?? Colors.blueGrey;
 }
 
-Color defaultGetDotStrokeColor(
-    Color? barColor, Gradient? barGradient, double percentage) {
-  Color color;
-  if (barGradient != null && barGradient is LinearGradient) {
-    color = lerpGradient(
-        barGradient.colors, barGradient.getSafeColorStops(), percentage / 100);
-  } else {
-    color = barGradient?.colors.first ?? barColor ?? Colors.blueGrey;
-  }
+Color defaultGetDotStrokeColor(double percentage,
+    [Color? barColor, Gradient? barGradient]) {
+  Color color = getDefaultPointColor(percentage, barColor, barGradient);
   return color.darken();
 }
 

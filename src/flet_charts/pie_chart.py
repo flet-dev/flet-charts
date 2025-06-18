@@ -15,7 +15,7 @@ class PieChartEvent(ft.ControlEvent):
     """
     Type of the event.
 
-    Value is of type [`PieChartEventType`][(p).].
+    Value is of type [`ChartEventType`][(p).].
     """
 
     section_index: Optional[int] = None

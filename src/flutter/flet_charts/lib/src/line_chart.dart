@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flet/flet.dart';
 import 'package:flutter/material.dart';
+
 import 'utils/charts.dart';
 import 'utils/line_chart.dart';
 
@@ -65,13 +66,13 @@ class _LineChartControlState extends State<LineChartControl> {
   @override
   Widget build(BuildContext context) {
     debugPrint("LineChart build: ${widget.control.id}");
-
+    final theme = Theme.of(context);
     var animation = widget.control.getAnimation(
         "animation",
         ImplicitAnimationDetails(
             duration: const Duration(milliseconds: 150),
             curve: Curves.linear))!;
-    var border = widget.control.getBorder("border", Theme.of(context));
+    var border = widget.control.getBorder("border", theme);
     var leftTitles = parseAxisTitles(widget.control.child("left_axis"));
     var topTitles = parseAxisTitles(widget.control.child("top_axis"));
     var rightTitles = parseAxisTitles(widget.control.child("right_axis"));
@@ -124,11 +125,11 @@ class _LineChartControlState extends State<LineChartControl> {
             rightTitles: rightTitles,
             bottomTitles: bottomTitles,
           ),
-          borderData: border != null
-              ? FlBorderData(show: true, border: border)
-              : FlBorderData(show: false),
-          gridData: parseChartGridData("horizontal_grid_lines",
-              "vertical_grid_lines", Theme.of(context), widget.control),
+          borderData: FlBorderData(show: border != null, border: border),
+          gridData: parseChartGridData(
+              widget.control.get("horizontal_grid_lines"),
+              widget.control.get("vertical_grid_lines"),
+              theme),
           lineBarsData: barsData,
           lineTouchData: LineTouchData(
             enabled: interactive,
@@ -152,7 +153,7 @@ class _LineChartControlState extends State<LineChartControl> {
                     widget.control
                         .children("data_series")[barIndex]
                         .get("selected_below_line"),
-                    Theme.of(context),
+                    theme,
                     barData.color,
                     barData.gradient);
 
@@ -161,7 +162,7 @@ class _LineChartControlState extends State<LineChartControl> {
                         .children("data_series")[barIndex]
                         .children("points")[index]
                         .get("selected_below_line"),
-                    Theme.of(context),
+                    theme,
                     barData.color,
                     barData.gradient);
 
@@ -169,33 +170,36 @@ class _LineChartControlState extends State<LineChartControl> {
                   dotLine ??
                       allDotsLine ??
                       FlLine(
-                          color: defaultGetPointColor(
-                              barData.color, barData.gradient, 0),
+                          color: getDefaultPointColor(
+                              0, barData.color, barData.gradient),
                           strokeWidth: 3),
                   FlDotData(
                     show: true,
                     getDotPainter: (spot, percent, barData, index) {
-                      var allDotsPainter = parseChartSelectedDotPainter(
+                      var allDotsPainter = parseChartDotPainter(
                           widget.control
                               .children("data_series")[barIndex]
                               .get("selected_point"),
-                          Theme.of(context),
+                          theme,
+                          percent,
                           barData.color,
                           barData.gradient,
-                          percent);
-                      var dotPainter = parseChartSelectedDotPainter(
+                          selected: true);
+                      var dotPainter = parseChartDotPainter(
                           widget.control
                               .children("data_series")[barIndex]
                               .children("points")[index]
                               .get("selected_point"),
-                          Theme.of(context),
+                          theme,
+                          percent,
                           barData.color,
                           barData.gradient,
-                          percent);
+                          selected: true);
                       return dotPainter ??
                           allDotsPainter ??
-                          getDefaultSelectedPainter(
-                              barData.color, barData.gradient, percent);
+                          getDefaultDotPainter(
+                              percent, barData.color, barData.gradient,
+                              selected: true);
                     },
                   ),
                 );
