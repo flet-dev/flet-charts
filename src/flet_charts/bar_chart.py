@@ -94,7 +94,7 @@ class BarChartTooltip:
 
 
 @dataclass
-class BarChartEvent(ft.ControlEvent):
+class BarChartEvent(ft.Event["BarChart"]):
     type: ChartEventType
     """
     The type of event that occurred on the chart.
@@ -120,6 +120,8 @@ class BarChartEvent(ft.ControlEvent):
 class BarChart(ft.ConstrainedControl):
     """
     Draws a bar chart.
+
+    ![Overview](assets/bar-chart/diagram.svg)
     """
 
     groups: list[BarChartGroup] = field(default_factory=list)
@@ -223,7 +225,7 @@ class BarChart(ft.ConstrainedControl):
     The tooltip configuration for the chart.
     """
 
-    on_event: ft.OptionalEventCallable[BarChartEvent] = None
+    on_event: ft.OptionalEventHandler[BarChartEvent["BarChart"]] = None
     """
     Fires when a bar is hovered or clicked.
 

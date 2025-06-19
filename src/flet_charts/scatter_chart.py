@@ -66,7 +66,7 @@ class ScatterChartTooltip:
 
 
 @dataclass
-class ScatterChartEvent(ft.ControlEvent):
+class ScatterChartEvent(ft.Event[ft.EventControlType]):
     type: ChartEventType
     """
     Type of the event (e.g. tapDown, panUpdate)
@@ -206,7 +206,7 @@ class ScatterChart(ft.ConstrainedControl):
     The tooltip configuration for the chart.
     """
 
-    on_event: ft.OptionalEventCallable[ScatterChartEvent] = None
+    on_event: ft.OptionalEventHandler[ScatterChartEvent["ScatterChart"]] = None
     """
     Fires when an event occurs on the chart.
     

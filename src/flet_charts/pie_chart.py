@@ -10,7 +10,7 @@ __all__ = ["PieChart", "PieChartEvent"]
 
 
 @dataclass
-class PieChartEvent(ft.ControlEvent):
+class PieChartEvent(ft.Event[ft.EventControlType]):
     type: ChartEventType
     """
     Type of the event.
@@ -38,6 +38,8 @@ class PieChartEvent(ft.ControlEvent):
 class PieChart(ft.ConstrainedControl):
     """
     A pie chart control displaying multiple sections as slices of a circle.
+
+    ![Overview](assets/pie-chart/diagram.svg)
     """
 
     sections: list[PieChartSection] = field(default_factory=list)
@@ -79,7 +81,7 @@ class PieChart(ft.ConstrainedControl):
     Value is of type [`AnimationValue`](https://flet.dev/docs/reference/types/animationvalue).
     """
 
-    on_event: ft.OptionalEventCallable[PieChartEvent] = None
+    on_event: ft.OptionalEventHandler[PieChartEvent["PieChart"]] = None
     """
     Fires when a chart section is hovered or clicked.
 

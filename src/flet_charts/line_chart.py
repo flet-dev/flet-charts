@@ -29,7 +29,7 @@ class LineChartEventSpot:
 
 
 @dataclass
-class LineChartEvent(ft.ControlEvent):
+class LineChartEvent(ft.Event[ft.EventControlType]):
     type: ChartEventType
     """
     The type of event that occured.
@@ -109,6 +109,8 @@ class LineChartTooltip:
 class LineChart(ft.ConstrainedControl):
     """
     Draws a line chart.
+
+    ![Overview](assets/line-chart/diagram.svg)
     """
 
     data_series: list[LineChartData] = field(default_factory=list)
@@ -236,7 +238,7 @@ class LineChart(ft.ConstrainedControl):
     The tooltip configuration for this chart.
     """
 
-    on_event: ft.OptionalEventCallable[LineChartEvent] = None
+    on_event: ft.OptionalEventHandler[LineChartEvent["LineChart"]] = None
     """
     Fires when a chart line is hovered or clicked.
 

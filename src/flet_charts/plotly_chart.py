@@ -17,19 +17,25 @@ __all__ = ["PlotlyChart"]
 @ft.control(kw_only=True)
 class PlotlyChart(ft.Container):
     """
-    Displays Plotly(https://plotly.com/python/) chart.
+    Displays a [Plotly](https://plotly.com/python/) chart.
+
+    Warning:
+        This control requires the [`plotly`](https://plotly.com/python/) Python package to be installed.
+
+        See this [installation guide](index.md#installation) for more information.
     """
 
     figure: Figure = field(metadata={"skip": True})
     """
-    Plotly figure to draw - an instance of `plotly.graph_objects.Figure` class.
+    Plotly figure to draw - 
+    an instance of [`plotly.graph_objects.Figure`](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html).
     """
 
     original_size: bool = False
     """
-    `True` to display chart in original size.
+    Whether to display this chart in original size.
 
-    `False` (default) to display a chart that fits configured bounds.
+    Set to `False` for it to fit it's configured bounds.
     """
 
     def init(self):
@@ -47,5 +53,4 @@ class PlotlyChart(ft.Container):
                 w = float(re.findall(r"\d+", root.attrib["width"])[0])
                 h = float(re.findall(r"\d+", root.attrib["height"])[0])
                 self.__img.aspect_ratio = w / h
-            print("svg length:", len(svg))
             self.__img.src = svg

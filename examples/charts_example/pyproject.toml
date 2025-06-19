@@ -1,7 +1,7 @@
 [project]
-name = "charts_example"
+name = "flet-charts-example"
 version = "1.0.0"
-description = "flet-charts example"
+description = "flet-charts-example"
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.10"
@@ -14,17 +14,9 @@ dependencies = [
 # Docs: https://flet.dev/docs/publish
 [tool.flet]
 org = "com.mycompany"
-product = "flet-charts example"
+product = "flet-charts-example"
 company = "Flet"
 copyright = "Copyright (C) 2024 by Flet"
 
 [tool.flet.app]
 path = "src"
-
-[tool.flet.dev_packages]
-flet-flashlight = "../.." # relative path
-flet = "git+https://github.com/flet-dev/flet.git@v1#subdirectory=sdk/python/packages/flet"
-
-[tool.uv.sources]
-flet-charts = { path = "../../", editable = true }
-flet = { git = "https://github.com/flet-dev/flet", subdirectory = "sdk/python/packages/flet", rev = "v1" }

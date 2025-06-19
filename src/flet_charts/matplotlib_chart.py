@@ -18,26 +18,30 @@ __all__ = ["MatplotlibChart"]
 @ft.control(kw_only=True)
 class MatplotlibChart(ft.Container):
     """
-    Displays Matplotlib(https://matplotlib.org/) chart.
+    Displays a [Matplotlib](https://matplotlib.org/) chart.
+
+    Warning:
+        This control requires the [`matplotlib`](https://matplotlib.org/) Python package to be installed.
+
+        See this [installation guide](index.md#installation) for more information.
     """
 
     figure: Figure = field(metadata={"skip": True})
     """
-    Matplotlib figure to draw - an instance of `matplotlib.figure.Figure` class.
+    Matplotlib figure to draw - an instance of 
+    [`matplotlib.figure.Figure`](https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure).
     """
 
     original_size: bool = False
     """
     Whether to display chart in original size.
 
-    Defaults to `False` - display a chart that fits configured bounds.
+    Set to `False` to display a chart that fits configured bounds.
     """
 
     transparent: bool = False
     """
     Whether to remove the background from the chart.
-
-    Defaults to `False` - display a chart with background.
     """
 
     def init(self):

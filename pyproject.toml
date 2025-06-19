@@ -19,6 +19,11 @@ Issues = "https://github.com/flet-dev/flet-charts/issues"
 [tool.setuptools.package-data]
 "flutter.flet_charts" = ["**/*"]
 
+[project.optional-dependencies]
+all = ["plotly", "matplotlib"]
+plotly = ["plotly"]
+matplotlib = ["matplotlib"]
+
 [dependency-groups]
 dev = [
     "pre-commit>=4.2.0",
@@ -61,7 +66,11 @@ select = [
     # isort
     "I"
 ]
-ignore = ["F401"]
+
+ignore = [
+    # Pyflakes
+    "F401", # unused import
+]
 preview = true
 
 [tool.ruff.format]
