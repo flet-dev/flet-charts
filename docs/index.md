@@ -28,30 +28,25 @@ This package supports the following platforms:
 To install the `flet-charts` package and add it to your project dependencies:
 
 === "uv"
-
-```bash
-uv add flet-charts
-```
+    ```bash
+    uv add flet-charts
+    ```
 
 === "pip"
-
-```bash
-pip install flet-charts
-```
-
-    You will have to manually add this package to your `requirements.txt` or `pyproject.toml`.
+    ```bash
+    pip install flet-charts  # (1)!
+    ```
 
 === "poetry"
-
-```bash
-poetry add flet-charts
-```
+    ```bash
+    poetry add flet-charts
+    ```
 
 ???+ note annotate
-If you plan to use the [`MatplotlibChart`](matplotlib_chart) and/or [`PlotlyChart`](plotly_chart) controls,
-you need to install [`matplotlib`](https://matplotlib.org/) and/or [`plotly`](https://plotly.com/python/) packages
-respectively as well.
-
+    If you plan to use the [`MatplotlibChart`](matplotlib_chart) and/or [`PlotlyChart`](plotly_chart) controls,
+    you need to install [`matplotlib`](https://matplotlib.org/) and/or [`plotly`](https://plotly.com/python/) packages
+    respectively as well.
+    
     This can easily be done when installing `flet-charts` by specifying an extra:
     
     - `[matplotlib]` which installs _only_ `matplotlib`
@@ -60,20 +55,20 @@ respectively as well.
     
     === "uv"
         ```bash
-        uv add "flet-charts[all]"  # (1)!
+        uv add "flet-charts[all]"  # (2)!
         ```
     
     === "pip"
         ```bash
-        pip install flet-charts[all]  # (2)!
+        pip install flet-charts[all]  # (3)!
         ```
     
     === "poetry"
         ```bash
-        poetry add "flet-charts[all]" # (3)!
+        poetry add "flet-charts[all]" # (4)!
         ```
     
-    **You can also install them on their own:**
+    **Alternatively, you can also install them on their own:**
     
     === "uv"
         ```bash
@@ -93,9 +88,10 @@ respectively as well.
         poetry add plotly
         ```
 
-1. Replace `all` with `matplotlib` or `plotly` to install only one of them.
+1. After this, you will have to manually add this package to your `requirements.txt` or `pyproject.toml`.
 2. Replace `all` with `matplotlib` or `plotly` to install only one of them.
 3. Replace `all` with `matplotlib` or `plotly` to install only one of them.
+4. Replace `all` with `matplotlib` or `plotly` to install only one of them.
 
 ## Examples
 

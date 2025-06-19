@@ -77,7 +77,7 @@ nav:
   - Getting Started: index.md
   - API Reference:
       - Charts:
-          - charts.md
+        - charts.md
         - BarChart: bar_chart.md
         - LineChart: line_chart.md
         - MatplotlibChart: matplotlib_chart.md
