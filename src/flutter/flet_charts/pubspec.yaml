@@ -2,7 +2,7 @@ name: flet_charts
 description: A Flet extension for creating interactive charts and graphs.
 homepage: https://flet.dev
 repository: https://github.com/flet-dev/flet-charts/src/flutter/flet_charts
-version: 0.1.0
+version: 0.2.0
 publish_to: none
 
 environment:
@@ -19,7 +19,11 @@ dependencies:
   fl_chart: 1.0.0
 
   # flet: 0.70.0
-  flet: ^0.25.2
+  flet:
+    git:
+      path: packages/flet
+      ref: v1
+      url: https://github.com/flet-dev/flet.git
 
 dev_dependencies:
   flutter_test:
