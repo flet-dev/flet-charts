@@ -1,3 +1,3 @@
 # flet_charts
 
-`Flashlight` control to use in Flet apps.
+A Flet extension for creating interactive charts and graphs.
