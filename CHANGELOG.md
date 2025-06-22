@@ -32,43 +32,43 @@ All chart controls have been refactored to use `@ft.control` dataclass-style def
 #### BarChart
 
 - Renamed properties:
-  - `bar_groups` → `groups`
-  - `groups_space` → `spacing`
-  - `animate` → `animation`
-  - `on_chart_event` → `on_event`
+    - `bar_groups` → `groups`
+    - `groups_space` → `spacing`
+    - `animate` → `animation`
+    - `on_chart_event` → `on_event`
 - Tooltip configuration has been redesigned:
-  - Removed properties: `tooltip_bgcolor`, `tooltip_rounded_radius`, `tooltip_margin`, `tooltip_padding`, `tooltip_max_content_width`, `tooltip_rotate_angle`, `tooltip_horizontal_offset`, `tooltip_border_side`, `tooltip_fit_inside_horizontally`, `tooltip_fit_inside_vertically`, `tooltip_direction`
-  - use the new `tooltip` property of type `BarChartTooltip`
+    - Removed properties: `tooltip_bgcolor`, `tooltip_rounded_radius`, `tooltip_margin`, `tooltip_padding`, `tooltip_max_content_width`, `tooltip_rotate_angle`, `tooltip_horizontal_offset`, `tooltip_border_side`, `tooltip_fit_inside_horizontally`, `tooltip_fit_inside_vertically`, `tooltip_direction`
+    - use the new `tooltip` property of type `BarChartTooltip`
 - In `BarChartGroup`:
-  - Renamed properties: 
-    - `bar_rods` → `rods`
-    - `bars_space` → `spacing`
+    - Renamed properties: 
+      - `bar_rods` → `rods`
+      - `bars_space` → `spacing`
 - In `BarChartRod`:
-  - Renamed properties: 
-    - `rod_stack_items` → `stack_items`
-    - `bg_color` → `bgcolor`
-    - `bg_gradient` → `background_gradient`
+    - Renamed properties: 
+      - `rod_stack_items` → `stack_items`
+      - `bg_color` → `bgcolor`
+      - `bg_gradient` → `background_gradient`
 
 #### LineChart
 
 - Renamed properties:
-  - `animate` → `animation`
-  - `on_chart_event` → `on_event`
+    - `animate` → `animation`
+    - `on_chart_event` → `on_event`
 - `LineChart` Tooltip configuration has been redesigned:
-  - Removed properties: `tooltip_bgcolor`, `tooltip_rounded_radius`, `tooltip_margin`, `tooltip_padding`, `tooltip_max_content_width`, `tooltip_rotate_angle`, `tooltip_horizontal_offset`, `tooltip_border_side`, `tooltip_fit_inside_horizontally`, `tooltip_fit_inside_vertically`, `tooltip_show_on_top_of_chart_box_area`
-  - use the new `tooltip` property of type `LineChartTooltip` 
+    - Removed properties: `tooltip_bgcolor`, `tooltip_rounded_radius`, `tooltip_margin`, `tooltip_padding`, `tooltip_max_content_width`, `tooltip_rotate_angle`, `tooltip_horizontal_offset`, `tooltip_border_side`, `tooltip_fit_inside_horizontally`, `tooltip_fit_inside_vertically`, `tooltip_show_on_top_of_chart_box_area`
+    - use the new `tooltip` property of type `LineChartTooltip` 
 - In `LineChartData`:
-  - Renamed properties: `data_points` → `points`, `stroke_cap_round` → `rounded_stroke_cap`
-  - Removed properties: `above_line_bgcolor`, `below_line_bgcolor`
-  - Renamed property: `selected_below_line`
+    - Renamed properties: `data_points` → `points`, `stroke_cap_round` → `rounded_stroke_cap`
+    - Removed properties: `above_line_bgcolor`, `below_line_bgcolor`
+    - Renamed property: `selected_below_line`
 - In `LineChartDataPoint`:
-  - Removed properties: `tooltip_align`, `tooltip_style` - use `tooltip` property instead which is now of type `LineChartDataPointTooltip`
+    - Removed properties: `tooltip_align`, `tooltip_style` - use `tooltip` property instead which is now of type `LineChartDataPointTooltip`
 
 #### PieChart
 
 - Renamed properties:
-  - `animate` → `animation`
-  - `on_chart_event` → `on_event`
+    - `animate` → `animation`
+    - `on_chart_event` → `on_event`
 
 
 [Unreleased]: https://github.com/flet-dev/flet-charts/releases/tag/0.1.0
