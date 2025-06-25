@@ -7,7 +7,7 @@ authors = [{ name = "Flet contributors", email = "hello@flet.dev" }]
 license = "Apache-2.0"
 requires-python = ">=3.10"
 dependencies = [
-    "flet",
+    "flet >=0.70.0",
 ]
 
 [project.urls]
@@ -44,9 +44,6 @@ docs = [
     "griffe-modernized-annotations",
     "pygments>=2.16",
 ]
-
-[tool.uv.sources]
-flet = { git = "https://github.com/flet-dev/flet", subdirectory = "sdk/python/packages/flet", rev = "v1" }
 
 [tool.ruff]
 line-length = 88
