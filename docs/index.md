@@ -4,7 +4,7 @@
 [![downloads](https://static.pepy.tech/badge/flet-charts/month)](https://pepy.tech/project/flet-charts)
 [![license](https://img.shields.io/github/license/flet-dev/flet-charts.svg)](https://github.com/flet-dev/flet-charts/blob/main/LICENSE)
 
-A Flet extension for creating interactive charts and graphs.
+A [Flet](https://flet.dev) extension for creating interactive charts and graphs.
 
 It is based on the [fl_chart](https://pub.dev/packages/fl_chart) Flutter package.
 
