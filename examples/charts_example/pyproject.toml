@@ -1,0 +1,22 @@
+[project]
+name = "flet-charts-example"
+version = "1.0.0"
+description = "flet-charts-example"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+dependencies = [
+    "flet-charts",
+    "flet",
+]
+
+
+# Docs: https://flet.dev/docs/publish
+[tool.flet]
+org = "com.mycompany"
+product = "flet-charts-example"
+company = "Flet"
+copyright = "Copyright (C) 2024 by Flet"
+
+[tool.flet.app]
+path = "src"
