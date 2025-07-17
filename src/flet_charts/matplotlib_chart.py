@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from dataclasses import field
+from dataclasses import dataclass, field
 
 import flet as ft
 import flet.canvas as fc
@@ -14,7 +14,7 @@ except ImportError as e:
         'Install "matplotlib" Python package to use MatplotlibChart control.'
     ) from e
 
-__all__ = ["MatplotlibChart"]
+__all__ = ["MatplotlibChart", "MatplotlibChartMessageEvent"]
 
 figure_cursors = {
     "default": None,
@@ -25,6 +25,13 @@ figure_cursors = {
     "ew-resize": ft.MouseCursor.RESIZE_LEFT_RIGHT,
     "ns-resize": ft.MouseCursor.RESIZE_UP_DOWN
 }
+
+@dataclass
+class MatplotlibChartMessageEvent(ft.Event["MatplotlibChart"]):    
+    message: str
+    """
+    Message text.
+    """
 
 @ft.control(kw_only=True)
 class MatplotlibChart(ft.GestureDetector):
@@ -42,6 +49,11 @@ class MatplotlibChart(ft.GestureDetector):
     """
     Matplotlib figure to draw - an instance of 
     [`matplotlib.figure.Figure`](https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure).
+    """
+
+    on_message: ft.OptionalEventHandler[MatplotlibChartMessageEvent] = None
+    """
+    The event is triggered on figure message update.
     """
 
     def init(self):
@@ -227,6 +239,8 @@ class MatplotlibChart(ft.GestureDetector):
                         self.canvas.update()
                 elif content["type"] == "resize":
                     self.send_message({"type": "refresh"})
+                elif content["type"] == "message":
+                    await self._trigger_event("message", {"message": content["message"]})
 
     async def send_message_async(self, message):
         print(f"MPL.send_message_async({message})")
