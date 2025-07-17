@@ -18,7 +18,13 @@ def main(page: ft.Page):
 
     # fig1.canvas.start()
     page.add(
-        ft.Row([ft.Button("Pan", on_click=lambda: mpl.pan())]),
+        ft.Row([
+            ft.Button("Home", on_click=lambda: mpl.home()),
+            ft.Button("Back", on_click=lambda: mpl.back()),
+            ft.Button("Forward", on_click=lambda: mpl.forward()),
+            ft.Button("Pan", on_click=lambda: mpl.pan()),
+            ft.Button("Zoom", on_click=lambda: mpl.zoom())
+        ]),
         mpl,
     )
 

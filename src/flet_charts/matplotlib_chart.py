@@ -16,6 +16,15 @@ except ImportError as e:
 
 __all__ = ["MatplotlibChart"]
 
+figure_cursors = {
+    "default": None,
+    "pointer": ft.MouseCursor.CLICK,
+    "crosshair": ft.MouseCursor.PRECISE,
+    "move": ft.MouseCursor.MOVE,
+    "wait": ft.MouseCursor.WAIT,
+    "ew-resize": ft.MouseCursor.RESIZE_LEFT_RIGHT,
+    "ns-resize": ft.MouseCursor.RESIZE_UP_DOWN
+}
 
 @ft.control(kw_only=True)
 class MatplotlibChart(ft.GestureDetector):
@@ -50,6 +59,9 @@ class MatplotlibChart(ft.GestureDetector):
             expand=True,
         )
         self.content = self.canvas
+        self.on_enter = self._on_enter
+        self.on_hover = self._on_hover
+        self.on_exit = self._on_exit
         self.on_pan_start = self._pan_start
         self.on_pan_update = self._pan_update
         self.on_pan_end = self._pan_end
@@ -62,6 +74,45 @@ class MatplotlibChart(ft.GestureDetector):
 
     # def before_update(self):
     #     super().before_update()
+
+    def _on_enter(self, e: ft.HoverEvent):
+        # print("MPL._on_enter:", e.local_x, e.local_y)
+        self.send_message(
+            {
+                "type": "figure_enter",
+                "x": e.local_x * self.__dpr,
+                "y": e.local_y * self.__dpr,
+                "button": 0,
+                "buttons": 0,
+                "modifiers": [],
+            }
+        )
+
+    def _on_hover(self, e: ft.HoverEvent):
+        # print("MPL._on_hover:", e.local_x, e.local_y)
+        self.send_message(
+            {
+                "type": "motion_notify",
+                "x": e.local_x * self.__dpr,
+                "y": e.local_y * self.__dpr,
+                "button": 0,
+                "buttons": 0,
+                "modifiers": [],
+            }
+        )
+
+    def _on_exit(self, e: ft.HoverEvent):
+        # print("MPL._on_exit:", e.local_x, e.local_y)
+        self.send_message(
+            {
+                "type": "figure_leave",
+                "x": e.local_x * self.__dpr,
+                "y": e.local_y * self.__dpr,
+                "button": 0,
+                "buttons": 0,
+                "modifiers": [],
+            }
+        )
 
     def _pan_start(self, e: ft.DragStartEvent):
         # print("MPL._pan_start:", e.local_x, e.local_y)
@@ -105,9 +156,25 @@ class MatplotlibChart(ft.GestureDetector):
     def will_unmount(self):
         self.figure.canvas.manager.remove_web_socket(self)
 
+    def home(self):
+        print("MPL.home)")
+        self.send_message({"type": "toolbar_button", "name": "home"})
+
+    def back(self):
+        print("MPL.back()")
+        self.send_message({"type": "toolbar_button", "name": "back"})
+
+    def forward(self):
+        print("MPL.forward)")
+        self.send_message({"type": "toolbar_button", "name": "forward"})
+
     def pan(self):
         print("MPL.pan()")
         self.send_message({"type": "toolbar_button", "name": "pan"})
+
+    def zoom(self):
+        print("MPL.zoom()")
+        self.send_message({"type": "toolbar_button", "name": "zoom"})
 
     async def _receive_loop(self):
         while True:
@@ -126,7 +193,7 @@ class MatplotlibChart(ft.GestureDetector):
                         height=self.figure.bbox.size[1] / self.__dpr,
                     )
                 ]
-                self.update()
+                self.canvas.update()
                 await self.canvas.capture_async()
                 self.img_count += 1
                 self._waiting = False
@@ -134,9 +201,30 @@ class MatplotlibChart(ft.GestureDetector):
                 print(f"MPL.receive_json({content})")
                 if content["type"] == "image_mode":
                     self.__image_mode = content["mode"]
+                elif content["type"] == "cursor":
+                    self.mouse_cursor = figure_cursors[content["cursor"]]
+                    self.update()
                 elif content["type"] == "draw" and not self._waiting:
                     self._waiting = True
                     await self.send_message_async({"type": "draw"})
+                elif content["type"] == "rubberband":
+                    if content["x0"] == -1 and content["y0"] == -1 and content["x1"] == -1 and content["y1"] == -1:
+                        if len(self.canvas.shapes) == 2:
+                            self.canvas.shapes.pop()
+                            self.canvas.update()
+                    else:
+                        x0 = content["x0"] / self.__dpr
+                        y0 = self._height - content["y0"] / self.__dpr
+                        x1 = content["x1"] / self.__dpr
+                        y1 = self._height - content["y1"] / self.__dpr
+                        rubberband_rect = self.canvas.shapes.pop() if len(self.canvas.shapes) == 2 else fc.Rect(paint=ft.Paint(stroke_width=1, style=ft.PaintingStyle.STROKE))
+                        rubberband_rect.x = x0
+                        rubberband_rect.y = y0
+                        rubberband_rect.width = x1 - x0
+                        rubberband_rect.height = y1 - y0
+                        print("RUBBERBAND_RECT:", rubberband_rect)
+                        self.canvas.shapes.append(rubberband_rect)
+                        self.canvas.update()
                 elif content["type"] == "resize":
                     self.send_message({"type": "refresh"})
 
