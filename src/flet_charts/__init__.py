@@ -16,7 +16,7 @@ from .line_chart import (
 )
 from .line_chart_data import LineChartData
 from .line_chart_data_point import LineChartDataPoint, LineChartDataPointTooltip
-from .matplotlib_chart import MatplotlibChart, MatplotlibChartMessageEvent
+from .matplotlib_chart import MatplotlibChart, MatplotlibChartMessageEvent, MatplotlibChartToolbarButtonsUpdateEvent
 from .pie_chart import PieChart, PieChartEvent
 from .pie_chart_section import PieChartSection
 from .plotly_chart import PlotlyChart

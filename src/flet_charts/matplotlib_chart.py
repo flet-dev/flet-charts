@@ -14,7 +14,7 @@ except ImportError as e:
         'Install "matplotlib" Python package to use MatplotlibChart control.'
     ) from e
 
-__all__ = ["MatplotlibChart", "MatplotlibChartMessageEvent"]
+__all__ = ["MatplotlibChart", "MatplotlibChartMessageEvent", "MatplotlibChartToolbarButtonsUpdateEvent"]
 
 figure_cursors = {
     "default": None,
@@ -31,6 +31,17 @@ class MatplotlibChartMessageEvent(ft.Event["MatplotlibChart"]):
     message: str
     """
     Message text.
+    """
+
+@dataclass
+class MatplotlibChartToolbarButtonsUpdateEvent(ft.Event["MatplotlibChart"]):    
+    back_enabled: bool
+    """
+    Whether Back button is enabled or not.
+    """
+    forward_enabled: bool
+    """
+    Whether Forward button is enabled or not.
     """
 
 @ft.control(kw_only=True)
@@ -54,6 +65,11 @@ class MatplotlibChart(ft.GestureDetector):
     on_message: ft.OptionalEventHandler[MatplotlibChartMessageEvent] = None
     """
     The event is triggered on figure message update.
+    """
+
+    on_toolbar_buttons_update: ft.OptionalEventHandler[MatplotlibChartToolbarButtonsUpdateEvent] = None
+    """
+    Triggers when toolbar buttons status is updated.
     """
 
     def init(self):
@@ -241,6 +257,8 @@ class MatplotlibChart(ft.GestureDetector):
                     self.send_message({"type": "refresh"})
                 elif content["type"] == "message":
                     await self._trigger_event("message", {"message": content["message"]})
+                elif content["type"] == "history_buttons":
+                    await self._trigger_event("toolbar_buttons_update", {"back_enabled": content["Back"],"forward_enabled": content["Forward"]})
 
     async def send_message_async(self, message):
         print(f"MPL.send_message_async({message})")
