@@ -15,6 +15,8 @@ except ImportError as e:
 
 __all__ = ["MatplotlibChart", "MatplotlibChartMessageEvent", "MatplotlibChartToolbarButtonsUpdateEvent"]
 
+logger = logging.getLogger("flet-charts.matplotlib")
+
 figure_cursors = {
     "default": None,
     "pointer": ft.MouseCursor.CLICK,
@@ -77,7 +79,7 @@ class MatplotlibChart(ft.GestureDetector):
         self.mouse_cursor = ft.MouseCursor.WAIT
         self.__started = False
         self.__dpr = self.page.media.device_pixel_ratio
-        print("DPR:", self.__dpr)
+        logger.debug(f"DPR: {self.__dpr}")
         self.__image_mode = "full"
 
         self.canvas = fc.Canvas(
@@ -107,13 +109,13 @@ class MatplotlibChart(ft.GestureDetector):
     #     super().before_update()
 
     def _on_key_down(self, e):
-        print("ON KEY DOWN:", e)
+        logger.debug(f"ON KEY DOWN: {e}")
 
     def _on_key_up(self, e):
-        print("ON KEY UP:", e)
+        logger.debug(f"ON KEY UP: {e}")
 
     def _on_enter(self, e: ft.HoverEvent):
-        # print("MPL._on_enter:", e.local_x, e.local_y)
+        logger.debug(f"_on_enter: {e.local_x}, {e.local_y}")
         self.send_message(
             {
                 "type": "figure_enter",
@@ -126,7 +128,7 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _on_hover(self, e: ft.HoverEvent):
-        # print("MPL._on_hover:", e.local_x, e.local_y)
+        logger.debug(f"_on_hover: {e.local_x}, {e.local_y}")
         self.send_message(
             {
                 "type": "motion_notify",
@@ -139,7 +141,7 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _on_exit(self, e: ft.HoverEvent):
-        # print("MPL._on_exit:", e.local_x, e.local_y)
+        logger.debug(f"_on_exit: {e.local_x}, {e.local_y}")
         self.send_message(
             {
                 "type": "figure_leave",
@@ -152,7 +154,7 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _pan_start(self, e: ft.DragStartEvent):
-        # print("MPL._pan_start:", e.local_x, e.local_y)
+        logger.debug(f"_pan_start: {e.local_x}, {e.local_y}")
         self.keyboard_listener.focus()
         self.send_message(
             {
@@ -161,12 +163,12 @@ class MatplotlibChart(ft.GestureDetector):
                 "y": e.local_y * self.__dpr,
                 "button": 0,
                 "buttons": 1,
-                "modifiers": [],
+                "modifiers": []
             }
         )
 
     def _pan_update(self, e: ft.DragUpdateEvent):
-        # print("MPL._pan_update:", e.local_x, e.local_y)
+        logger.debug(f"_pan_update: {e.local_x}, {e.local_y}")
         self.send_message(
             {
                 "type": "motion_notify",
@@ -179,7 +181,7 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _pan_end(self, e: ft.DragEndEvent):
-        # print("MPL._pan_end:", e.local_x, e.local_y)
+        logger.debug(f"_pan_end: {e.local_x}, {e.local_y}")
         self.send_message(
             {
                 "type": "button_release",
@@ -192,7 +194,7 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _right_pan_start(self, e: ft.DragStartEvent):
-        # print("MPL._pan_start:", e.local_x, e.local_y)
+        logger.debug(f"_pan_start: {e.local_x}, {e.local_y}")
         self.send_message(
             {
                 "type": "button_press",
@@ -205,7 +207,7 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _right_pan_update(self, e: ft.DragUpdateEvent):
-        # print("MPL._pan_update:", e.local_x, e.local_y)
+        logger.debug(f"_pan_update: {e.local_x}, {e.local_y}")
         self.send_message(
             {
                 "type": "motion_notify",
@@ -218,7 +220,7 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _right_pan_end(self, e: ft.DragEndEvent):
-        # print("MPL._pan_end:", e.local_x, e.local_y)
+        logger.debug(f"_pan_end: {e.local_x}, {e.local_y}")
         self.send_message(
             {
                 "type": "button_release",
@@ -234,36 +236,36 @@ class MatplotlibChart(ft.GestureDetector):
         self.figure.canvas.manager.remove_web_socket(self)
 
     def home(self):
-        print("MPL.home)")
+        logger.debug("home)")
         self.send_message({"type": "toolbar_button", "name": "home"})
 
     def back(self):
-        print("MPL.back()")
+        logger.debug("back()")
         self.send_message({"type": "toolbar_button", "name": "back"})
 
     def forward(self):
-        print("MPL.forward)")
+        logger.debug("forward)")
         self.send_message({"type": "toolbar_button", "name": "forward"})
 
     def pan(self):
-        print("MPL.pan()")
+        logger.debug("pan()")
         self.send_message({"type": "toolbar_button", "name": "pan"})
 
     def zoom(self):
-        print("MPL.zoom()")
+        logger.debug("zoom()")
         self.send_message({"type": "toolbar_button", "name": "zoom"})
 
     def download(self, format):
-        print("Download in format:", format)
+        logger.debug(f"Download in format: {format}")
         buff = BytesIO()
-        self.figure.savefig(buff, format=format)
+        self.figure.savefig(buff, format=format, dpi=self.figure.dpi * self.__dpr)
         return buff.getvalue()
 
     async def _receive_loop(self):
         while True:
             is_binary, content = await self._receive_queue.get()
             if is_binary:
-                print(f"MPL.receive_binary({len(content)})")
+                logger.debug(f"receive_binary({len(content)})")
                 if self.__image_mode == "full":
                     await self.canvas.clear_capture_async()
 
@@ -281,7 +283,7 @@ class MatplotlibChart(ft.GestureDetector):
                 self.img_count += 1
                 self._waiting = False
             else:
-                print(f"MPL.receive_json({content})")
+                logger.debug(f"receive_json({content})")
                 if content["type"] == "image_mode":
                     self.__image_mode = content["mode"]
                 elif content["type"] == "cursor":
@@ -289,7 +291,7 @@ class MatplotlibChart(ft.GestureDetector):
                     self.update()
                 elif content["type"] == "draw" and not self._waiting:
                     self._waiting = True
-                    await self.send_message_async({"type": "draw"})
+                    self.send_message({"type": "draw"})
                 elif content["type"] == "rubberband":
                     if content["x0"] == -1 and content["y0"] == -1 and content["x1"] == -1 and content["y1"] == -1:
                         if len(self.canvas.shapes) == 2:
@@ -305,7 +307,6 @@ class MatplotlibChart(ft.GestureDetector):
                         rubberband_rect.y = y0
                         rubberband_rect.width = x1 - x0
                         rubberband_rect.height = y1 - y0
-                        print("RUBBERBAND_RECT:", rubberband_rect)
                         self.canvas.shapes.append(rubberband_rect)
                         self.canvas.update()
                 elif content["type"] == "resize":
@@ -315,14 +316,8 @@ class MatplotlibChart(ft.GestureDetector):
                 elif content["type"] == "history_buttons":
                     await self._trigger_event("toolbar_buttons_update", {"back_enabled": content["Back"],"forward_enabled": content["Forward"]})
 
-    async def send_message_async(self, message):
-        print(f"MPL.send_message_async({message})")
-        manager = self.figure.canvas.manager
-        if manager is not None:
-            await asyncio.to_thread(manager.handle_json, message)
-
     def send_message(self, message):
-        print(f"MPL.send_message({message})")
+        logger.debug(f"send_message({message})")
         manager = self.figure.canvas.manager
         if manager is not None:
             manager.handle_json(message)
@@ -338,7 +333,7 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     async def on_canvas_resize(self, e: fc.CanvasResizeEvent):
-        print("on_canvas_resize:", e.width, e.height)
+        logger.debug(f"on_canvas_resize: {e.width}, {e.height}")
 
         if not self.__started:
             self.__started = True

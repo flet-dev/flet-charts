@@ -1,3 +1,4 @@
+import functools
 from io import BytesIO
 import logging
 import flet as ft
@@ -10,43 +11,51 @@ matplotlib.use("module://flet_charts.matplotlib_backends.backend_flet_agg")
 
 logging.basicConfig(level=logging.INFO)
 
+state = {}
+
 def main(page: ft.Page):
-    # Sample data
-    x = np.linspace(0, 10, 100)
-    y = np.sin(x)
 
-    # Plot
+    import matplotlib.animation as animation
+
+    # Fixing random state for reproducibility
+    np.random.seed(19680801)
+
+
+    def random_walk(num_steps, max_step=0.05):
+        """Return a 3D random walk as (num_steps, 3) array."""
+        start_pos = np.random.random(3)
+        steps = np.random.uniform(-max_step, max_step, size=(num_steps, 3))
+        walk = start_pos + np.cumsum(steps, axis=0)
+        return walk
+
+
+    def update_lines(num, walks, lines):
+        for line, walk in zip(lines, walks):
+            line.set_data_3d(walk[:num, :].T)
+        return lines
+
+
+    # Data: 40 random walks as (num_steps, 3) arrays
+    num_steps = 30
+    walks = [random_walk(num_steps) for index in range(40)]
+
+    # Attaching 3D axis to the figure
     fig = plt.figure()
-    print("Figure number:", fig.number)
-    plt.plot(x, y)
-    plt.title("Interactive Sine Wave")
-    plt.xlabel("X axis")
-    plt.ylabel("Y axis")
-    plt.grid(True)
+    ax = fig.add_subplot(projection="3d")
 
-    # plt.style.use('_mpl-gallery')
+    # Create lines initially without data
+    lines = [ax.plot([], [], [])[0] for _ in walks]
 
-    # # Make data for a double helix
-    # n = 50
-    # theta = np.linspace(0, 2*np.pi, n)
-    # x1 = np.cos(theta)
-    # y1 = np.sin(theta)
-    # z1 = np.linspace(0, 1, n)
-    # x2 = np.cos(theta + np.pi)
-    # y2 = np.sin(theta + np.pi)
-    # z2 = z1
+    # Setting the Axes properties
+    ax.set(xlim3d=(0, 1), xlabel='X')
+    ax.set(ylim3d=(0, 1), ylabel='Y')
+    ax.set(zlim3d=(0, 1), zlabel='Z')
 
-    # # Plot
-    # fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-    # ax.fill_between(x1, y1, z1, x2, y2, z2, alpha=0.5)
-    # ax.plot(x1, y1, z1, linewidth=2, color='C0')
-    # ax.plot(x2, y2, z2, linewidth=2, color='C0')
+    # Creating the Animation object
+    state["anim"] = animation.FuncAnimation(
+        fig, update_lines, num_steps, fargs=(walks, lines), interval=100)
 
-    # ax.set(xticklabels=[],
-    #     yticklabels=[],
-    #     zticklabels=[])
-
-    # plt.show()
+    plt.show()
 
     download_formats = [
         "eps",
