@@ -1,3 +1,4 @@
+from io import BytesIO
 import logging
 import flet as ft
 import matplotlib
@@ -23,6 +24,22 @@ def main(page: ft.Page):
     plt.ylabel("Y axis")
     plt.grid(True)
 
+    download_formats = [
+        "eps",
+        "jpeg",
+        "pgf",
+        "pdf",
+        "png",
+        "ps",
+        "raw",
+        "svg",
+        "tif",
+        "webp"
+    ]
+
+    fp = ft.FilePicker()
+    page.services.append(fp)
+
     msg = ft.Text()
     def on_message(e: flet_charts.MatplotlibChartMessageEvent):
         msg.value = e.message
@@ -41,8 +58,11 @@ def main(page: ft.Page):
         pan_btn.selected = False
         zoom_btn.selected = not zoom_btn.selected
 
-    def download_click():
-        pass
+    async def download_click():
+        fmt = dwnld_fmt.value
+        buffer = mpl.download(fmt)
+        title = fig.canvas.manager.get_window_title()
+        await fp.save_file_async(file_name=f"{title}.{fmt}", src_bytes=buffer)
 
     mpl = flet_charts.MatplotlibChart(figure=fig, expand=True, on_message=on_message, on_toolbar_buttons_update=on_toolbar_update)
 
@@ -55,7 +75,7 @@ def main(page: ft.Page):
             pan_btn := ft.IconButton(ft.Icons.PAN_TOOL_OUTLINED, selected_icon=ft.Icons.PAN_TOOL_OUTLINED, selected_icon_color=ft.Colors.AMBER_800, on_click=pan_click),
             zoom_btn := ft.IconButton(ft.Icons.ZOOM_IN, selected_icon=ft.Icons.ZOOM_IN, selected_icon_color=ft.Colors.AMBER_800, on_click=zoom_click),
             ft.IconButton(ft.Icons.DOWNLOAD, on_click=download_click),
-            ft.Dropdown(value="png", options=[ft.DropdownOption("png"), ft.DropdownOption("pdf"), ft.DropdownOption("svg")]),
+            dwnld_fmt := ft.Dropdown(value="png", options=[ft.DropdownOption(fmt) for fmt in download_formats]),
             msg
         ]),
         mpl,

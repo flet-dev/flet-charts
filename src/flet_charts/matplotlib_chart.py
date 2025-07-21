@@ -1,11 +1,10 @@
 import asyncio
+from io import BytesIO
 import logging
 from dataclasses import dataclass, field
 
 import flet as ft
 import flet.canvas as fc
-
-logging.basicConfig(level=logging.INFO)
 
 try:
     from matplotlib.figure import Figure
@@ -86,13 +85,17 @@ class MatplotlibChart(ft.GestureDetector):
             on_resize=self.on_canvas_resize,
             expand=True,
         )
-        self.content = self.canvas
+        self.keyboard_listener = ft.KeyboardListener(self.canvas, autofocus=True, on_key_down=self._on_key_down, on_key_up=self._on_key_up)
+        self.content = self.keyboard_listener
         self.on_enter = self._on_enter
         self.on_hover = self._on_hover
         self.on_exit = self._on_exit
         self.on_pan_start = self._pan_start
         self.on_pan_update = self._pan_update
         self.on_pan_end = self._pan_end
+        self.on_right_pan_start = self._right_pan_start
+        self.on_right_pan_update = self._right_pan_update
+        self.on_right_pan_end = self._right_pan_end
         self.img_count = 1
         self._receive_queue = asyncio.Queue()
         self._main_loop = asyncio.get_event_loop()
@@ -102,6 +105,12 @@ class MatplotlibChart(ft.GestureDetector):
 
     # def before_update(self):
     #     super().before_update()
+
+    def _on_key_down(self, e):
+        print("ON KEY DOWN:", e)
+
+    def _on_key_up(self, e):
+        print("ON KEY UP:", e)
 
     def _on_enter(self, e: ft.HoverEvent):
         # print("MPL._on_enter:", e.local_x, e.local_y)
@@ -144,6 +153,7 @@ class MatplotlibChart(ft.GestureDetector):
 
     def _pan_start(self, e: ft.DragStartEvent):
         # print("MPL._pan_start:", e.local_x, e.local_y)
+        self.keyboard_listener.focus()
         self.send_message(
             {
                 "type": "button_press",
@@ -181,6 +191,45 @@ class MatplotlibChart(ft.GestureDetector):
             }
         )
 
+    def _right_pan_start(self, e: ft.DragStartEvent):
+        # print("MPL._pan_start:", e.local_x, e.local_y)
+        self.send_message(
+            {
+                "type": "button_press",
+                "x": e.local_x * self.__dpr,
+                "y": e.local_y * self.__dpr,
+                "button": 2,
+                "buttons": 2,
+                "modifiers": [],
+            }
+        )
+
+    def _right_pan_update(self, e: ft.DragUpdateEvent):
+        # print("MPL._pan_update:", e.local_x, e.local_y)
+        self.send_message(
+            {
+                "type": "motion_notify",
+                "x": e.local_x * self.__dpr,
+                "y": e.local_y * self.__dpr,
+                "button": 0,
+                "buttons": 2,
+                "modifiers": [],
+            }
+        )
+
+    def _right_pan_end(self, e: ft.DragEndEvent):
+        # print("MPL._pan_end:", e.local_x, e.local_y)
+        self.send_message(
+            {
+                "type": "button_release",
+                "x": e.local_x * self.__dpr,
+                "y": e.local_y * self.__dpr,
+                "button": 2,
+                "buttons": 0,
+                "modifiers": [],
+            }
+        )
+
     def will_unmount(self):
         self.figure.canvas.manager.remove_web_socket(self)
 
@@ -203,6 +252,12 @@ class MatplotlibChart(ft.GestureDetector):
     def zoom(self):
         print("MPL.zoom()")
         self.send_message({"type": "toolbar_button", "name": "zoom"})
+
+    def download(self, format):
+        print("Download in format:", format)
+        buff = BytesIO()
+        self.figure.savefig(buff, format=format)
+        return buff.getvalue()
 
     async def _receive_loop(self):
         while True:
