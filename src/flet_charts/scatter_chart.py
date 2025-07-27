@@ -16,7 +16,7 @@ class ScatterChartTooltip:
 
     bgcolor: ft.ColorValue = "#FF607D8B"
     """
-    The tooltip's background [color](https://flet.dev/docs/reference/colors).
+    The tooltip's background color.
     """
 
     border_radius: Optional[ft.BorderRadiusValue] = None
@@ -66,7 +66,7 @@ class ScatterChartTooltip:
 
 
 @dataclass
-class ScatterChartEvent(ft.Event[ft.EventControlType]):
+class ScatterChartEvent(ft.Event["ScatterChart"]):
     type: ChartEventType
     """
     Type of the event (e.g. tapDown, panUpdate)
@@ -132,43 +132,31 @@ class ScatterChart(ft.ConstrainedControl):
     horizontal_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's horizontal lines.
-
-    Value is of type [`ChartGridLines`][(p).].
     """
 
     vertical_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's vertical lines.
-
-    Value is of type [`ChartGridLines`][(p).].
     """
 
     left_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
     Configures the appearance of the left axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     top_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
     Configures the appearance of the top axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     right_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
     Configures the appearance of the right axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis())
     """
     Configures the appearance of the bottom axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     baseline_x: Optional[ft.Number] = None
@@ -206,11 +194,9 @@ class ScatterChart(ft.ConstrainedControl):
     The tooltip configuration for the chart.
     """
 
-    on_event: ft.OptionalEventHandler[ScatterChartEvent["ScatterChart"]] = None
+    on_event: Optional[ft.EventHandler[ScatterChartEvent]] = None
     """
     Fires when an event occurs on the chart.
-    
-    Event handler receives an instance of [`ScatterChartEvent`][(p).].
     """
 
     def __post_init__(self, ref: Optional[ft.Ref[Any]]):

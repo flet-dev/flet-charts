@@ -20,14 +20,15 @@ class PlotlyChart(ft.Container):
     Displays a [Plotly](https://plotly.com/python/) chart.
 
     Warning:
-        This control requires the [`plotly`](https://plotly.com/python/) Python package to be installed.
+        This control requires the [`plotly`](https://plotly.com/python/) Python
+        package to be installed.
 
         See this [installation guide](index.md#installation) for more information.
     """
 
     figure: Figure = field(metadata={"skip": True})
     """
-    Plotly figure to draw - 
+    Plotly figure to draw -
     an instance of [`plotly.graph_objects.Figure`](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html).
     """
 
@@ -39,7 +40,7 @@ class PlotlyChart(ft.Container):
     """
 
     def init(self):
-        self.alignment = ft.Alignment.center()
+        self.alignment = ft.Alignment.CENTER
         self.__img = ft.Image(fit=ft.BoxFit.FILL)
         self.content = self.__img
 

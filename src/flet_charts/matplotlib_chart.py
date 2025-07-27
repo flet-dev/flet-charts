@@ -28,7 +28,7 @@ class MatplotlibChart(ft.Container):
 
     figure: Figure = field(metadata={"skip": True})
     """
-    Matplotlib figure to draw - an instance of 
+    Matplotlib figure to draw - an instance of
     [`matplotlib.figure.Figure`](https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure).
     """
 
@@ -45,7 +45,7 @@ class MatplotlibChart(ft.Container):
     """
 
     def init(self):
-        self.alignment = ft.Alignment.center()
+        self.alignment = ft.Alignment.CENTER
         self.__img = ft.Image(fit=ft.BoxFit.FILL)
         self.content = self.__img
 

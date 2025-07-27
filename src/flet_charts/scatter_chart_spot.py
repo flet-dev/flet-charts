@@ -58,15 +58,15 @@ class ScatterChartSpot(ft.BaseControl):
 
     x_error: Optional[Any] = None
     """
-    Determines the error range of the data point using 
-    (FlErrorRange)[https://github.com/imaNNeo/fl_chart/blob/main/repo_files/documentations/base_chart.md#flerrorrange] 
+    Determines the error range of the data point using
+    [FlErrorRange](https://github.com/imaNNeo/fl_chart/blob/main/repo_files/documentations/base_chart.md#flerrorrange)
     (which ontains lowerBy and upperValue) for the `X` axis.
     """
 
     y_error: Optional[Any] = None
     """
-    Determines the error range of the data point using 
-    (FlErrorRange)[https://github.com/imaNNeo/fl_chart/blob/main/repo_files/documentations/base_chart.md#flerrorrange] 
+    Determines the error range of the data point using
+    [FlErrorRange](https://github.com/imaNNeo/fl_chart/blob/main/repo_files/documentations/base_chart.md#flerrorrange)
     (which ontains lowerBy and upperValue) for the `Y` axis.
     """
 
@@ -75,7 +75,9 @@ class ScatterChartSpot(ft.BaseControl):
     TBD
     """
 
-    tooltip: ScatterChartSpotTooltip = field(default_factory=lambda: ScatterChartSpotTooltip())
+    tooltip: ScatterChartSpotTooltip = field(
+        default_factory=lambda: ScatterChartSpotTooltip()
+    )
     """
     Tooltip configuration for this spot.
     """
@@ -99,4 +101,3 @@ class ScatterChartSpot(ft.BaseControl):
     """
     TBD
     """
-

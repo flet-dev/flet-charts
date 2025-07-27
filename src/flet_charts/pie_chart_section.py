@@ -14,6 +14,8 @@ class PieChartSection(ft.BaseControl):
     Raises:
         AssertionError: If [`title_position`][(c).] or
             [`badge_position`][(c).] is not between `0.0` and `1.0` inclusive.
+        AssertionError: If [`title_position`][(c).] or [`badge_position`][(c).] is
+            not between `0.0` and `1.0` inclusive.
     """
 
     value: ft.Number
@@ -29,14 +31,12 @@ class PieChartSection(ft.BaseControl):
 
     color: Optional[ft.ColorValue] = None
     """
-    Background [color](https://flet.dev/docs/reference/colors) of the section.
+    Background color of the section.
     """
 
     border_side: ft.BorderSide = field(default_factory=lambda: ft.BorderSide.none())
     """
     The border around section shape.
-
-    Value is of type [`BorderSide`](https://flet.dev/docs/reference/types/borderside).
     """
 
     title: Optional[str] = None
@@ -47,19 +47,16 @@ class PieChartSection(ft.BaseControl):
     title_style: Optional[ft.TextStyle] = None
     """
     The style to draw `title` with.
-
-    The value is an instance of [`TextStyle`](https://flet.dev/docs/reference/types/textstyle) 
-    class.
     """
 
     title_position: Optional[ft.Number] = None
     """
     The position/offset of the title relative to the section's center.
-    
+
     By default the title is drawn in the middle of the section.
-    
+
     Note:
-        Must be between `0.0` (near the center) 
+        Must be between `0.0` (near the center)
         and `1.0`(near the outside of the chart) inclusive.
     """
 
@@ -71,19 +68,21 @@ class PieChartSection(ft.BaseControl):
     badge_position: Optional[ft.Number] = None
     """
     The position/offset of the badge relative to the section's center.
-    
+
     By default the badge is drawn in the middle of the section.
-    
+
     Note:
-        Must be between `0.0` (near the center) 
+        Must be between `0.0` (near the center)
         and `1.0`(near the outside of the chart) inclusive.
     """
 
     def before_update(self):
         super().before_update()
         assert self.title_position is None or (0.0 <= self.title_position <= 1.0), (
-            f"title_position ({self.title_position}) must be between 0.0 and 1.0 inclusive"
+            f"title_position must be between 0.0 and 1.0 inclusive, "
+            f"got {self.title_position}"
         )
         assert self.badge_position is None or (0.0 <= self.badge_position <= 1.0), (
-            f"badge_position ({self.badge_position}) must be between 0.0 and 1.0 inclusive"
+            f"badge_position must be between 0.0 and 1.0 inclusive, "
+            f"got {self.badge_position}"
         )

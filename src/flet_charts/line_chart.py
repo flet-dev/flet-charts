@@ -29,7 +29,7 @@ class LineChartEventSpot:
 
 
 @dataclass
-class LineChartEvent(ft.Event[ft.EventControlType]):
+class LineChartEvent(ft.Event["LineChart"]):
     type: ChartEventType
     """
     The type of event that occured.
@@ -47,7 +47,7 @@ class LineChartTooltip:
 
     bgcolor: ft.ColorValue = "#FF607D8B"
     """
-    Background [color](https://flet.dev/docs/reference/colors) of tooltip.
+    Background color of tooltip.
     """
 
     border_radius: Optional[ft.BorderRadiusValue] = None
@@ -65,8 +65,6 @@ class LineChartTooltip:
     )
     """
     Applies a padding for showing contents inside the tooltip.
-
-    Value is of type [`PaddingValue`](https://flet.dev/docs/reference/types/aliases#paddingvalue).
     """
 
     max_width: ft.Number = 120
@@ -126,8 +124,6 @@ class LineChart(ft.ConstrainedControl):
     )
     """
     Controls chart implicit animation.
-
-    Value is of type [`AnimationValue`](https://flet.dev/docs/reference/types/animationvalue).
     """
 
     interactive: bool = True
@@ -151,56 +147,42 @@ class LineChart(ft.ConstrainedControl):
 
     bgcolor: Optional[ft.ColorValue] = None
     """
-    Background [color](https://flet.dev/docs/reference/colors) of the chart.
+    Background color of the chart.
     """
 
     border: Optional[ft.Border] = None
     """
     The border around the chart.
-
-    Value is of type [`Border`](https://flet.dev/docs/reference/types/border).
     """
 
     horizontal_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's horizontal lines.
-
-    Value is of type [`ChartGridLines`][(p).].
     """
 
     vertical_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's vertical lines.
-
-    Value is of type [`ChartGridLines`][(p).].
     """
 
     left_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     Defines the appearance of the left axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     top_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     Defines the appearance of the top axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     right_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     Defines the appearance of the right axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     Defines the appearance of the bottom axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     baseline_x: Optional[ft.Number] = None
@@ -238,11 +220,9 @@ class LineChart(ft.ConstrainedControl):
     The tooltip configuration for this chart.
     """
 
-    on_event: ft.OptionalEventHandler[LineChartEvent["LineChart"]] = None
+    on_event: Optional[ft.EventHandler[LineChartEvent]] = None
     """
     Fires when a chart line is hovered or clicked.
-
-    Value is of type [`LineChartEvent`][(p).].
     """
 
     def __post_init__(self, ref: Optional[ft.Ref[Any]]):

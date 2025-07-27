@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Any, Optional, Union
+from typing import Optional, Union
 
 import flet as ft
 
@@ -36,22 +36,18 @@ class LineChartDataPoint(ft.BaseControl):
 
     selected: bool = False
     """
-    Draw the point as selected when [`LineChart.interactive`][(p).] 
+    Draw the point as selected when [`LineChart.interactive`][(p).]
     is set to `False`.
     """
 
     point: Union[None, bool, ChartPointShape] = None
     """
     Defines the appearance and shape of a line point.
-
-    Value is of type [`ChartPointShape`][(p).].
     """
 
     selected_point: Union[None, bool, ChartPointShape] = None
     """
     Defines the appearance and shape of a selected line point.
-
-    Value is of type [`ChartPointShape`][(p).].
     """
 
     show_above_line: bool = True
@@ -73,7 +69,9 @@ class LineChartDataPoint(ft.BaseControl):
     specify line style to draw.
     """
 
-    tooltip: LineChartDataPointTooltip = field(default_factory=lambda: LineChartDataPointTooltip())
+    tooltip: LineChartDataPointTooltip = field(
+        default_factory=lambda: LineChartDataPointTooltip()
+    )
     """
     Configuration of the tooltip for this data point.
     """
@@ -82,4 +80,3 @@ class LineChartDataPoint(ft.BaseControl):
     """
     Whether the [`tooltip`][..] should be shown when this data point is hovered over.
     """
-
