@@ -60,14 +60,14 @@ class ScatterChartSpot(ft.BaseControl):
     """
     Determines the error range of the data point using
     [FlErrorRange](https://github.com/imaNNeo/fl_chart/blob/main/repo_files/documentations/base_chart.md#flerrorrange)
-    (which ontains lowerBy and upperValue) for the `X` axis.
+    (which contains lowerBy and upperValue) for the `X` axis.
     """
 
     y_error: Optional[Any] = None
     """
     Determines the error range of the data point using
     [FlErrorRange](https://github.com/imaNNeo/fl_chart/blob/main/repo_files/documentations/base_chart.md#flerrorrange)
-    (which ontains lowerBy and upperValue) for the `Y` axis.
+    (which contains lowerBy and upperValue) for the `Y` axis.
     """
 
     selected: bool = False

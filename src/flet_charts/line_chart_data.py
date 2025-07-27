@@ -114,17 +114,14 @@ class LineChartData(ft.BaseControl):
     A vertical line drawn between selected line point and the bottom adge of the
     chart.
 
-    The value is either `True` - draw a line with default style, `False` - do
-    not draw a line under selected point, or an instance of
-    [`ChartPointLine`][(p).] class to specify line style to draw.
+    Setting this property to `True` will draw a line with default style.
     """
 
     point: Union[None, bool, ChartPointShape] = None
     """
     Defines the appearance and shape of a line point (dot).
 
-    Value is of type bool (`True` - draw a point with default style or `False` - do
-    not draw a line point) or of type [`ChartPointShape`][(p).].
+    Setting this property to `True` will draw a point with default style.
     """
 
     selected_point: Union[None, bool, ChartPointShape] = None
