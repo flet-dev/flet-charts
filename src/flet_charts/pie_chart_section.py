@@ -14,8 +14,6 @@ class PieChartSection(ft.BaseControl):
     Raises:
         AssertionError: If [`title_position`][(c).] or
             [`badge_position`][(c).] is not between `0.0` and `1.0` inclusive.
-        AssertionError: If [`title_position`][(c).] or [`badge_position`][(c).] is
-            not between `0.0` and `1.0` inclusive.
     """
 
     value: ft.Number
