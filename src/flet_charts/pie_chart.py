@@ -10,12 +10,10 @@ __all__ = ["PieChart", "PieChartEvent"]
 
 
 @dataclass
-class PieChartEvent(ft.Event[ft.EventControlType]):
+class PieChartEvent(ft.Event["PieChart"]):
     type: ChartEventType
     """
     Type of the event.
-
-    Value is of type [`ChartEventType`][(p).].
     """
 
     section_index: Optional[int] = None
@@ -50,7 +48,7 @@ class PieChart(ft.ConstrainedControl):
 
     center_space_color: Optional[ft.ColorValue] = None
     """
-    Free space [color](https://flet.dev/docs/reference/colors) in the middle of a chart.
+    Free space color in the middle of a chart.
     """
 
     center_space_radius: Optional[ft.Number] = None
@@ -77,13 +75,9 @@ class PieChart(ft.ConstrainedControl):
     )
     """
     Controls chart implicit animation.
-
-    Value is of type [`AnimationValue`](https://flet.dev/docs/reference/types/animationvalue).
     """
 
-    on_event: ft.OptionalEventHandler[PieChartEvent["PieChart"]] = None
+    on_event: Optional[ft.EventHandler[PieChartEvent]] = None
     """
     Fires when a chart section is hovered or clicked.
-
-    Event data is an instance [`PieChartEvent`][(p).].
     """

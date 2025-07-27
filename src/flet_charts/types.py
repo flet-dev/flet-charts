@@ -5,15 +5,15 @@ from typing import Optional
 import flet as ft
 
 __all__ = [
-    "ChartPointShape",
     "ChartCirclePoint",
-    "ChartSquarePoint",
     "ChartCrossPoint",
-    "ChartPointLine",
+    "ChartDataPointTooltip",
     "ChartEventType",
     "ChartGridLines",
-    "ChartDataPointTooltip",
     "ChartHorizontalAlignment",
+    "ChartPointLine",
+    "ChartPointShape",
+    "ChartSquarePoint",
 ]
 
 
@@ -30,7 +30,7 @@ class ChartGridLines:
 
     color: Optional[ft.ColorValue] = None
     """
-    The [color](https://flet.dev/docs/reference/colors) of a grid line.
+    The color of a grid line.
     """
 
     width: ft.Number = 2.0
@@ -46,7 +46,7 @@ class ChartGridLines:
     """
 
 
-@dataclass(kw_only=True)  # todo
+@dataclass
 class ChartPointShape:
     """
     Base class for chart point shapes.
@@ -67,7 +67,7 @@ class ChartCirclePoint(ChartPointShape):
 
     color: Optional[ft.ColorValue] = None
     """
-    The fill [color](https://flet.dev/docs/reference/colors) to use for the circle.
+    The fill color to use for the circle.
     """
 
     radius: Optional[ft.Number] = None
@@ -77,7 +77,7 @@ class ChartCirclePoint(ChartPointShape):
 
     stroke_color: Optional[ft.ColorValue] = None
     """
-    The stroke [color](https://flet.dev/docs/reference/colors) to use for the circle
+    The stroke color to use for the circle
     """
 
     stroke_width: ft.Number = 0
@@ -95,7 +95,7 @@ class ChartSquarePoint(ChartPointShape):
 
     color: Optional[ft.ColorValue] = None
     """
-    The fill [color](https://flet.dev/docs/reference/colors) to use for the square.
+    The fill color to use for the square.
     """
 
     size: ft.Number = 4.0
@@ -105,7 +105,7 @@ class ChartSquarePoint(ChartPointShape):
 
     stroke_color: Optional[ft.ColorValue] = None
     """
-    The stroke [color](https://flet.dev/docs/reference/colors) to use for the square.
+    The stroke color to use for the square.
     """
 
     stroke_width: ft.Number = 1.0
@@ -123,7 +123,7 @@ class ChartCrossPoint(ChartPointShape):
 
     color: Optional[ft.ColorValue] = None
     """
-    The fill [color](https://flet.dev/docs/reference/colors) to use for the 
+    The fill color to use for the
     cross-mark(X).
     """
 
@@ -147,7 +147,7 @@ class ChartPointLine:
 
     color: Optional[ft.ColorValue] = None
     """
-    The line's [color](https://flet.dev/docs/reference/colors).
+    The line's color.
     """
 
     width: ft.Number = 2
@@ -166,7 +166,7 @@ class ChartEventType(Enum):
 
     PAN_END = "panEnd"
     """
-    When a pointer that was previously in contact with 
+    When a pointer that was previously in contact with
     the screen and moving is no longer in contact with the screen.
     """
 
@@ -177,14 +177,14 @@ class ChartEventType(Enum):
 
     POINTER_EXIT = "pointerExit"
     """
-    The pointer has moved with respect to the device while the 
+    The pointer has moved with respect to the device while the
     pointer is or is not in contact with the device, and exited our chart.
     """
 
     LONG_PRESS_END = "longPressEnd"
     """
-    When a pointer stops contacting the screen after a long press 
-    gesture was detected. Also reports the position where the 
+    When a pointer stops contacting the screen after a long press
+    gesture was detected. Also reports the position where the
     pointer stopped contacting the screen.
     """
 
@@ -200,7 +200,7 @@ class ChartEventType(Enum):
 
     POINTER_ENTER = "pointerEnter"
     """
-    
+
     """
 
     POINTER_HOVER = "pointerHover"
@@ -258,15 +258,11 @@ class ChartDataPointTooltip:
     text_style: ft.TextStyle = field(default_factory=lambda: ft.TextStyle())
     """
     A text style to display tooltip with.
-
-    Value is of type [`TextStyle`](https://flet.dev/docs/reference/types/textstyle).
     """
 
     text_align: ft.TextAlign = ft.TextAlign.CENTER
     """
     An align for the tooltip.
-
-    Value is of type [`TextAlign`](https://flet.dev/docs/reference/types/textalign).
     """
 
     text_spans: Optional[list[ft.TextSpan]] = None

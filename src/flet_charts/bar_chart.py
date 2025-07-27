@@ -11,8 +11,8 @@ from .types import ChartEventType, ChartGridLines
 __all__ = [
     "BarChart",
     "BarChartEvent",
-    "BarChartTooltipDirection",
     "BarChartTooltip",
+    "BarChartTooltipDirection",
 ]
 
 
@@ -35,7 +35,7 @@ class BarChartTooltip:
 
     bgcolor: ft.ColorValue = ft.Colors.SECONDARY
     """
-    Background [color](https://flet.dev/docs/reference/colors) of tooltips.
+    Background color of tooltips.
     """
 
     border_radius: Optional[ft.BorderRadiusValue] = None
@@ -76,15 +76,11 @@ class BarChartTooltip:
     fit_inside_horizontally: Optional[bool] = None
     """
     Forces the tooltip to shift horizontally inside the chart, if overflow happens.
-
-    Value is of type `bool`.
     """
 
     fit_inside_vertically: Optional[bool] = None
     """
     Forces the tooltip to shift vertically inside the chart, if overflow happens.
-
-    Value is of type `bool`.
     """
 
     direction: Optional[BarChartTooltipDirection] = None
@@ -153,56 +149,42 @@ class BarChart(ft.ConstrainedControl):
 
     bgcolor: Optional[ft.ColorValue] = None
     """
-    Background [color](https://flet.dev/docs/reference/colors) of the chart.
+    Background color of the chart.
     """
 
     border: Optional[ft.Border] = None
     """
     The border around the chart.
-
-    Value is of type [`Border`](https://flet.dev/docs/reference/types/border).
     """
 
     horizontal_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's horizontal lines.
-
-    Value is of type [`ChartGridLines`][(p).].
     """
 
     vertical_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's vertical lines.
-
-    Value is of type [`ChartGridLines`][(p).].
     """
 
     left_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     The appearance of the left axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     top_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     The appearance of the top axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     right_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     The appearance of the right axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     The appearance of the bottom axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     baseline_y: Optional[ft.Number] = None
@@ -225,11 +207,9 @@ class BarChart(ft.ConstrainedControl):
     The tooltip configuration for the chart.
     """
 
-    on_event: ft.OptionalEventHandler[BarChartEvent["BarChart"]] = None
+    on_event: Optional[ft.EventHandler[BarChartEvent]] = None
     """
     Fires when a bar is hovered or clicked.
-
-    Event handler receives an instance of [`BarChartEvent`][(p).].
     """
 
     def __post_init__(self, ref: Optional[ft.Ref[Any]]):

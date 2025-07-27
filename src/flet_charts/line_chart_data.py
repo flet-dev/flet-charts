@@ -24,14 +24,12 @@ class LineChartData(ft.BaseControl):
 
     color: ft.ColorValue = ft.Colors.CYAN
     """
-    A [color](https://flet.dev/docs/reference/colors) of chart line.
+    A color of chart line.
     """
 
     gradient: Optional[ft.Gradient] = None
     """
     Gradient to draw line's background.
-
-    Value is of type [`Gradient`](https://flet.dev/docs/reference/types/gradient).
     """
 
     stroke_width: ft.Number = 2.0
@@ -62,17 +60,17 @@ class LineChartData(ft.BaseControl):
     drawn.
     """
 
-    shadow: ft.BoxShadow = field(default_factory=lambda: ft.BoxShadow(color=ft.Colors.TRANSPARENT))
+    shadow: ft.BoxShadow = field(
+        default_factory=lambda: ft.BoxShadow(color=ft.Colors.TRANSPARENT)
+    )
     """
     Shadow to drop by a chart line.
-
-    Value is of type [`BoxShadow`](https://flet.dev/docs/reference/types/boxshadow).
     """
 
     above_line_bgcolor: Optional[ft.ColorValue] = None
     """
     Fill the area above chart line with the specified
-    [color](https://flet.dev/docs/reference/colors).
+    color.
     """
 
     above_line_gradient: Optional[ft.Gradient] = None
@@ -88,14 +86,12 @@ class LineChartData(ft.BaseControl):
     above_line: Optional[ChartPointLine] = None
     """
     A vertical line drawn between a line point and the top edge of the chart.
-
-    Value is of type [`ChartPointLine`][(p).].
     """
 
     below_line_bgcolor: Optional[ft.ColorValue] = None
     """
     Fill the area below chart line with the specified
-    [color](https://flet.dev/docs/reference/colors).
+    color.
     """
 
     below_line_gradient: Optional[ft.Gradient] = None
@@ -111,30 +107,24 @@ class LineChartData(ft.BaseControl):
     below_line: Optional[ChartPointLine] = None
     """
     A vertical line drawn between a line point and the bottom edge of the chart.
-
-    Value is of type [`ChartPointLine`][(p).].
     """
 
     selected_below_line: Union[None, bool, ChartPointLine] = None
     """
     A vertical line drawn between selected line point and the bottom adge of the
-    chart. The value is either `True` - draw a line with default style, `False` - do
-    not draw a line under selected point, or an instance of
-    [`ChartPointLine`][(p).] class to
-    specify line style to draw.
+    chart.
+
+    Setting this property to `True` will draw a line with default style.
     """
 
     point: Union[None, bool, ChartPointShape] = None
     """
     Defines the appearance and shape of a line point (dot).
 
-    Value is of type bool (`True` - draw a point with default style or `False` - do
-    not draw a line point) or of type [`ChartPointShape`][(p).].
+    Setting this property to `True` will draw a point with default style.
     """
 
     selected_point: Union[None, bool, ChartPointShape] = None
     """
     Defines the appearance and shape of a selected line point.
-
-    Value is of type [`ChartPointShape`][(p).].
     """

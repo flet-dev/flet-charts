@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Optional
 
 import flet as ft
 
@@ -49,14 +49,12 @@ class BarChartRod(ft.BaseControl):
 
     color: Optional[ft.ColorValue] = None
     """
-    Rod [color](https://flet.dev/docs/reference/colors).
+    Rod color.
     """
 
     gradient: Optional[ft.Gradient] = None
     """
     Gradient to draw rod's background.
-
-    Value is of type [`Gradient`](https://flet.dev/docs/reference/types/gradient).
     """
 
     border_radius: Optional[ft.BorderRadiusValue] = None
@@ -67,9 +65,6 @@ class BarChartRod(ft.BaseControl):
     border_side: Optional[ft.BorderSide] = None
     """
     Border to draw around rod.
-
-    Value is of type [`BorderSide`](https://flet.dev/docs/reference/types/borderside)
-    class.
     """
 
     bg_from_y: Optional[ft.Number] = None
@@ -84,7 +79,7 @@ class BarChartRod(ft.BaseControl):
 
     bgcolor: Optional[ft.ColorValue] = None
     """
-    An optional [color](https://flet.dev/docs/reference/colors) of a background behind
+    An optional color of a background behind
     this rod.
     """
 
@@ -96,7 +91,7 @@ class BarChartRod(ft.BaseControl):
     selected: bool = False
     """
     If set to `True` a tooltip is always shown on top of the bar when
-    `BarChart.interactive` is set to `False`.
+    [`BarChart.interactive`][(p).] is set to `False`.
     """
 
     tooltip: BarChartRodTooltip = field(default_factory=lambda: BarChartRodTooltip())
@@ -108,4 +103,3 @@ class BarChartRod(ft.BaseControl):
     """
     Whether a tooltip should be shown on top of hovered bar.
     """
-

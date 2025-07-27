@@ -187,7 +187,7 @@ def main(page: ft.Page):
         ),
     )
 
-    def toggle_data(e: ft.ControlEvent):
+    def toggle_data(e: ft.Event[ft.IconButton]):
         if state.toggled:
             chart.data_series = data_2
             chart.data_series[2].point = True
