@@ -64,6 +64,48 @@ class ScatterChartTooltip:
     Forces the tooltip to shift vertically inside the chart, if overflow happens.
     """
 
+    def copy_with(
+        self,
+        *,
+        bgcolor: Optional[ft.ColorValue] = None,
+        border_radius: Optional[ft.BorderRadiusValue] = None,
+        padding: Optional[ft.PaddingValue] = None,
+        max_width: Optional[ft.Number] = None,
+        rotate_angle: Optional[ft.Number] = None,
+        horizontal_offset: Optional[ft.Number] = None,
+        horizontal_alignment: Optional[ChartHorizontalAlignment] = None,
+        border_side: Optional[ft.BorderSide] = None,
+        fit_inside_horizontally: Optional[bool] = None,
+        fit_inside_vertically: Optional[bool] = None,
+    ) -> "ScatterChartTooltip":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ScatterChartTooltip(
+            bgcolor=bgcolor if bgcolor is not None else self.bgcolor,
+            border_radius=border_radius
+            if border_radius is not None
+            else self.border_radius,
+            padding=padding if padding is not None else self.padding,
+            max_width=max_width if max_width is not None else self.max_width,
+            rotate_angle=rotate_angle
+            if rotate_angle is not None
+            else self.rotate_angle,
+            horizontal_offset=horizontal_offset
+            if horizontal_offset is not None
+            else self.horizontal_offset,
+            horizontal_alignment=horizontal_alignment
+            if horizontal_alignment is not None
+            else self.horizontal_alignment,
+            border_side=border_side if border_side is not None else self.border_side,
+            fit_inside_horizontally=fit_inside_horizontally
+            if fit_inside_horizontally is not None
+            else self.fit_inside_horizontally,
+            fit_inside_vertically=fit_inside_vertically
+            if fit_inside_vertically is not None
+            else self.fit_inside_vertically,
+        )
+
 
 @dataclass
 class ScatterChartEvent(ft.Event["ScatterChart"]):

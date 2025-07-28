@@ -19,6 +19,26 @@ class LineChartDataPointTooltip(ChartDataPointTooltip):
     When `None`, defaults to [`LineChartDataPoint.y`][(p).].
     """
 
+    def copy_with(
+        self,
+        *,
+        text: Optional[str] = None,
+        text_style: Optional[ft.TextStyle] = None,
+        text_align: Optional[ft.TextAlign] = None,
+        text_spans: Optional[list[ft.TextSpan]] = None,
+    ) -> "LineChartDataPointTooltip":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return LineChartDataPointTooltip(
+            text=text if text is not None else self.text,
+            text_style=text_style if text_style is not None else self.text_style,
+            text_align=text_align if text_align is not None else self.text_align,
+            text_spans=text_spans.copy()
+            if text_spans is not None
+            else (self.text_spans.copy() if self.text_spans is not None else None),
+        )
+
 
 @ft.control("LineChartDataPoint")
 class LineChartDataPoint(ft.BaseControl):
