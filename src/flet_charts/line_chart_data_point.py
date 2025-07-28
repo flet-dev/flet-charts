@@ -69,7 +69,7 @@ class LineChartDataPoint(ft.BaseControl):
     specify line style to draw.
     """
 
-    tooltip: LineChartDataPointTooltip = field(
+    tooltip: Union[LineChartDataPointTooltip, str] = field(
         default_factory=lambda: LineChartDataPointTooltip()
     )
     """
@@ -80,3 +80,11 @@ class LineChartDataPoint(ft.BaseControl):
     """
     Whether the [`tooltip`][..] should be shown when this data point is hovered over.
     """
+
+    def before_update(self):
+        super().before_update()
+        self._internals["tooltip"] = (
+            LineChartDataPointTooltip(text=self.tooltip)
+            if isinstance(self.tooltip, str)
+            else self.tooltip
+        )

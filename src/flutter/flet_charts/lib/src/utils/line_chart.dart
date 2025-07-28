@@ -52,9 +52,10 @@ LineTooltipItem? parseLineTooltipItem(
     Control dataPoint, LineBarSpot spot, BuildContext context) {
   if (!dataPoint.getBool("show_tooltip", true)!) return null;
 
-  final theme = Theme.of(context);
+  var tooltip = dataPoint.internals?["tooltip"];
+  if (tooltip == null) return null;
 
-  var tooltip = dataPoint.get("tooltip");
+  final theme = Theme.of(context);
   var style = parseTextStyle(tooltip["text_style"], theme, const TextStyle())!;
   if (style.color == null) {
     style = style.copyWith(

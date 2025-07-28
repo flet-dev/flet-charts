@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Union
 
 import flet as ft
 
@@ -94,7 +94,9 @@ class BarChartRod(ft.BaseControl):
     [`BarChart.interactive`][(p).] is set to `False`.
     """
 
-    tooltip: BarChartRodTooltip = field(default_factory=lambda: BarChartRodTooltip())
+    tooltip: Union[BarChartRodTooltip, str] = field(
+        default_factory=lambda: BarChartRodTooltip()
+    )
     """
     The rod's tooltip configuration for this rod.
     """
@@ -103,3 +105,11 @@ class BarChartRod(ft.BaseControl):
     """
     Whether a tooltip should be shown on top of hovered bar.
     """
+
+    def before_update(self):
+        super().before_update()
+        self._internals["tooltip"] = (
+            BarChartRodTooltip(text=self.tooltip)
+            if isinstance(self.tooltip, str)
+            else self.tooltip
+        )

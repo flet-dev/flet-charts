@@ -75,7 +75,7 @@ class ScatterChartSpot(ft.BaseControl):
     TBD
     """
 
-    tooltip: ScatterChartSpotTooltip = field(
+    tooltip: Union[ScatterChartSpotTooltip, str] = field(
         default_factory=lambda: ScatterChartSpotTooltip()
     )
     """
@@ -101,3 +101,11 @@ class ScatterChartSpot(ft.BaseControl):
     """
     TBD
     """
+
+    def before_update(self):
+        super().before_update()
+        self._internals["tooltip"] = (
+            ScatterChartSpotTooltip(text=self.tooltip)
+            if isinstance(self.tooltip, str)
+            else self.tooltip
+        )
