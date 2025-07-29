@@ -45,6 +45,26 @@ class ChartGridLines:
     followed by blank spaces 10 pixels long. By default, a solid line is drawn.
     """
 
+    def copy_with(
+        self,
+        *,
+        interval: Optional[ft.Number] = None,
+        color: Optional[ft.ColorValue] = None,
+        width: Optional[ft.Number] = None,
+        dash_pattern: Optional[list[int]] = None,
+    ) -> "ChartGridLines":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartGridLines(
+            interval=interval if interval is not None else self.interval,
+            color=color if color is not None else self.color,
+            width=width if width is not None else self.width,
+            dash_pattern=dash_pattern.copy()
+            if dash_pattern is not None
+            else (self.dash_pattern.copy() if self.dash_pattern is not None else None),
+        )
+
 
 @dataclass
 class ChartPointShape:
@@ -88,6 +108,28 @@ class ChartCirclePoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartCirclePoint"
 
+    def copy_with(
+        self,
+        *,
+        color: Optional[ft.ColorValue] = None,
+        radius: Optional[ft.Number] = None,
+        stroke_color: Optional[ft.ColorValue] = None,
+        stroke_width: Optional[ft.Number] = None,
+    ) -> "ChartCirclePoint":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartCirclePoint(
+            color=color if color is not None else self.color,
+            radius=radius if radius is not None else self.radius,
+            stroke_color=stroke_color
+            if stroke_color is not None
+            else self.stroke_color,
+            stroke_width=stroke_width
+            if stroke_width is not None
+            else self.stroke_width,
+        )
+
 
 @dataclass
 class ChartSquarePoint(ChartPointShape):
@@ -116,6 +158,28 @@ class ChartSquarePoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartSquarePoint"
 
+    def copy_with(
+        self,
+        *,
+        color: Optional[ft.ColorValue] = None,
+        size: Optional[ft.Number] = None,
+        stroke_color: Optional[ft.ColorValue] = None,
+        stroke_width: Optional[ft.Number] = None,
+    ) -> "ChartSquarePoint":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartSquarePoint(
+            color=color if color is not None else self.color,
+            size=size if size is not None else self.size,
+            stroke_color=stroke_color
+            if stroke_color is not None
+            else self.stroke_color,
+            stroke_width=stroke_width
+            if stroke_width is not None
+            else self.stroke_width,
+        )
+
 
 @dataclass
 class ChartCrossPoint(ChartPointShape):
@@ -140,6 +204,22 @@ class ChartCrossPoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartCrossPoint"
 
+    def copy_with(
+        self,
+        *,
+        color: Optional[ft.ColorValue] = None,
+        size: Optional[ft.Number] = None,
+        width: Optional[ft.Number] = None,
+    ) -> "ChartCrossPoint":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartCrossPoint(
+            color=color if color is not None else self.color,
+            size=size if size is not None else self.size,
+            width=width if width is not None else self.width,
+        )
+
 
 @dataclass
 class ChartPointLine:
@@ -159,6 +239,26 @@ class ChartPointLine:
     """
     The line's dash pattern.
     """
+
+    def copy_with(
+        self,
+        *,
+        color: Optional[ft.ColorValue] = None,
+        width: Optional[ft.Number] = None,
+        dash_pattern: Optional[list[int]] = None,
+    ) -> "ChartPointLine":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartPointLine(
+            color=color if color is not None else self.color,
+            width=width if width is not None else self.width,
+            dash_pattern=dash_pattern.copy()
+            if dash_pattern is not None
+            else self.dash_pattern.copy()
+            if self.dash_pattern is not None
+            else None,
+        )
 
 
 class ChartEventType(Enum):
@@ -269,6 +369,28 @@ class ChartDataPointTooltip:
     """
     Additional text spans to show on a tooltip.
     """
+
+    def copy_with(
+        self,
+        *,
+        text: Optional[str] = None,
+        text_style: Optional[ft.TextStyle] = None,
+        text_align: Optional[ft.TextAlign] = None,
+        text_spans: Optional[list[ft.TextSpan]] = None,
+    ) -> "ChartDataPointTooltip":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartDataPointTooltip(
+            text=text if text is not None else self.text,
+            text_style=text_style if text_style is not None else self.text_style,
+            text_align=text_align if text_align is not None else self.text_align,
+            text_spans=text_spans.copy()
+            if text_spans is not None
+            else self.text_spans.copy()
+            if self.text_spans is not None
+            else None,
+        )
 
 
 class ChartHorizontalAlignment(Enum):

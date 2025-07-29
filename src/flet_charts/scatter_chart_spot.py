@@ -21,6 +21,26 @@ class ScatterChartSpotTooltip(ChartDataPointTooltip):
     When `None`, defaults to [`ScatterChartSpot.y`][(p).].
     """
 
+    def copy_with(
+        self,
+        *,
+        text: Optional[str] = None,
+        text_style: Optional[ft.TextStyle] = None,
+        text_align: Optional[ft.TextAlign] = None,
+        text_spans: Optional[list[ft.TextSpan]] = None,
+    ) -> "ScatterChartSpotTooltip":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ScatterChartSpotTooltip(
+            text=text if text is not None else self.text,
+            text_style=text_style if text_style is not None else self.text_style,
+            text_align=text_align if text_align is not None else self.text_align,
+            text_spans=text_spans.copy()
+            if text_spans is not None
+            else (self.text_spans.copy() if self.text_spans is not None else None),
+        )
+
 
 @ft.control("ScatterChartSpot")
 class ScatterChartSpot(ft.BaseControl):
@@ -75,7 +95,7 @@ class ScatterChartSpot(ft.BaseControl):
     TBD
     """
 
-    tooltip: ScatterChartSpotTooltip = field(
+    tooltip: Union[ScatterChartSpotTooltip, str] = field(
         default_factory=lambda: ScatterChartSpotTooltip()
     )
     """
@@ -101,3 +121,11 @@ class ScatterChartSpot(ft.BaseControl):
     """
     TBD
     """
+
+    def before_update(self):
+        super().before_update()
+        self._internals["tooltip"] = (
+            ScatterChartSpotTooltip(text=self.tooltip)
+            if isinstance(self.tooltip, str)
+            else self.tooltip
+        )

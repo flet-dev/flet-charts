@@ -84,9 +84,10 @@ BarTouchTooltipData? parseBarTouchTooltipData(
 BarTooltipItem? parseBarTooltipItem(Control rod, BuildContext context) {
   if (!rod.getBool("show_tooltip", true)!) return null;
 
-  final theme = Theme.of(context);
+  var tooltip = rod.internals?["tooltip"];
+  if (tooltip == null) return null;
 
-  var tooltip = rod.get("tooltip");
+  final theme = Theme.of(context);
   var tooltipTextStyle =
       parseTextStyle(tooltip["text_style"], theme, const TextStyle())!;
   if (tooltipTextStyle.color == null) {

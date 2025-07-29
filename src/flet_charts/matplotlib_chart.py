@@ -21,7 +21,8 @@ class MatplotlibChart(ft.Container):
     Displays a [Matplotlib](https://matplotlib.org/) chart.
 
     Warning:
-        This control requires the [`matplotlib`](https://matplotlib.org/) Python package to be installed.
+        This control requires the [`matplotlib`](https://matplotlib.org/)
+        Python package to be installed.
 
         See this [installation guide](index.md#installation) for more information.
     """
