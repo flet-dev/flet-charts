@@ -2,6 +2,7 @@ import asyncio
 from io import BytesIO
 import logging
 from dataclasses import dataclass, field
+from typing import Optional
 
 import flet as ft
 import flet.canvas as fc
@@ -63,12 +64,12 @@ class MatplotlibChart(ft.GestureDetector):
     [`matplotlib.figure.Figure`](https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure).
     """
 
-    on_message: ft.OptionalEventHandler[MatplotlibChartMessageEvent] = None
+    on_message: Optional[ft.EventHandler[MatplotlibChartMessageEvent]] = None
     """
     The event is triggered on figure message update.
     """
 
-    on_toolbar_buttons_update: ft.OptionalEventHandler[MatplotlibChartToolbarButtonsUpdateEvent] = None
+    on_toolbar_buttons_update: Optional[ft.EventHandler[MatplotlibChartToolbarButtonsUpdateEvent]] = None
     """
     Triggers when toolbar buttons status is updated.
     """
@@ -115,12 +116,12 @@ class MatplotlibChart(ft.GestureDetector):
         logger.debug(f"ON KEY UP: {e}")
 
     def _on_enter(self, e: ft.HoverEvent):
-        logger.debug(f"_on_enter: {e.local_x}, {e.local_y}")
+        logger.debug(f"_on_enter: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
                 "type": "figure_enter",
-                "x": e.local_x * self.__dpr,
-                "y": e.local_y * self.__dpr,
+                "x": e.local_position.x * self.__dpr,
+                "y": e.local_position.y * self.__dpr,
                 "button": 0,
                 "buttons": 0,
                 "modifiers": [],
@@ -128,12 +129,12 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _on_hover(self, e: ft.HoverEvent):
-        logger.debug(f"_on_hover: {e.local_x}, {e.local_y}")
+        logger.debug(f"_on_hover: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
                 "type": "motion_notify",
-                "x": e.local_x * self.__dpr,
-                "y": e.local_y * self.__dpr,
+                "x": e.local_position.x * self.__dpr,
+                "y": e.local_position.y * self.__dpr,
                 "button": 0,
                 "buttons": 0,
                 "modifiers": [],
@@ -141,12 +142,12 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _on_exit(self, e: ft.HoverEvent):
-        logger.debug(f"_on_exit: {e.local_x}, {e.local_y}")
+        logger.debug(f"_on_exit: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
                 "type": "figure_leave",
-                "x": e.local_x * self.__dpr,
-                "y": e.local_y * self.__dpr,
+                "x": e.local_position.x * self.__dpr,
+                "y": e.local_position.y * self.__dpr,
                 "button": 0,
                 "buttons": 0,
                 "modifiers": [],
@@ -154,13 +155,13 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _pan_start(self, e: ft.DragStartEvent):
-        logger.debug(f"_pan_start: {e.local_x}, {e.local_y}")
+        logger.debug(f"_pan_start: {e.local_position.x}, {e.local_position.y}")
         self.keyboard_listener.focus()
         self.send_message(
             {
                 "type": "button_press",
-                "x": e.local_x * self.__dpr,
-                "y": e.local_y * self.__dpr,
+                "x": e.local_position.x * self.__dpr,
+                "y": e.local_position.y * self.__dpr,
                 "button": 0,
                 "buttons": 1,
                 "modifiers": []
@@ -168,12 +169,12 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _pan_update(self, e: ft.DragUpdateEvent):
-        logger.debug(f"_pan_update: {e.local_x}, {e.local_y}")
+        logger.debug(f"_pan_update: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
                 "type": "motion_notify",
-                "x": e.local_x * self.__dpr,
-                "y": e.local_y * self.__dpr,
+                "x": e.local_position.x * self.__dpr,
+                "y": e.local_position.y * self.__dpr,
                 "button": 0,
                 "buttons": 1,
                 "modifiers": [],
@@ -181,12 +182,12 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _pan_end(self, e: ft.DragEndEvent):
-        logger.debug(f"_pan_end: {e.local_x}, {e.local_y}")
+        logger.debug(f"_pan_end: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
                 "type": "button_release",
-                "x": e.local_x * self.__dpr,
-                "y": e.local_y * self.__dpr,
+                "x": e.local_position.x * self.__dpr,
+                "y": e.local_position.y * self.__dpr,
                 "button": 0,
                 "buttons": 0,
                 "modifiers": [],
@@ -194,12 +195,12 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _right_pan_start(self, e: ft.DragStartEvent):
-        logger.debug(f"_pan_start: {e.local_x}, {e.local_y}")
+        logger.debug(f"_pan_start: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
                 "type": "button_press",
-                "x": e.local_x * self.__dpr,
-                "y": e.local_y * self.__dpr,
+                "x": e.local_position.x * self.__dpr,
+                "y": e.local_position.y * self.__dpr,
                 "button": 2,
                 "buttons": 2,
                 "modifiers": [],
@@ -207,12 +208,12 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _right_pan_update(self, e: ft.DragUpdateEvent):
-        logger.debug(f"_pan_update: {e.local_x}, {e.local_y}")
+        logger.debug(f"_pan_update: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
                 "type": "motion_notify",
-                "x": e.local_x * self.__dpr,
-                "y": e.local_y * self.__dpr,
+                "x": e.local_position.x * self.__dpr,
+                "y": e.local_position.y * self.__dpr,
                 "button": 0,
                 "buttons": 2,
                 "modifiers": [],
@@ -220,12 +221,12 @@ class MatplotlibChart(ft.GestureDetector):
         )
 
     def _right_pan_end(self, e: ft.DragEndEvent):
-        logger.debug(f"_pan_end: {e.local_x}, {e.local_y}")
+        logger.debug(f"_pan_end: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
                 "type": "button_release",
-                "x": e.local_x * self.__dpr,
-                "y": e.local_y * self.__dpr,
+                "x": e.local_position.x * self.__dpr,
+                "y": e.local_position.y * self.__dpr,
                 "button": 2,
                 "buttons": 0,
                 "modifiers": [],
@@ -293,22 +294,15 @@ class MatplotlibChart(ft.GestureDetector):
                     self._waiting = True
                     self.send_message({"type": "draw"})
                 elif content["type"] == "rubberband":
-                    if content["x0"] == -1 and content["y0"] == -1 and content["x1"] == -1 and content["y1"] == -1:
-                        if len(self.canvas.shapes) == 2:
-                            self.canvas.shapes.pop()
-                            self.canvas.update()
-                    else:
+                    if len(self.canvas.shapes) == 2:
+                        self.canvas.shapes.pop()
+                    if content["x0"] != -1 and content["y0"] != -1 and content["x1"] != -1 and content["y1"] != -1:
                         x0 = content["x0"] / self.__dpr
                         y0 = self._height - content["y0"] / self.__dpr
                         x1 = content["x1"] / self.__dpr
                         y1 = self._height - content["y1"] / self.__dpr
-                        rubberband_rect = self.canvas.shapes.pop() if len(self.canvas.shapes) == 2 else fc.Rect(paint=ft.Paint(stroke_width=1, style=ft.PaintingStyle.STROKE))
-                        rubberband_rect.x = x0
-                        rubberband_rect.y = y0
-                        rubberband_rect.width = x1 - x0
-                        rubberband_rect.height = y1 - y0
-                        self.canvas.shapes.append(rubberband_rect)
-                        self.canvas.update()
+                        self.canvas.shapes.append(fc.Rect(x=x0, y=y0, width=x1 - x0, height = y1 - y0, paint=ft.Paint(stroke_width=1, style=ft.PaintingStyle.STROKE)))
+                    self.canvas.update()
                 elif content["type"] == "resize":
                     self.send_message({"type": "refresh"})
                 elif content["type"] == "message":

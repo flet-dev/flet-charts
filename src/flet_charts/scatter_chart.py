@@ -206,7 +206,7 @@ class ScatterChart(ft.ConstrainedControl):
     The tooltip configuration for the chart.
     """
 
-    on_event: ft.OptionalEventHandler[ScatterChartEvent["ScatterChart"]] = None
+    on_event: Optional[ft.EventHandler[ScatterChartEvent["ScatterChart"]]] = None
     """
     Fires when an event occurs on the chart.
     

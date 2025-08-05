@@ -225,7 +225,7 @@ class BarChart(ft.ConstrainedControl):
     The tooltip configuration for the chart.
     """
 
-    on_event: ft.OptionalEventHandler[BarChartEvent] = None
+    on_event: Optional[ft.EventHandler[BarChartEvent]] = None
     """
     Fires when a bar is hovered or clicked.
 

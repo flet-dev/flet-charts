@@ -238,7 +238,7 @@ class LineChart(ft.ConstrainedControl):
     The tooltip configuration for this chart.
     """
 
-    on_event: ft.OptionalEventHandler[LineChartEvent] = None
+    on_event: Optional[ft.EventHandler[LineChartEvent]] = None
     """
     Fires when a chart line is hovered or clicked.
 

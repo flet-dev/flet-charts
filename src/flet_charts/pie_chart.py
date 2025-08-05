@@ -81,7 +81,7 @@ class PieChart(ft.ConstrainedControl):
     Value is of type [`AnimationValue`](https://flet.dev/docs/reference/types/animationvalue).
     """
 
-    on_event: ft.OptionalEventHandler[PieChartEvent["PieChart"]] = None
+    on_event: Optional[ft.EventHandler[PieChartEvent["PieChart"]]] = None
     """
     Fires when a chart section is hovered or clicked.
 
