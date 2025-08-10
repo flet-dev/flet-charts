@@ -15,8 +15,8 @@ install:
 - uv python pin $PYTHON_VERSION
 
 build_script:
-- uv run --no-project --with tomlkit .ci/patch_toml_version.py pyproject.toml $PYPI_VER
-- uv run --no-project --with pyyaml .ci/patch_pubspec_version.py src/flutter/flet_*/pubspec.yaml $PKG_VER
+- uv run .ci/patch_toml_version.py pyproject.toml $PYPI_VER
+- uv run .ci/patch_pubspec_version.py src/flutter/flet_*/pubspec.yaml $PKG_VER
 - (cd src/flutter/* && dart pub get && dart analyze && cd -)
 - uv build
 
