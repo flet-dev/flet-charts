@@ -27,7 +27,7 @@ class LineChartEventSpot:
     The line's point index or `-1` if no point was hovered.
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         bar_index: Optional[int] = None,
@@ -121,7 +121,7 @@ class LineChartTooltip:
     The horizontal alignment of this tooltip.
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         bgcolor: Optional[ft.ColorValue] = None,

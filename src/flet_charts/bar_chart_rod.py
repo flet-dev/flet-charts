@@ -22,7 +22,7 @@ class BarChartRodTooltip(ChartDataPointTooltip):
     When `None`, defaults to [`BarChartRod.to_y`][(p).].
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         text: Optional[str] = None,

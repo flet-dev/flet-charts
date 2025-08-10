@@ -45,7 +45,7 @@ class ChartGridLines:
     followed by blank spaces 10 pixels long. By default, a solid line is drawn.
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         interval: Optional[ft.Number] = None,
@@ -108,7 +108,7 @@ class ChartCirclePoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartCirclePoint"
 
-    def copy_with(
+    def copy(
         self,
         *,
         color: Optional[ft.ColorValue] = None,
@@ -158,7 +158,7 @@ class ChartSquarePoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartSquarePoint"
 
-    def copy_with(
+    def copy(
         self,
         *,
         color: Optional[ft.ColorValue] = None,
@@ -204,7 +204,7 @@ class ChartCrossPoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartCrossPoint"
 
-    def copy_with(
+    def copy(
         self,
         *,
         color: Optional[ft.ColorValue] = None,
@@ -245,7 +245,7 @@ class ChartPointLine:
     The line's gradient.
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         color: Optional[ft.ColorValue] = None,
@@ -389,7 +389,7 @@ class ChartDataPointTooltip:
     Whether the text is right-to-left.
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         text: Optional[str] = None,

@@ -64,7 +64,7 @@ class ScatterChartTooltip:
     Forces the tooltip to shift vertically inside the chart, if overflow happens.
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         bgcolor: Optional[ft.ColorValue] = None,

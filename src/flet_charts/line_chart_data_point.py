@@ -19,7 +19,7 @@ class LineChartDataPointTooltip(ChartDataPointTooltip):
     When `None`, defaults to [`LineChartDataPoint.y`][(p).].
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         text: Optional[str] = None,

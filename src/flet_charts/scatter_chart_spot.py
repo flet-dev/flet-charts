@@ -26,7 +26,7 @@ class ScatterChartSpotTooltip(ChartDataPointTooltip):
     The bottom space from the spot.
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         text: Optional[str] = None,

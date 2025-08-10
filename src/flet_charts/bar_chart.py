@@ -95,7 +95,7 @@ class BarChartTooltip:
     Defines the horizontal alignment of this tooltip.
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         bgcolor: Optional[ft.ColorValue] = None,
