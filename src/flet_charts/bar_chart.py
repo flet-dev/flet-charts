@@ -260,9 +260,13 @@ class BarChart(ft.ConstrainedControl):
     The maximum displayed value for Y axis.
     """
 
-    tooltip: Optional[BarChartTooltip] = None
+    tooltip: Optional[BarChartTooltip] = field(
+        default_factory=lambda: BarChartTooltip()
+    )
     """
-    The tooltip configuration for the chart.
+    The tooltip configuration for this chart.
+
+    If set to `None`, tooltips will not shown throughout this chart.
     """
 
     on_event: Optional[ft.EventHandler[BarChartEvent]] = None
