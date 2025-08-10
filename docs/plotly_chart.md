@@ -40,4 +40,4 @@ Based on an official [Plotly example](https://plotly.com/python/box-plots).
 --8<-- "examples/charts_example/src/plotly_chart/example_4.py"
 ```
 
-::: flet_charts.PlotlyChart
+::: flet_charts.plotly_chart.PlotlyChart

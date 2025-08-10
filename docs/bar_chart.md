@@ -16,4 +16,4 @@
 --8<-- "examples/charts_example/src/bar_chart/example_2.py"
 ```
 
-::: flet_charts.BarChart
+::: flet_charts.bar_chart.BarChart

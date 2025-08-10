@@ -2,4 +2,4 @@
 
 TBA
 
-::: flet_charts.ScatterChart
+::: flet_charts.scatter_chart.ScatterChart
