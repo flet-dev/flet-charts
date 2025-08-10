@@ -60,10 +60,6 @@ docs = [
     "mkdocs-external-images",
     { include-group = 'docs-coverage' },
 ]
-ci = [
-    "tomlkit",
-    "pyyaml",
-]
 all = [
     { include-group = 'dev' },
     { include-group = 'docs' },
