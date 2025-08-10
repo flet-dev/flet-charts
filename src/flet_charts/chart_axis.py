@@ -19,9 +19,7 @@ class ChartAxisLabel(ft.BaseControl):
 
     label: Optional[Union[ft.Control, str]] = None
     """
-    The label to display for the specified `value`.
-    
-    Can be a string or a `Control`.
+    The label to display for the specified [`value`][..].
     """
 
 
@@ -38,12 +36,12 @@ class ChartAxis(ft.BaseControl):
 
     title_size: ft.Number = 16
     """
-    Width or height of title area.
+    The size of title area.
     """
 
     show_labels: bool = True
     """
-    Whether to display the `labels` along the axis. 
+    Whether to display the [`labels`][..] along the axis.
     If `labels` is empty then automatic labels are displayed.
     """
 
@@ -55,10 +53,32 @@ class ChartAxis(ft.BaseControl):
 
     label_spacing: Optional[ft.Number] = None
     """
-    The interval between automatic labels.
+    The spacing/interval between labels.
+
+    If a value is not set, a suitable value
+    will be automatically calculated and used.
     """
 
     label_size: ft.Number = 22
     """
-    Width or height of labels area.
+    The maximum space for each label in [`labels`][..].
+
+    Each label will stretch to fit this space.
     """
+
+    show_min: bool = True
+    """
+    Whether to display a label for the minimum value
+    independent of the sampling interval.
+    """
+
+    show_max: bool = True
+    """
+    Whether to display a label for the maximum value
+    independent of the sampling interval.
+    """
+
+    def before_update(self):
+        super().before_update()
+        if self.label_spacing == 0:
+            raise ValueError("label_spacing cannot be 0")

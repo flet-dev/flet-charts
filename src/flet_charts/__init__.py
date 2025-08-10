@@ -28,10 +28,10 @@ from .types import (
     ChartDataPointTooltip,
     ChartEventType,
     ChartGridLines,
-    ChartHorizontalAlignment,
     ChartPointLine,
     ChartPointShape,
     ChartSquarePoint,
+    HorizontalAlignment,
 )
 
 __all__ = [
@@ -50,10 +50,10 @@ __all__ = [
     "ChartDataPointTooltip",
     "ChartEventType",
     "ChartGridLines",
-    "ChartHorizontalAlignment",
     "ChartPointLine",
     "ChartPointShape",
     "ChartSquarePoint",
+    "HorizontalAlignment",
     "LineChart",
     "LineChartData",
     "LineChartDataPoint",

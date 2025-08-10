@@ -5,7 +5,7 @@ import flet as ft
 
 from .chart_axis import ChartAxis
 from .line_chart_data import LineChartData
-from .types import ChartEventType, ChartGridLines
+from .types import ChartEventType, ChartGridLines, HorizontalAlignment
 
 __all__ = [
     "LineChart",
@@ -98,7 +98,7 @@ class LineChartTooltip:
 
     border_side: ft.BorderSide = field(default_factory=lambda: ft.BorderSide.none())
     """
-    The tooltip's border side.
+    Defines the borders of this tooltip.
     """
 
     fit_inside_horizontally: bool = False
@@ -114,6 +114,11 @@ class LineChartTooltip:
     show_on_top_of_chart_box_area: bool = False
     """
     Whether to force the tooltip container to top of the line.
+    """
+
+    horizontal_alignment: HorizontalAlignment = HorizontalAlignment.CENTER
+    """
+    The horizontal alignment of this tooltip.
     """
 
     def copy_with(

@@ -77,6 +77,10 @@ ScatterTooltipItem? parseScatterTooltipItem(
       tooltip["text"] ?? dataPoint.getDouble("y").toString(),
       textStyle: style,
       textAlign: parseTextAlign(tooltip["text_align"], TextAlign.center)!,
+      textDirection: parseBool(tooltip["text_direction"], false)!
+          ? TextDirection.rtl
+          : TextDirection.ltr,
+      bottomMargin: parseDouble(tooltip["bottom_margin"]),
       children: tooltip["text_spans"] != null
           ? parseTextSpans(tooltip["text_spans"], theme, (s, eventName,
               [eventData]) {

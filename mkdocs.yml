@@ -101,7 +101,6 @@ nav:
               - ChartCrossPoint: types/chart_cross_point.md
               - ChartSquarePoint: types/chart_square_point.md
           - ChartGridLines: types/chart_grid_lines.md
-          - ChartHorizontalAlignment: types/chart_horizontal_alignment.md
           - ChartPointLine: types/chart_point_line.md
           - Events:
             - BarChartEvent: types/bar_chart_event.md
@@ -109,6 +108,7 @@ nav:
             - LineChartEvent: types/line_chart_event.md
             - PieChartEvent: types/pie_chart_event.md
             - ScatterChartEvent: types/scatter_chart_event.md
+          - HorizontalAlignment: types/horizontal_alignment.md
           - LineChartEventSpot: types/line_chart_event_spot.md
           - Tooltips:
             - BarChartTooltip: types/bar_chart_tooltip.md

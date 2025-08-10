@@ -5,7 +5,7 @@ import flet as ft
 
 from .chart_axis import ChartAxis
 from .scatter_chart_spot import ScatterChartSpot
-from .types import ChartEventType, ChartGridLines, ChartHorizontalAlignment
+from .types import ChartEventType, ChartGridLines, HorizontalAlignment
 
 __all__ = ["ScatterChart", "ScatterChartEvent", "ScatterChartTooltip"]
 
@@ -44,7 +44,7 @@ class ScatterChartTooltip:
     Applies horizontal offset for showing tooltip.
     """
 
-    horizontal_alignment: Optional[ChartHorizontalAlignment] = None
+    horizontal_alignment: Optional[HorizontalAlignment] = None
     """
     The tooltip's horizontal alignment.
     """
@@ -73,7 +73,7 @@ class ScatterChartTooltip:
         max_width: Optional[ft.Number] = None,
         rotate_angle: Optional[ft.Number] = None,
         horizontal_offset: Optional[ft.Number] = None,
-        horizontal_alignment: Optional[ChartHorizontalAlignment] = None,
+        horizontal_alignment: Optional[HorizontalAlignment] = None,
         border_side: Optional[ft.BorderSide] = None,
         fit_inside_horizontally: Optional[bool] = None,
         fit_inside_vertically: Optional[bool] = None,

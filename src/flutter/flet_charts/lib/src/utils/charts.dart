@@ -34,6 +34,7 @@ FlLine? parseFlLine(dynamic value, ThemeData theme, [FlLine? defaultValue]) {
   if (value == null ||
       (value['color'] == null &&
           value['width'] == null &&
+          value['gradient'] == null &&
           value['dash_pattern'] == null)) {
     return defaultValue;
   }
@@ -41,6 +42,7 @@ FlLine? parseFlLine(dynamic value, ThemeData theme, [FlLine? defaultValue]) {
   return FlLine(
       color: parseColor(value['color'], theme, Colors.black)!,
       strokeWidth: parseDouble(value['width'], 2)!,
+      gradient: parseGradient(value['gradient'], theme),
       dashArray: (value['dash_pattern'] as List?)
           ?.map((e) => parseInt(e))
           .nonNulls
@@ -143,6 +145,8 @@ AxisTitles parseAxisTitles(Control? control) {
         showTitles: control.getBool("show_labels", true)!,
         reservedSize: control.getDouble("label_size", 22)!,
         interval: control.getDouble("label_spacing"),
+        minIncluded: control.getBool("show_min", true)!,
+        maxIncluded: control.getBool("show_max", true)!,
         getTitlesWidget: control.children("labels").isEmpty
             ? defaultGetTitle
             : (double value, TitleMeta meta) {
@@ -154,6 +158,15 @@ AxisTitles parseAxisTitles(Control? control) {
               },
       ));
 }
+
+FLHorizontalAlignment? parseFLHorizontalAlignment(String? value,
+    [FLHorizontalAlignment? defaultValue]) {
+  if (value == null) return defaultValue;
+  return FLHorizontalAlignment.values.firstWhereOrNull(
+          (e) => e.name.toLowerCase() == value.toLowerCase()) ??
+      defaultValue;
+}
+
 
 const eventMap = {
   "FlPointerEnterEvent": "pointerEnter",
