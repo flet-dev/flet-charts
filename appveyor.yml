@@ -13,7 +13,6 @@ install:
 - export PATH="$HOME/.local/bin:$PATH"
 - uv python install $PYTHON_VERSION
 - uv python pin $PYTHON_VERSION
-- uv run python --version
 
 build_script:
 - uv run --with tomlkit .ci/patch_toml_version.py pyproject.toml $PYPI_VER
