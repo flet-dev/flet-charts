@@ -37,7 +37,7 @@ class PieChart(ft.ConstrainedControl):
     """
     A pie chart control displaying multiple sections as slices of a circle.
 
-    ![Overview](assets/pie-chart/diagram.svg)
+    ![Overview](assets/pie-chart-diagram.svg)
     """
 
     sections: list[PieChartSection] = field(default_factory=list)

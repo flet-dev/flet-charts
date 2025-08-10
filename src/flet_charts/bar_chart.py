@@ -168,7 +168,7 @@ class BarChart(ft.ConstrainedControl):
     """
     Draws a bar chart.
 
-    ![Overview](assets/bar-chart/diagram.svg)
+    ![Overview](assets/bar-chart-diagram.svg)
     """
 
     groups: list[BarChartGroup] = field(default_factory=list)

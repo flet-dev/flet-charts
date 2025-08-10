@@ -169,7 +169,7 @@ class LineChart(ft.ConstrainedControl):
     """
     Draws a line chart.
 
-    ![Overview](assets/line-chart/diagram.svg)
+    ![Overview](assets/line-chart-diagram.svg)
     """
 
     data_series: list[LineChartData] = field(default_factory=list)
