@@ -11,15 +11,15 @@ stack:
 
 install:
 - source .ci/update_build_version.sh
-- python --version
-- python -m ensurepip --upgrade
-- pip3 install --upgrade tomlkit pyyaml
 - curl -LsSf https://astral.sh/uv/install.sh | sh
-- export PATH=$HOME/.local/bin:$PATH
+- export PATH="$HOME/.local/bin:$PATH"
+- uv --version
+- uv run --group ci
+
 
 build_script:
-- python .ci/patch_toml_version.py pyproject.toml $PYPI_VER
-- python .ci/patch_pubspec_version.py src/flutter/flet_*/pubspec.yaml $PKG_VER
+  - uv run .ci/patch_toml_version.py pyproject.toml $PYPI_VER
+  - uv run .ci/patch_pubspec_version.py src/flutter/flet_*/pubspec.yaml $PKG_VER
 - (cd src/flutter/* && dart pub get && dart analyze && cd -)
 - uv build
 
