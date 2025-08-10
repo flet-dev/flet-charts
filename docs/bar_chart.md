@@ -1,5 +1,3 @@
-::: flet_charts.bar_chart.BarChart
-
 ## Examples
 
 ### Example 1
@@ -17,3 +15,5 @@
 ```python
 --8<-- "examples/charts_example/src/bar_chart/example_2.py"
 ```
+
+::: flet_charts.BarChart

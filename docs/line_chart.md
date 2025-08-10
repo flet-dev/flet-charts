@@ -1,5 +1,3 @@
-::: flet_charts.line_chart.LineChart
-
 ## Examples
 
 ![LineChart example 1](assets/line-chart/example-1.gif)
@@ -17,3 +15,5 @@
 ```python
 --8<-- "examples/charts_example/src/line_chart/example_2.py"
 ```
+
+::: flet_charts.LineChart

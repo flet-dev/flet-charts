@@ -1,5 +1,3 @@
-::: flet_charts.matplotlib_chart.MatplotlibChart
-
 ## Examples
 
 ### Example 1
@@ -23,3 +21,5 @@ official [Matplotlib example](https://matplotlib.org/stable/gallery/lines_bars_a
 ```python
 --8<-- "examples/charts_example/src/matplotlib_chart/example_2.py"
 ```
+
+::: flet_charts.MatplotlibChart

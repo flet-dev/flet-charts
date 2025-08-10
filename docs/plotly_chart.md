@@ -1,5 +1,3 @@
-::: flet_charts.plotly_chart.PlotlyChart
-
 ## Examples
 
 ### Example 1
@@ -41,3 +39,5 @@ Based on an official [Plotly example](https://plotly.com/python/box-plots).
 ```python
 --8<-- "examples/charts_example/src/plotly_chart/example_4.py"
 ```
+
+::: flet_charts.PlotlyChart
