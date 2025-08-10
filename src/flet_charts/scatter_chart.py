@@ -24,42 +24,44 @@ class ScatterChartTooltip:
     The tooltip's border radius.
     """
 
-    padding: Optional[ft.PaddingValue] = None
+    padding: ft.PaddingValue = field(
+        default_factory=lambda: ft.Padding.symmetric(vertical=8, horizontal=16)
+    )
     """
     Applies a padding for showing contents inside the tooltip.
     """
 
-    max_width: Optional[ft.Number] = None
+    max_width: ft.Number = 120
     """
     Restricts the tooltip's width.
     """
 
-    rotate_angle: Optional[ft.Number] = None
+    rotation: ft.Number = 0.0
     """
     The tooltip's rotation angle in degrees.
     """
 
-    horizontal_offset: Optional[ft.Number] = None
+    horizontal_offset: ft.Number = 0
     """
     Applies horizontal offset for showing tooltip.
     """
 
-    horizontal_alignment: Optional[HorizontalAlignment] = None
+    horizontal_alignment: HorizontalAlignment = HorizontalAlignment.CENTER
     """
     The tooltip's horizontal alignment.
     """
 
-    border_side: Optional[ft.BorderSide] = None
+    border_side: ft.BorderSide = field(default_factory=lambda: ft.BorderSide.none())
     """
     The tooltip's border side.
     """
 
-    fit_inside_horizontally: Optional[bool] = None
+    fit_inside_horizontally: bool = False
     """
     Forces the tooltip to shift horizontally inside the chart, if overflow happens.
     """
 
-    fit_inside_vertically: Optional[bool] = None
+    fit_inside_vertically: bool = False
     """
     Forces the tooltip to shift vertically inside the chart, if overflow happens.
     """
@@ -71,7 +73,7 @@ class ScatterChartTooltip:
         border_radius: Optional[ft.BorderRadiusValue] = None,
         padding: Optional[ft.PaddingValue] = None,
         max_width: Optional[ft.Number] = None,
-        rotate_angle: Optional[ft.Number] = None,
+        rotation: Optional[ft.Number] = None,
         horizontal_offset: Optional[ft.Number] = None,
         horizontal_alignment: Optional[HorizontalAlignment] = None,
         border_side: Optional[ft.BorderSide] = None,
@@ -88,9 +90,7 @@ class ScatterChartTooltip:
             else self.border_radius,
             padding=padding if padding is not None else self.padding,
             max_width=max_width if max_width is not None else self.max_width,
-            rotate_angle=rotate_angle
-            if rotate_angle is not None
-            else self.rotate_angle,
+            rotation=rotation if rotation is not None else self.rotation,
             horizontal_offset=horizontal_offset
             if horizontal_offset is not None
             else self.horizontal_offset,
@@ -111,12 +111,12 @@ class ScatterChartTooltip:
 class ScatterChartEvent(ft.Event["ScatterChart"]):
     type: ChartEventType
     """
-    Type of the event (e.g. tapDown, panUpdate)
+    The type of the event that occurred.
     """
 
     spot_index: Optional[int] = None
     """
-    Index of the touched spot, if any
+    The index of the touched spot, if any.
     """
 
 
@@ -141,19 +141,11 @@ class ScatterChart(ft.ConstrainedControl):
     )
     """
     Controls chart implicit animation.
-
-    Value is of [`AnimationValue`](https://flet.dev/docs/reference/types/animationvalue)
-    type.
     """
 
     interactive: bool = True
     """
     Enables automatic tooltips when hovering chart bars.
-    """
-
-    handle_built_in_touches: bool = True
-    """
-    Whether to show a tooltip popup on top of the spots if a touch occurs.
     """
 
     long_press_duration: Optional[ft.DurationValue] = None
@@ -231,14 +223,22 @@ class ScatterChart(ft.ConstrainedControl):
     The maximum displayed value for Y axis.
     """
 
-    tooltip: Optional[ScatterChartTooltip] = None
+    tooltip: ScatterChartTooltip = field(default_factory=lambda: ScatterChartTooltip())
     """
     The tooltip configuration for the chart.
     """
 
+    show_tooltips_for_selected_spots_only: bool = False
+    """
+    Whether to permanently and only show the tooltips of spots with their
+    [`selected`][(p).ScatterChartSpot.selected] property set to `True`.
+    """
+
+    rotation_quarter_turns: ft.Number = 0
+
     on_event: Optional[ft.EventHandler[ScatterChartEvent]] = None
     """
-    Fires when an event occurs on the chart.
+    Called when an event occurs on this chart.
     """
 
     def __post_init__(self, ref: Optional[ft.Ref[Any]]):

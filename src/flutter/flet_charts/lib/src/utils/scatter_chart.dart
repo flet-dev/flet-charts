@@ -25,34 +25,31 @@ class ScatterChartEventData extends Equatable {
   List<Object?> get props => [eventType, spotIndex];
 }
 
-ScatterTouchTooltipData? parseScatterTouchTooltipData(
-    BuildContext context, Control control, List<ScatterSpot> spots,
-    [ScatterTouchTooltipData? defaultValue]) {
-  var tooltip = control.get("tooltip");
-  if (tooltip == null) return defaultValue;
+ScatterTouchTooltipData parseScatterTouchTooltipData(
+    BuildContext context, Control control, List<ScatterSpot> spots) {
+  var tooltip = control.get("tooltip") ?? {};
 
   final theme = Theme.of(context);
 
   return ScatterTouchTooltipData(
     tooltipBorder: parseBorderSide(tooltip["border_side"], theme,
         defaultValue: BorderSide.none)!,
-    rotateAngle: parseDouble(tooltip["rotate_angle"]),
-    maxContentWidth: parseDouble(tooltip["max_width"]),
-    tooltipPadding: parsePadding(tooltip["padding"]),
-    tooltipHorizontalAlignment: FLHorizontalAlignment.values
-        .firstWhereOrNull((v) => v.name == tooltip["horizontal_alignment"]),
-    tooltipHorizontalOffset: parseDouble(tooltip["horizontal_offset"]),
+    rotateAngle: parseDouble(tooltip["rotation"], 0.0)!,
+    maxContentWidth: parseDouble(tooltip["max_width"], 120)!,
+    tooltipPadding: parsePadding(tooltip["padding"],
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 8))!,
+    tooltipHorizontalAlignment: parseFLHorizontalAlignment(
+        tooltip["horizontal_alignment"], FLHorizontalAlignment.center)!,
+    tooltipHorizontalOffset: parseDouble(tooltip["horizontal_offset"], 0),
     tooltipBorderRadius: parseBorderRadius(tooltip["border_radius"]),
-    fitInsideHorizontally: parseBool(tooltip["fit_inside_horizontally"]),
-    fitInsideVertically: parseBool(tooltip["fit_inside_vertically"]),
-    getTooltipColor: (ScatterSpot spot) {
-      // var spotIndex =
-      //     spots.indexWhere((spot) => spot.x == spot.x && spot.y == spot.y);
-      // var dp = control.children("spots")[spotIndex];
+    fitInsideHorizontally:
+        parseBool(tooltip["fit_inside_horizontally"], false)!,
+    fitInsideVertically: parseBool(tooltip["fit_inside_vertically"], false)!,
+    getTooltipColor: (ScatterSpot touchedSpot) {
       return parseColor(
           tooltip["bgcolor"], theme, const Color.fromRGBO(96, 125, 139, 1))!;
     },
-    getTooltipItems: (touchedSpot) {
+    getTooltipItems: (ScatterSpot touchedSpot) {
       var spotIndex = spots.indexWhere(
           (spot) => spot.x == touchedSpot.x && spot.y == touchedSpot.y);
       return parseScatterTooltipItem(
@@ -77,7 +74,7 @@ ScatterTooltipItem? parseScatterTooltipItem(
       tooltip["text"] ?? dataPoint.getDouble("y").toString(),
       textStyle: style,
       textAlign: parseTextAlign(tooltip["text_align"], TextAlign.center)!,
-      textDirection: parseBool(tooltip["text_direction"], false)!
+      textDirection: parseBool(tooltip["rtl"], false)!
           ? TextDirection.rtl
           : TextDirection.ltr,
       bottomMargin: parseDouble(tooltip["bottom_margin"]),

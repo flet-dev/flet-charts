@@ -68,7 +68,7 @@ BarTouchTooltipData? parseBarTouchTooltipData(
     tooltipPadding: parsePadding(tooltip["padding"],
         const EdgeInsets.symmetric(horizontal: 16, vertical: 8))!,
     maxContentWidth: parseDouble(tooltip["max_width"]),
-    rotateAngle: parseDouble(tooltip["rotate_angle"], 0.0)!,
+    rotateAngle: parseDouble(tooltip["rotation"], 0.0)!,
     tooltipHorizontalOffset: parseDouble(tooltip["horizontal_offset"], 0)!,
     tooltipBorder: parseBorderSide(tooltip["border_side"], theme),
     fitInsideHorizontally:

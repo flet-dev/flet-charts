@@ -86,7 +86,7 @@ class LineChartTooltip:
     Restricts the tooltip's width.
     """
 
-    rotate_angle: ft.Number = 0.0
+    rotation: ft.Number = 0.0
     """
     The tooltip's rotation angle in degrees.
     """
@@ -129,7 +129,7 @@ class LineChartTooltip:
         margin: Optional[ft.Number] = None,
         padding: Optional[ft.PaddingValue] = None,
         max_width: Optional[ft.Number] = None,
-        rotate_angle: Optional[ft.Number] = None,
+        rotation: Optional[ft.Number] = None,
         horizontal_offset: Optional[ft.Number] = None,
         border_side: Optional[ft.BorderSide] = None,
         fit_inside_horizontally: Optional[bool] = None,
@@ -147,9 +147,7 @@ class LineChartTooltip:
             margin=margin if margin is not None else self.margin,
             padding=padding if padding is not None else self.padding,
             max_width=max_width if max_width is not None else self.max_width,
-            rotate_angle=rotate_angle
-            if rotate_angle is not None
-            else self.rotate_angle,
+            rotation=rotation if rotation is not None else self.rotation,
             horizontal_offset=horizontal_offset
             if horizontal_offset is not None
             else self.horizontal_offset,
@@ -278,9 +276,13 @@ class LineChart(ft.ConstrainedControl):
     Defines the maximum displayed value for Y axis.
     """
 
-    tooltip: LineChartTooltip = field(default_factory=lambda: LineChartTooltip())
+    tooltip: Optional[LineChartTooltip] = field(
+        default_factory=lambda: LineChartTooltip()
+    )
     """
     The tooltip configuration for this chart.
+
+    If set to `None`, no tooltips will be shown throughout this chart.
     """
 
     on_event: Optional[ft.EventHandler[LineChartEvent]] = None

@@ -21,7 +21,7 @@ class ScatterChartSpotTooltip(ChartDataPointTooltip):
     When `None`, defaults to [`ScatterChartSpot.y`][(p).].
     """
 
-    bottom_margin: Optional[ft.Number] = None
+    bottom_margin: ft.Number = 8
     """
     The bottom space from the spot.
     """
@@ -118,12 +118,12 @@ class ScatterChartSpot(ft.BaseControl):
     Wether to show the tooltip.
     """
 
-    label_text: Optional[str] = None
+    label_text: str = ""
     """
     TBD
     """
 
-    label_style: Optional[ft.TextStyle] = None
+    label_text_style: ft.TextStyle = field(default_factory=lambda: ft.TextStyle())
     """
     TBD
     """

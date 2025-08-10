@@ -60,7 +60,7 @@ class BarChartTooltip:
     Restricts the tooltip's width.
     """
 
-    rotate_angle: ft.Number = 0.0
+    rotation: ft.Number = 0.0
     """
     The rotation angle of the tooltip.
     """
@@ -103,7 +103,7 @@ class BarChartTooltip:
         margin: Optional[ft.Number] = None,
         padding: Optional[ft.PaddingValue] = None,
         max_width: Optional[ft.Number] = None,
-        rotate_angle: Optional[ft.Number] = None,
+        rotation: Optional[ft.Number] = None,
         horizontal_offset: Optional[ft.Number] = None,
         border_side: Optional[ft.BorderSide] = None,
         fit_inside_horizontally: Optional[bool] = None,
@@ -122,9 +122,7 @@ class BarChartTooltip:
             margin=margin if margin is not None else self.margin,
             padding=padding if padding is not None else self.padding,
             max_width=max_width if max_width is not None else self.max_width,
-            rotate_angle=rotate_angle
-            if rotate_angle is not None
-            else self.rotate_angle,
+            rotation=rotation if rotation is not None else self.rotation,
             horizontal_offset=horizontal_offset
             if horizontal_offset is not None
             else self.horizontal_offset,
@@ -271,7 +269,7 @@ class BarChart(ft.ConstrainedControl):
 
     on_event: Optional[ft.EventHandler[BarChartEvent]] = None
     """
-    Fires when a bar is hovered or clicked.
+    Called when an event occurs on this chart, such as a click or hover.
     """
 
     def __post_init__(self, ref: Optional[ft.Ref[Any]]):
