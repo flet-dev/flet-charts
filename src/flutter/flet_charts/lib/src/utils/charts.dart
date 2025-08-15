@@ -167,7 +167,6 @@ FLHorizontalAlignment? parseFLHorizontalAlignment(String? value,
       defaultValue;
 }
 
-
 const eventMap = {
   "FlPointerEnterEvent": "pointerEnter",
   "FlPointerExitEvent": "pointerExit",

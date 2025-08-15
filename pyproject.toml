@@ -66,7 +66,7 @@ all = [
 ]
 
 [tool.uv.sources]
-mkdocs-external-images = { git = "https://github.com/flet-dev/mkdocs-external-images", rev = "aace23d55a8cec7947ecc837f006e751ae28963d" }
+mkdocs-external-images = { git = "https://github.com/flet-dev/mkdocs-external-images", tag = "v0.2.0" }
 
 
 [tool.ruff]

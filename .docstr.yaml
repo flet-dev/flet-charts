@@ -1,4 +1,4 @@
-paths: src
+paths: src/flet_charts
 badge: ./docs/assets/badges/docs-coverage.svg
 skip_file_doc: True
 skip_private: False
