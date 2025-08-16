@@ -1,1 +1,1 @@
-::: flet_charts.ChartAxisLabel
+::: flet_charts.chart_axis.ChartAxisLabel

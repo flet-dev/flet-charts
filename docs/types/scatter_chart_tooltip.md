@@ -1,1 +1,1 @@
-::: flet_charts.ScatterChartTooltip
+::: flet_charts.scatter_chart.ScatterChartTooltip

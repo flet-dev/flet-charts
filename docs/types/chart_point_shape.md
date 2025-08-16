@@ -1,1 +1,1 @@
-::: flet_charts.ChartPointShape
+::: flet_charts.types.ChartPointShape

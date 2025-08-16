@@ -1,1 +1,1 @@
-::: flet_charts.ScatterChartEvent
+::: flet_charts.scatter_chart.ScatterChartEvent

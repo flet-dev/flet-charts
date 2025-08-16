@@ -1,1 +1,1 @@
-::: flet_charts.ChartAxis
+::: flet_charts.chart_axis.ChartAxis

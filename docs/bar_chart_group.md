@@ -1,1 +1,1 @@
-::: flet_charts.BarChartGroup
+::: flet_charts.bar_chart_group.BarChartGroup

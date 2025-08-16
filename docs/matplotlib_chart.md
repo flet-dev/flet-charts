@@ -26,4 +26,4 @@ official [Matplotlib example](https://matplotlib.org/stable/gallery/lines_bars_a
 --8<-- "examples/charts_example/src/matplotlib_chart/example_2.py"
 ```
 
-::: flet_charts.MatplotlibChart
+::: flet_charts.matplotlib_chart.MatplotlibChart

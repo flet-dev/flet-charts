@@ -1,1 +1,1 @@
-::: flet_charts.LineChartTooltip
+::: flet_charts.line_chart.LineChartTooltip

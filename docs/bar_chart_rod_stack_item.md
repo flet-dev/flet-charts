@@ -1,1 +1,1 @@
-::: flet_charts.BarChartRodStackItem
+::: flet_charts.bar_chart_rod_stack_item.BarChartRodStackItem

@@ -1,1 +1,1 @@
-::: flet_charts.ChartGridLines
+::: flet_charts.types.ChartGridLines

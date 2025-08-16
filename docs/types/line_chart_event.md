@@ -1,1 +1,1 @@
-::: flet_charts.LineChartEvent
+::: flet_charts.line_chart.LineChartEvent
