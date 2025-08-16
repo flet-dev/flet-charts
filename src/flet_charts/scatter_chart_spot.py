@@ -3,7 +3,7 @@ from typing import Any, Optional, Union
 
 import flet as ft
 
-from .types import ChartDataPointTooltip, ChartPointShape
+from flet_charts.types import ChartDataPointTooltip, ChartPointShape
 
 __all__ = ["ScatterChartSpot", "ScatterChartSpotTooltip"]
 
@@ -21,13 +21,20 @@ class ScatterChartSpotTooltip(ChartDataPointTooltip):
     When `None`, defaults to [`ScatterChartSpot.y`][(p).].
     """
 
-    def copy_with(
+    bottom_margin: ft.Number = 8
+    """
+    The bottom space from the spot.
+    """
+
+    def copy(
         self,
         *,
         text: Optional[str] = None,
         text_style: Optional[ft.TextStyle] = None,
         text_align: Optional[ft.TextAlign] = None,
         text_spans: Optional[list[ft.TextSpan]] = None,
+        rtl: Optional[bool] = None,
+        bottom_margin: Optional[float] = None,
     ) -> "ScatterChartSpotTooltip":
         """
         Returns a copy of this object with the specified properties overridden.
@@ -39,6 +46,10 @@ class ScatterChartSpotTooltip(ChartDataPointTooltip):
             text_spans=text_spans.copy()
             if text_spans is not None
             else (self.text_spans.copy() if self.text_spans is not None else None),
+            rtl=rtl if rtl is not None else self.rtl,
+            bottom_margin=bottom_margin
+            if bottom_margin is not None
+            else self.bottom_margin,
         )
 
 
@@ -107,12 +118,12 @@ class ScatterChartSpot(ft.BaseControl):
     Wether to show the tooltip.
     """
 
-    label_text: Optional[str] = None
+    label_text: str = ""
     """
     TBD
     """
 
-    label_style: Optional[ft.TextStyle] = None
+    label_text_style: ft.TextStyle = field(default_factory=lambda: ft.TextStyle())
     """
     TBD
     """

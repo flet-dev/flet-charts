@@ -10,10 +10,10 @@ __all__ = [
     "ChartDataPointTooltip",
     "ChartEventType",
     "ChartGridLines",
-    "ChartHorizontalAlignment",
     "ChartPointLine",
     "ChartPointShape",
     "ChartSquarePoint",
+    "HorizontalAlignment",
 ]
 
 
@@ -45,7 +45,7 @@ class ChartGridLines:
     followed by blank spaces 10 pixels long. By default, a solid line is drawn.
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         interval: Optional[ft.Number] = None,
@@ -108,7 +108,7 @@ class ChartCirclePoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartCirclePoint"
 
-    def copy_with(
+    def copy(
         self,
         *,
         color: Optional[ft.ColorValue] = None,
@@ -158,7 +158,7 @@ class ChartSquarePoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartSquarePoint"
 
-    def copy_with(
+    def copy(
         self,
         *,
         color: Optional[ft.ColorValue] = None,
@@ -183,7 +183,7 @@ class ChartSquarePoint(ChartPointShape):
 
 @dataclass
 class ChartCrossPoint(ChartPointShape):
-    """Draws a cross-mark(X)."""
+    """Draws a cross-mark (X)."""
 
     color: Optional[ft.ColorValue] = None
     """
@@ -204,7 +204,7 @@ class ChartCrossPoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartCrossPoint"
 
-    def copy_with(
+    def copy(
         self,
         *,
         color: Optional[ft.ColorValue] = None,
@@ -223,7 +223,7 @@ class ChartCrossPoint(ChartPointShape):
 
 @dataclass
 class ChartPointLine:
-    """"""
+    """Defines style of a line."""
 
     color: Optional[ft.ColorValue] = None
     """
@@ -240,12 +240,18 @@ class ChartPointLine:
     The line's dash pattern.
     """
 
-    def copy_with(
+    gradient: Optional[ft.Gradient] = None
+    """
+    The line's gradient.
+    """
+
+    def copy(
         self,
         *,
         color: Optional[ft.ColorValue] = None,
         width: Optional[ft.Number] = None,
         dash_pattern: Optional[list[int]] = None,
+        gradient: Optional[ft.Gradient] = None,
     ) -> "ChartPointLine":
         """
         Returns a copy of this object with the specified properties overridden.
@@ -258,6 +264,7 @@ class ChartPointLine:
             else self.dash_pattern.copy()
             if self.dash_pattern is not None
             else None,
+            gradient=gradient if gradient is not None else self.gradient,
         )
 
 
@@ -300,47 +307,54 @@ class ChartEventType(Enum):
 
     POINTER_ENTER = "pointerEnter"
     """
-
+    The pointer has moved with respect to the device while the pointer is or is
+    not in contact with the device, and it has entered our chart.
     """
 
     POINTER_HOVER = "pointerHover"
     """
-
+    The pointer has moved with respect to the device while the pointer is not
+    in contact with the device.
     """
 
     PAN_DOWN = "panDown"
     """
-
+    When a pointer has contacted the screen and might begin to move
     """
 
     PAN_START = "panStart"
     """
-
+    When a pointer has contacted the screen and has begun to move.
     """
 
     PAN_UPDATE = "panUpdate"
     """
-
+    When a pointer that is in contact with the screen and moving
+    has moved again.
     """
 
     LONG_PRESS_MOVE_UPDATE = "longPressMoveUpdate"
     """
-
+    When a pointer is moving after being held in contact at the same
+    location for a long period of time. Reports the new position and its offset
+    from the original down position.
     """
 
     LONG_PRESS_START = "longPressStart"
     """
-
+    When a pointer has remained in contact with the screen at the
+    same location for a long period of time.
     """
 
     TAP_DOWN = "tapDown"
     """
-
+    When a pointer that might cause a tap has contacted the
+    screen.
     """
 
     UNDEFINED = "undefined"
     """
-
+    An undefined event.
     """
 
 
@@ -352,7 +366,7 @@ class ChartDataPointTooltip:
 
     text: Optional[str] = None
     """
-    The text to display in the tooltip.
+    The text to display in this tooltip.
     """
 
     text_style: ft.TextStyle = field(default_factory=lambda: ft.TextStyle())
@@ -362,21 +376,27 @@ class ChartDataPointTooltip:
 
     text_align: ft.TextAlign = ft.TextAlign.CENTER
     """
-    An align for the tooltip.
+    The text alignment of the tooltip.
     """
 
     text_spans: Optional[list[ft.TextSpan]] = None
     """
-    Additional text spans to show on a tooltip.
+    Additional text spans to show on this tooltip.
     """
 
-    def copy_with(
+    rtl: bool = False
+    """
+    Whether the text is right-to-left.
+    """
+
+    def copy(
         self,
         *,
         text: Optional[str] = None,
         text_style: Optional[ft.TextStyle] = None,
         text_align: Optional[ft.TextAlign] = None,
         text_spans: Optional[list[ft.TextSpan]] = None,
+        rtl: Optional[bool] = None,
     ) -> "ChartDataPointTooltip":
         """
         Returns a copy of this object with the specified properties overridden.
@@ -390,10 +410,11 @@ class ChartDataPointTooltip:
             else self.text_spans.copy()
             if self.text_spans is not None
             else None,
+            rtl=rtl if rtl is not None else self.rtl,
         )
 
 
-class ChartHorizontalAlignment(Enum):
+class HorizontalAlignment(Enum):
     """Defines an element's horizontal alignment to given point."""
 
     LEFT = "left"

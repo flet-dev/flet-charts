@@ -25,7 +25,9 @@ This package supports the following platforms:
 | Android  |     ✅     |
 | Web      |     ✅     |
 
-## Installation
+## Usage
+
+### Installation
 
 To install the `flet-charts` package and add it to your project dependencies:
 
@@ -44,3 +46,7 @@ To install the `flet-charts` package and add it to your project dependencies:
     ```bash
     poetry add flet-charts
     ```
+
+### Examples
+
+For examples, see [these](./examples).

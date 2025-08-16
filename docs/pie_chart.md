@@ -1,10 +1,10 @@
-::: flet_charts.pie_chart.PieChart
-
 ## Examples
 
 ### Example 1
 
-![PieChart example 1](assets/pie-chart/example-1.gif)
+![PieChart example 1](../examples/charts_example/src/pie_chart/media/example_1.gif){width="80%"}
+/// caption
+///
 
 ```python
 --8<-- "examples/charts_example/src/pie_chart/example_1.py"
@@ -12,7 +12,9 @@
 
 ### Example 2
 
-![PieChart example 2](assets/pie-chart/example-2.gif)
+![PieChart example 2](../examples/charts_example/src/pie_chart/media/example_2.gif){width="80%"}
+/// caption
+///
 
 ```python
 --8<-- "examples/charts_example/src/pie_chart/example_2.py"
@@ -20,8 +22,12 @@
 
 ### Example 3
 
-![PieChart example 3](assets/pie-chart/example-3.gif)
+![PieChart example 3](../examples/charts_example/src/pie_chart/media/example_3.gif){width="80%"}
+/// caption
+///
 
 ```python
 --8<-- "examples/charts_example/src/pie_chart/example_3.py"
 ```
+
+::: flet_charts.pie_chart.PieChart

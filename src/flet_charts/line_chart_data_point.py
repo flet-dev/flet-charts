@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 import flet as ft
 
-from .types import ChartDataPointTooltip, ChartPointLine, ChartPointShape
+from flet_charts.types import ChartDataPointTooltip, ChartPointLine, ChartPointShape
 
 __all__ = ["LineChartDataPoint", "LineChartDataPointTooltip"]
 
@@ -19,13 +19,14 @@ class LineChartDataPointTooltip(ChartDataPointTooltip):
     When `None`, defaults to [`LineChartDataPoint.y`][(p).].
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         text: Optional[str] = None,
         text_style: Optional[ft.TextStyle] = None,
         text_align: Optional[ft.TextAlign] = None,
         text_spans: Optional[list[ft.TextSpan]] = None,
+        rtl: Optional[bool] = None,
     ) -> "LineChartDataPointTooltip":
         """
         Returns a copy of this object with the specified properties overridden.
@@ -37,6 +38,7 @@ class LineChartDataPointTooltip(ChartDataPointTooltip):
             text_spans=text_spans.copy()
             if text_spans is not None
             else (self.text_spans.copy() if self.text_spans is not None else None),
+            rtl=rtl if rtl is not None else self.rtl,
         )
 
 

@@ -66,6 +66,9 @@ LineTooltipItem? parseLineTooltipItem(
   return LineTooltipItem(
       tooltip["text"] ?? dataPoint.getDouble("y", 0)!.toString(), style,
       textAlign: parseTextAlign(tooltip["text_align"], TextAlign.center)!,
+      textDirection: parseBool(tooltip["rtl"], false)!
+          ? TextDirection.rtl
+          : TextDirection.ltr,
       children: tooltip["text_spans"] != null
           ? parseTextSpans(tooltip["text_spans"], theme, (s, eventName,
               [eventData]) {
@@ -90,7 +93,7 @@ LineTouchTooltipData? parseLineTouchTooltipData(
     tooltipPadding: parsePadding(tooltip["padding"],
         const EdgeInsets.symmetric(horizontal: 16, vertical: 8))!,
     maxContentWidth: parseDouble(tooltip["max_width"], 120)!,
-    rotateAngle: parseDouble(tooltip["rotate_angle"], 0.0)!,
+    rotateAngle: parseDouble(tooltip["rotation"], 0.0)!,
     tooltipHorizontalOffset: parseDouble(tooltip["horizontal_offset"], 0)!,
     tooltipBorder: parseBorderSide(tooltip["border_side"], theme,
         defaultValue: BorderSide.none)!,
@@ -99,6 +102,8 @@ LineTouchTooltipData? parseLineTouchTooltipData(
     fitInsideVertically: parseBool(tooltip["fit_inside_vertically"], false)!,
     showOnTopOfTheChartBoxArea:
         parseBool(tooltip["show_on_top_of_chart_box_area"], false)!,
+    tooltipHorizontalAlignment: parseFLHorizontalAlignment(
+        tooltip["horizontal_alignment"], FLHorizontalAlignment.center)!,
     getTooltipItems: (List<LineBarSpot> touchedSpots) {
       return touchedSpots
           .map((LineBarSpot spot) => parseLineTooltipItem(
@@ -132,6 +137,7 @@ LineChartBarData parseLineChartBarData(
   var belowLine = parseFlLine(chartData.get("below_line"), Theme.of(context));
   var aboveLineCutoffY = chartData.getDouble("above_line_cutoff_y");
   var belowLineCutoffY = chartData.getDouble("below_line_cutoff_y");
+  var stepDirection = chartData.getDouble("step_direction");
 
   Map<FlSpot, Control> spots = {
     for (var e in chartData.children("points"))
@@ -143,6 +149,10 @@ LineChartBarData parseLineChartBarData(
       preventCurveOvershootingThreshold:
           chartData.getDouble("prevent_curve_over_shooting_threshold", 10.0)!,
       spots: barSpots[chartData.id] ?? [],
+      curveSmoothness: chartData.getDouble("curve_smoothness", 0.35)!,
+      show: chartData.visible,
+      isStepLineChart: stepDirection != null,
+      lineChartStepData: LineChartStepData(stepDirection: stepDirection ?? 0.5),
       showingIndicators: chartData
           .children("points")
           .asMap()
@@ -153,6 +163,7 @@ LineChartBarData parseLineChartBarData(
           .toList(),
       isCurved: chartData.getBool("curved", false)!,
       isStrokeCapRound: chartData.getBool("rounded_stroke_cap", false)!,
+      isStrokeJoinRound: chartData.getBool("rounded_stroke_join", false)!,
       barWidth: chartData.getDouble("stroke_width", 2.0)!,
       dashArray: dashPattern != null
           ? (dashPattern as List).map((e) => parseInt(e)).nonNulls.toList()

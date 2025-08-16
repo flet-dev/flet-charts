@@ -74,6 +74,11 @@ class PieChartSection(ft.BaseControl):
         and `1.0`(near the outside of the chart) inclusive.
     """
 
+    gradient: Optional[ft.Gradient] = None
+    """
+    Defines the gradient of section. If specified, overrides the color setting.
+    """
+
     def before_update(self):
         super().before_update()
         assert self.title_position is None or (0.0 <= self.title_position <= 1.0), (

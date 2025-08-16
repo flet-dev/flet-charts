@@ -46,6 +46,7 @@ PieChartSectionData parsePieChartSectionData(
     radius: section.getDouble("radius"),
     showTitle: title != null,
     title: title,
+    gradient: section.getGradient("gradient", theme),
     titleStyle: section.getTextStyle("title_style", theme),
     borderSide: section.getBorderSide("border_side", theme,
         defaultValue: BorderSide.none)!,
