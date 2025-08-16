@@ -1,3 +1,3 @@
-::: flet_charts.types.ChartEventType
+::: flet_charts.ChartEventType
     options:
         separate_signature: false

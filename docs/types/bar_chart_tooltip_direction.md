@@ -1,3 +1,3 @@
-::: flet_charts.bar_chart.BarChartTooltipDirection
+::: flet_charts.BarChartTooltipDirection
     options:
         separate_signature: false

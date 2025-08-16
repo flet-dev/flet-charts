@@ -1,1 +1,1 @@
-::: flet_charts.types.ChartSquarePoint
+::: flet_charts.ChartSquarePoint

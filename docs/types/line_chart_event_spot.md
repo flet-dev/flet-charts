@@ -1,1 +1,1 @@
-::: flet_charts.line_chart.LineChartEventSpot
+::: flet_charts.LineChartEventSpot

@@ -20,4 +20,4 @@
 --8<-- "examples/charts_example/src/line_chart/example_2.py"
 ```
 
-::: flet_charts.line_chart.LineChart
+::: flet_charts.LineChart

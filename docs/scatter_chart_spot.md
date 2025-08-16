@@ -1,1 +1,1 @@
-::: flet_charts.scatter_chart_spot.ScatterChartSpot
+::: flet_charts.ScatterChartSpot

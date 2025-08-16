@@ -1,1 +1,1 @@
-::: flet_charts.line_chart_data.LineChartData
+::: flet_charts.LineChartData

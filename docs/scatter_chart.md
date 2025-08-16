@@ -6,4 +6,4 @@
 --8<-- "examples/charts_example/src/scatter_chart/example_1.py"
 ```
 
-::: flet_charts.scatter_chart.ScatterChart
+::: flet_charts.ScatterChart

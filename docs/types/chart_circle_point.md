@@ -1,1 +1,1 @@
-::: flet_charts.types.ChartCirclePoint
+::: flet_charts.ChartCirclePoint

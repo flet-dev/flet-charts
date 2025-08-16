@@ -1,1 +1,1 @@
-::: flet_charts.types.ChartDataPointTooltip
+::: flet_charts.ChartDataPointTooltip

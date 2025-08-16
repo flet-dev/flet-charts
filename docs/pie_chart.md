@@ -30,4 +30,4 @@
 --8<-- "examples/charts_example/src/pie_chart/example_3.py"
 ```
 
-::: flet_charts.pie_chart.PieChart
+::: flet_charts.PieChart

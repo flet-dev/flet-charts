@@ -1,1 +1,1 @@
-::: flet_charts.bar_chart.BarChartEvent
+::: flet_charts.BarChartEvent

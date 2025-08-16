@@ -1,1 +1,1 @@
-::: flet_charts.pie_chart.PieChartEvent
+::: flet_charts.PieChartEvent

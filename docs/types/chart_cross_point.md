@@ -1,1 +1,1 @@
-::: flet_charts.types.ChartCrossPoint
+::: flet_charts.ChartCrossPoint

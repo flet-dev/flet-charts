@@ -1,3 +1,3 @@
-::: flet_charts.types.HorizontalAlignment
+::: flet_charts.HorizontalAlignment
     options:
         separate_signature: false

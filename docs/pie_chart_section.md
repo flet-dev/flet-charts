@@ -1,1 +1,1 @@
-::: flet_charts.pie_chart_section.PieChartSection
+::: flet_charts.PieChartSection
