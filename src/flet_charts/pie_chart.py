@@ -3,8 +3,8 @@ from typing import Optional
 
 import flet as ft
 
-from .pie_chart_section import PieChartSection
-from .types import ChartEventType
+from flet_charts.pie_chart_section import PieChartSection
+from flet_charts.types import ChartEventType
 
 __all__ = ["PieChart", "PieChartEvent"]
 

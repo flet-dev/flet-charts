@@ -3,7 +3,7 @@ from typing import Optional, Union
 
 import flet as ft
 
-from .types import ChartDataPointTooltip, ChartPointLine, ChartPointShape
+from flet_charts.types import ChartDataPointTooltip, ChartPointLine, ChartPointShape
 
 __all__ = ["LineChartDataPoint", "LineChartDataPointTooltip"]
 

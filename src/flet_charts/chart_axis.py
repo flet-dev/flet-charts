@@ -1,5 +1,5 @@
 from dataclasses import field
-from typing import Optional, Union
+from typing import Optional
 
 import flet as ft
 
@@ -17,7 +17,7 @@ class ChartAxisLabel(ft.BaseControl):
     A value to draw label for.
     """
 
-    label: Optional[Union[ft.Control, str]] = None
+    label: Optional[ft.StrOrControl] = None
     """
     The label to display for the specified [`value`][..].
     """

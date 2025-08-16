@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import flet as ft
 
-from .bar_chart_rod_stack_item import BarChartRodStackItem
-from .types import ChartDataPointTooltip
+from flet_charts.bar_chart_rod_stack_item import BarChartRodStackItem
+from flet_charts.types import ChartDataPointTooltip
 
 __all__ = ["BarChartRod", "BarChartRodTooltip"]
 

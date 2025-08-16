@@ -4,9 +4,9 @@ from typing import Any, Optional
 
 import flet as ft
 
-from .bar_chart_group import BarChartGroup
-from .chart_axis import ChartAxis
-from .types import ChartEventType, ChartGridLines, HorizontalAlignment
+from flet_charts.bar_chart_group import BarChartGroup
+from flet_charts.chart_axis import ChartAxis
+from flet_charts.types import ChartEventType, ChartGridLines, HorizontalAlignment
 
 __all__ = [
     "BarChart",

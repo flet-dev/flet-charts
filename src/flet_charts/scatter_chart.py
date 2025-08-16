@@ -3,9 +3,9 @@ from typing import Any, Optional
 
 import flet as ft
 
-from .chart_axis import ChartAxis
-from .scatter_chart_spot import ScatterChartSpot
-from .types import ChartEventType, ChartGridLines, HorizontalAlignment
+from flet_charts.chart_axis import ChartAxis
+from flet_charts.scatter_chart_spot import ScatterChartSpot
+from flet_charts.types import ChartEventType, ChartGridLines, HorizontalAlignment
 
 __all__ = ["ScatterChart", "ScatterChartEvent", "ScatterChartTooltip"]
 
