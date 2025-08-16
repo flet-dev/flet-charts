@@ -19,11 +19,6 @@ Issues = "https://github.com/flet-dev/flet-charts/issues"
 [tool.setuptools.package-data]
 "flutter.flet_charts" = ["**/*"]
 
-[project.optional-dependencies]
-all = ["plotly>=6.0.1", "matplotlib>=3.10.1"]
-plotly = ["plotly>=6.0.1"]
-matplotlib = ["matplotlib>=3.10.1"]
-
 [dependency-groups]
 test = [
     "pytest >=7.2.0",
