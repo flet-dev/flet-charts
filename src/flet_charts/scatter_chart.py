@@ -235,6 +235,11 @@ class ScatterChart(ft.ConstrainedControl):
     """
 
     rotation_quarter_turns: ft.Number = 0
+    """
+    Number of quarter turns (90-degree increments) to rotate the chart.
+    Ex: `1` rotates the chart `90` degrees clockwise,
+    `2` rotates `180` degrees and `0` for no rotation.
+    """
 
     on_event: Optional[ft.EventHandler[ScatterChartEvent]] = None
     """
