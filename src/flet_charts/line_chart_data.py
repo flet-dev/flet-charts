@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import flet as ft
 
-from .line_chart_data_point import LineChartDataPoint
-from .types import ChartPointLine, ChartPointShape
+from flet_charts.line_chart_data_point import LineChartDataPoint
+from flet_charts.types import ChartPointLine, ChartPointShape
 
 __all__ = ["LineChartData"]
 
@@ -19,7 +19,7 @@ class LineChartData(ft.BaseControl):
 
     curved: bool = False
     """
-    Set to `True` to draw chart line as a curve.
+    Whether to draw this chart line as a curve.
     """
 
     color: ft.ColorValue = ft.Colors.CYAN
@@ -49,7 +49,7 @@ class LineChartData(ft.BaseControl):
 
     prevent_curve_over_shooting_threshold: ft.Number = 10.0
     """
-    Threshold to prevent overshooting algorithm.
+    Threshold for [`prevent_curve_over_shooting`][..] algorithm.
     """
 
     dash_pattern: Optional[list[int]] = None
@@ -127,4 +127,30 @@ class LineChartData(ft.BaseControl):
     selected_point: Union[None, bool, ChartPointShape] = None
     """
     Defines the appearance and shape of a selected line point.
+    """
+
+    curve_smoothness: ft.Number = 0.35
+    """
+    Defines the smoothness of a curve line,
+    when [`curved`][..] is set to `True`.
+    """
+
+    rounded_stroke_join: bool = False
+    """
+    Whether to draw rounded line joins.
+    """
+
+    step_direction: Optional[ft.Number] = None
+    """
+    Determines the direction of each step.
+
+    If not `None`, this chart will be drawn as a
+    [Step Line Chart](https://docs.anychart.com/Basic_Charts/Step_Line_Chart).
+
+    Below are some typical values:
+
+    - `0.0`: Go to the next spot directly, with the current point's y value.
+    - `0.5`: Go to the half with the current spot y, and with the next spot y
+        for the rest.
+    - `1.0`: Go to the next spot y and direct line to the next spot.
     """

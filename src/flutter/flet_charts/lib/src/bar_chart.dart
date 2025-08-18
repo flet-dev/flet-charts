@@ -57,6 +57,8 @@ class _BarChartControlState extends State<BarChartControl> {
           bottomTitles: bottomTitles,
         ),
         borderData: FlBorderData(show: border != null, border: border),
+        alignment: parseBarChartAlignment(
+            widget.control.getMainAxisAlignment("group_alignment")?.name),
         gridData: parseChartGridData(
             widget.control.get("horizontal_grid_lines"),
             widget.control.get("vertical_grid_lines"),

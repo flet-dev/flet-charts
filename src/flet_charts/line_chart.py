@@ -3,9 +3,9 @@ from typing import Any, Optional
 
 import flet as ft
 
-from .chart_axis import ChartAxis
-from .line_chart_data import LineChartData
-from .types import ChartEventType, ChartGridLines
+from flet_charts.chart_axis import ChartAxis
+from flet_charts.line_chart_data import LineChartData
+from flet_charts.types import ChartEventType, ChartGridLines, HorizontalAlignment
 
 __all__ = [
     "LineChart",
@@ -27,7 +27,7 @@ class LineChartEventSpot:
     The line's point index or `-1` if no point was hovered.
     """
 
-    def copy_with(
+    def copy(
         self,
         *,
         bar_index: Optional[int] = None,
@@ -86,7 +86,7 @@ class LineChartTooltip:
     Restricts the tooltip's width.
     """
 
-    rotate_angle: ft.Number = 0.0
+    rotation: ft.Number = 0.0
     """
     The tooltip's rotation angle in degrees.
     """
@@ -98,7 +98,7 @@ class LineChartTooltip:
 
     border_side: ft.BorderSide = field(default_factory=lambda: ft.BorderSide.none())
     """
-    The tooltip's border side.
+    Defines the borders of this tooltip.
     """
 
     fit_inside_horizontally: bool = False
@@ -116,7 +116,12 @@ class LineChartTooltip:
     Whether to force the tooltip container to top of the line.
     """
 
-    def copy_with(
+    horizontal_alignment: HorizontalAlignment = HorizontalAlignment.CENTER
+    """
+    The horizontal alignment of this tooltip.
+    """
+
+    def copy(
         self,
         *,
         bgcolor: Optional[ft.ColorValue] = None,
@@ -124,7 +129,7 @@ class LineChartTooltip:
         margin: Optional[ft.Number] = None,
         padding: Optional[ft.PaddingValue] = None,
         max_width: Optional[ft.Number] = None,
-        rotate_angle: Optional[ft.Number] = None,
+        rotation: Optional[ft.Number] = None,
         horizontal_offset: Optional[ft.Number] = None,
         border_side: Optional[ft.BorderSide] = None,
         fit_inside_horizontally: Optional[bool] = None,
@@ -142,9 +147,7 @@ class LineChartTooltip:
             margin=margin if margin is not None else self.margin,
             padding=padding if padding is not None else self.padding,
             max_width=max_width if max_width is not None else self.max_width,
-            rotate_angle=rotate_angle
-            if rotate_angle is not None
-            else self.rotate_angle,
+            rotation=rotation if rotation is not None else self.rotation,
             horizontal_offset=horizontal_offset
             if horizontal_offset is not None
             else self.horizontal_offset,
@@ -166,7 +169,7 @@ class LineChart(ft.ConstrainedControl):
     """
     Draws a line chart.
 
-    ![Overview](assets/line-chart/diagram.svg)
+    ![Overview](assets/line-chart-diagram.svg)
     """
 
     data_series: list[LineChartData] = field(default_factory=list)
@@ -273,9 +276,13 @@ class LineChart(ft.ConstrainedControl):
     Defines the maximum displayed value for Y axis.
     """
 
-    tooltip: LineChartTooltip = field(default_factory=lambda: LineChartTooltip())
+    tooltip: Optional[LineChartTooltip] = field(
+        default_factory=lambda: LineChartTooltip()
+    )
     """
     The tooltip configuration for this chart.
+
+    If set to `None`, no tooltips will be shown throughout this chart.
     """
 
     on_event: Optional[ft.EventHandler[LineChartEvent]] = None

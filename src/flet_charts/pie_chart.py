@@ -3,8 +3,8 @@ from typing import Optional
 
 import flet as ft
 
-from .pie_chart_section import PieChartSection
-from .types import ChartEventType
+from flet_charts.pie_chart_section import PieChartSection
+from flet_charts.types import ChartEventType
 
 __all__ = ["PieChart", "PieChartEvent"]
 
@@ -37,7 +37,7 @@ class PieChart(ft.ConstrainedControl):
     """
     A pie chart control displaying multiple sections as slices of a circle.
 
-    ![Overview](assets/pie-chart/diagram.svg)
+    ![Overview](assets/pie-chart-diagram.svg)
     """
 
     sections: list[PieChartSection] = field(default_factory=list)

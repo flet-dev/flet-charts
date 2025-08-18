@@ -18,6 +18,8 @@ class ScatterChartControl extends StatefulWidget {
 class _ScatterChartControlState extends State<ScatterChartControl> {
   @override
   Widget build(BuildContext context) {
+    debugPrint("ScatterChart build: ${widget.control.id}");
+
     final theme = Theme.of(context);
     var animation = widget.control.getAnimation(
         "animation",
@@ -34,11 +36,12 @@ class _ScatterChartControlState extends State<ScatterChartControl> {
     var interactive = widget.control.getBool("interactive", true)!;
 
     // Build list of ScatterSpotData
-    final spots = widget.control.children('spots').map((spot) {
+    final spotsAsControls = widget.control.children('spots');
+    final spots = spotsAsControls.map((spot) {
       var x = spot.getDouble('x', 0)!;
       var y = spot.getDouble('y', 0)!;
       return ScatterSpot(x, y,
-          show: spot.getBool('visible', true)!,
+          show: spot.visible,
           renderPriority: spot.getInt('render_priority', 0)!,
           xError: spot.get('x_error'),
           yError: spot.get('y_error'),
@@ -80,30 +83,29 @@ class _ScatterChartControlState extends State<ScatterChartControl> {
             widget.control.get("vertical_grid_lines"),
             theme),
         scatterTouchData: ScatterTouchData(
-            enabled: interactive,
-            touchCallback: widget.control.getBool("on_event", false)!
-                ? (evt, resp) {
-                    var eventData =
-                        ScatterChartEventData.fromDetails(evt, resp);
-                    widget.control.triggerEvent("event", eventData.toMap());
-                  }
-                : null,
-            longPressDuration:
-                widget.control.getDuration("long_press_duration"),
-            handleBuiltInTouches:
-                widget.control.getBool("handle_built_in_touches", true)!,
-            touchTooltipData:
-                parseScatterTouchTooltipData(context, widget.control, spots)),
+          enabled: interactive && !widget.control.disabled,
+          touchCallback: widget.control.getBool("on_event", false)!
+              ? (evt, resp) {
+                  var eventData = ScatterChartEventData.fromDetails(evt, resp);
+                  widget.control.triggerEvent("event", eventData.toMap());
+                }
+              : null,
+          longPressDuration: widget.control.getDuration("long_press_duration"),
+          handleBuiltInTouches: !widget.control
+              .getBool("show_tooltips_for_selected_spots_only", false)!,
+          touchTooltipData:
+              parseScatterTouchTooltipData(context, widget.control, spots),
+        ),
         scatterLabelSettings: ScatterLabelSettings(
           showLabel: true,
           getLabelFunction: (spotIndex, spot) {
-            var dp = widget.control.children("spots")[spotIndex];
+            var dp = spotsAsControls[spotIndex];
             return dp.getString("label_text", "")!;
           },
           getLabelTextStyleFunction: (spotIndex, spot) {
-            var dp = widget.control.children("spots")[spotIndex];
+            var dp = spotsAsControls[spotIndex];
             var labelStyle =
-                dp.getTextStyle("label_style", theme, const TextStyle())!;
+                dp.getTextStyle("label_text_style", theme, const TextStyle())!;
             if (labelStyle.color == null) {
               labelStyle =
                   labelStyle.copyWith(color: spot.dotPainter.mainColor);
@@ -111,8 +113,7 @@ class _ScatterChartControlState extends State<ScatterChartControl> {
             return labelStyle;
           },
         ),
-        showingTooltipIndicators: widget.control
-            .children('spots')
+        showingTooltipIndicators: spotsAsControls
             .asMap()
             .entries
             .where((e) => e.value.getBool("selected", false)!)

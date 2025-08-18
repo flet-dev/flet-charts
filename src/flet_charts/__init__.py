@@ -1,37 +1,44 @@
-from .bar_chart import (
+from flet_charts.bar_chart import (
     BarChart,
     BarChartEvent,
     BarChartTooltip,
     BarChartTooltipDirection,
 )
-from .bar_chart_group import BarChartGroup
-from .bar_chart_rod import BarChartRod, BarChartRodTooltip
-from .bar_chart_rod_stack_item import BarChartRodStackItem
-from .chart_axis import ChartAxis, ChartAxisLabel
-from .line_chart import (
+from flet_charts.bar_chart_group import BarChartGroup
+from flet_charts.bar_chart_rod import BarChartRod, BarChartRodTooltip
+from flet_charts.bar_chart_rod_stack_item import BarChartRodStackItem
+from flet_charts.chart_axis import ChartAxis, ChartAxisLabel
+from flet_charts.line_chart import (
     LineChart,
     LineChartEvent,
     LineChartEventSpot,
     LineChartTooltip,
 )
-from .line_chart_data import LineChartData
-from .line_chart_data_point import LineChartDataPoint, LineChartDataPointTooltip
-from .matplotlib_chart import MatplotlibChart
-from .pie_chart import PieChart, PieChartEvent
-from .pie_chart_section import PieChartSection
-from .plotly_chart import PlotlyChart
-from .scatter_chart import ScatterChart, ScatterChartEvent, ScatterChartTooltip
-from .scatter_chart_spot import ScatterChartSpot, ScatterChartSpotTooltip
-from .types import (
+from flet_charts.line_chart_data import LineChartData
+from flet_charts.line_chart_data_point import (
+    LineChartDataPoint,
+    LineChartDataPointTooltip,
+)
+from flet_charts.matplotlib_chart import MatplotlibChart
+from flet_charts.pie_chart import PieChart, PieChartEvent
+from flet_charts.pie_chart_section import PieChartSection
+from flet_charts.plotly_chart import PlotlyChart
+from flet_charts.scatter_chart import (
+    ScatterChart,
+    ScatterChartEvent,
+    ScatterChartTooltip,
+)
+from flet_charts.scatter_chart_spot import ScatterChartSpot, ScatterChartSpotTooltip
+from flet_charts.types import (
     ChartCirclePoint,
     ChartCrossPoint,
     ChartDataPointTooltip,
     ChartEventType,
     ChartGridLines,
-    ChartHorizontalAlignment,
     ChartPointLine,
     ChartPointShape,
     ChartSquarePoint,
+    HorizontalAlignment,
 )
 
 __all__ = [
@@ -50,10 +57,10 @@ __all__ = [
     "ChartDataPointTooltip",
     "ChartEventType",
     "ChartGridLines",
-    "ChartHorizontalAlignment",
     "ChartPointLine",
     "ChartPointShape",
     "ChartSquarePoint",
+    "HorizontalAlignment",
     "LineChart",
     "LineChartData",
     "LineChartDataPoint",
