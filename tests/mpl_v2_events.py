@@ -150,8 +150,8 @@ def main(page: ft.Page):
             ft.IconButton(ft.Icons.HOME, on_click=lambda: mpl.home()),
             back_btn := ft.IconButton(ft.Icons.ARROW_BACK_ROUNDED, on_click=lambda: mpl.back()),
             fwd_btn := ft.IconButton(ft.Icons.ARROW_FORWARD_ROUNDED, on_click=lambda: mpl.forward()),
-            pan_btn := ft.IconButton(ft.Icons.PAN_TOOL_OUTLINED, selected_icon=ft.Icons.PAN_TOOL_OUTLINED, selected_icon_color=ft.Colors.AMBER_800, on_click=pan_click),
-            zoom_btn := ft.IconButton(ft.Icons.ZOOM_IN, selected_icon=ft.Icons.ZOOM_IN, selected_icon_color=ft.Colors.AMBER_800, on_click=zoom_click),
+            pan_btn := ft.IconButton(ft.Icons.OPEN_WITH, selected_icon=ft.Icons.OPEN_WITH, selected_icon_color=ft.Colors.AMBER_800, on_click=pan_click),
+            zoom_btn := ft.IconButton(ft.Icons.SEARCH, selected_icon=ft.Icons.SEARCH, selected_icon_color=ft.Colors.AMBER_800, on_click=zoom_click),
             ft.IconButton(ft.Icons.DOWNLOAD, on_click=download_click),
             dwnld_fmt := ft.Dropdown(value="png", options=[ft.DropdownOption(fmt) for fmt in download_formats]),
             msg

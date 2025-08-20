@@ -74,7 +74,7 @@ class MatplotlibChart(ft.GestureDetector):
     Triggers when toolbar buttons status is updated.
     """
 
-    def init(self):
+    def build(self):
         # self.on_resize = self.on_canvas_resize
         # self.shapes = [fc.Line(x1=0, y1=0, x2=50, y2=50)]
         self.mouse_cursor = ft.MouseCursor.WAIT
