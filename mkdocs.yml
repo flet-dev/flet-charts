@@ -155,6 +155,7 @@ plugins:
           include_exts: [ ".png", ".gif", ".svg" ]
   - mkdocstrings:
       default_handler: python_xref
+      custom_templates: templates
       handlers:
         python_xref:
           options:
