@@ -1,0 +1,74 @@
+/* Material Symbols font with selected icons */
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,1&icon_names=bolt,build,deployed_code");
+
+/* Hide the original label text */
+code.doc-symbol { font-size: 0; }
+
+/* Show only the icon */
+code.doc-symbol::before {
+  font-family: "Material Symbols Outlined";
+  font-variation-settings: 'FILL' 1, 'GRAD' 0, 'opsz' 24, 'wght' 400;
+  font-size: .82rem;
+  position: relative;
+  top: .25em;
+}
+
+.doc-heading .doc-symbol::before {
+  font-size: 1.0rem;
+  top: .21em;
+}
+
+code.doc-symbol-attribute::before {
+  content: "build"; 
+}
+
+code.doc-symbol-event::before {
+  content: "bolt"; 
+}
+
+code.doc-symbol-method::before {
+  content: "deployed_code"; 
+}
+
+/* Overrides */
+[data-md-color-scheme="default"] {
+  --doc-symbol-attribute-fg-color: #ae106f;
+  --doc-symbol-attribute-bg-color: #9500721a;
+
+  --doc-symbol-event-fg-color: #f8aa01;
+  --doc-symbol-event-bg-color: #e5ff001a;
+}
+
+code.doc-symbol-event,
+a code.doc-symbol-event {
+  color: var(--doc-symbol-event-fg-color);
+  background-color: var(--doc-symbol-event-bg-color);
+}
+
+/* Overrides */
+
+/* Command symbol */
+:root, :host,
+    /* Light mode */
+[data-md-color-scheme="default"] {
+    --doc-symbol-command-fg-color: #9538001;
+    --doc-symbol-command-bg-color: #9538001a;
+}
+
+/* Dark mode */
+[data-md-color-scheme="slate"] {
+    --doc-symbol-command-fg-color: #ffa6571;
+    --doc-symbol-command-bg-color: #ffa6571a;
+}
+
+code.doc-symbol-command,
+a code.doc-symbol-command {
+    color: var(--doc-symbol-command-fg-color);
+    background-color: var(--doc-symbol-command-bg-color);
+}
+
+code.doc-symbol-command::after {
+    content: "cmd";
+}
+
+/* Command symbol */

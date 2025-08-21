@@ -72,6 +72,8 @@ extra:
       link: https://x.com/fletdev
     - icon: fontawesome/brands/bluesky
       link: https://bsky.app/profile/fletdev.bsky.social
+extra_css:
+  - extras/css/mkdocstrings.css
 
 # Navigation
 nav:
@@ -155,7 +157,7 @@ plugins:
           include_exts: [ ".png", ".gif", ".svg" ]
   - mkdocstrings:
       default_handler: python_xref
-      custom_templates: templates
+      custom_templates: docs/templates
       handlers:
         python_xref:
           options:
@@ -165,23 +167,27 @@ plugins:
             signature_crossrefs: true
             show_symbol_type_heading: true
             show_symbol_type_toc: true
-            show_root_heading: true
+            show_root_heading: false
+            show_root_toc_entry: false
             show_root_full_path: false
             show_bases: true
             show_source: false
             group_by_category: true
-            show_category_heading: false
+            show_category_heading: true
             show_labels: false
             show_if_no_docstring: true
-            docstring_section_style: spacy
+            docstring_section_style: list
             separate_signature: true
-            inherited_members: true
+            inherited_members: false
             preload_modules: [ flet ]
             filters:
               - "!^_"   # Exclude private members starting with only one underscore
             extensions:
               - griffe_modernized_annotations
               - griffe_warnings_deprecated
+            extra:
+              show_children: true
+              show_class_docstring: true
           inventories:
             - url: https://docs.flet.dev/objects.inv
             - url: https://docs.python.org/3/objects.inv
