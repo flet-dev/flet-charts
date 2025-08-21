@@ -1,3 +1,13 @@
+::: flet_charts.plotly_chart.PlotlyChart
+    options:
+        filters:
+          - "!(init|before_update)"
+        summary:
+            attributes: true
+            functions: true
+        extra:
+            show_children: false
+
 ## Examples
 
 ### Example 1
@@ -24,7 +34,7 @@ Based on an official [Plotly example](https://plotly.com/python/bar-charts).
 --8<-- "examples/charts_example/src/plotly_chart/example_2.py"
 ```
 
-## Example 3
+### Example 3
 
 Based on an official [Plotly example](https://plotly.com/python/pie-charts).
 
@@ -49,3 +59,9 @@ Based on an official [Plotly example](https://plotly.com/python/box-plots).
 ```
 
 ::: flet_charts.plotly_chart.PlotlyChart
+    options:
+        filters:
+          - "!(init|before_update)"
+        show_bases: false
+        extra:
+            show_class_docstring: false

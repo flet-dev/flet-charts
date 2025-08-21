@@ -6,9 +6,10 @@
 /// caption
 ///
 
-```python
---8<-- "examples/charts_example/src/pie_chart/example_1.py"
-```
+??? "Source code"
+    ```python
+    --8<-- "examples/charts_example/src/pie_chart/example_1.py"
+    ```
 
 ### Example 2
 

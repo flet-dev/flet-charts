@@ -28,8 +28,9 @@ class PlotlyChart(ft.Container):
 
     figure: Figure = field(metadata={"skip": True})
     """
-    Plotly figure to draw -
-    an instance of [`plotly.graph_objects.Figure`](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html).
+    Plotly figure to draw.
+    
+    The value is an instance of [`plotly.graph_objects.Figure`](https://plotly.com/python-api-reference/generated/plotly.graph_objects.Figure.html).
     """
 
     original_size: bool = False

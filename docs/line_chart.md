@@ -1,3 +1,11 @@
+::: flet_charts.line_chart.LineChart
+    options:
+        summary:
+            attributes: true
+            functions: true
+        extra:
+            show_children: false
+
 ## Examples
 
 ### Example 1
@@ -21,3 +29,7 @@
 ```
 
 ::: flet_charts.line_chart.LineChart
+    options:
+        show_bases: false
+        extra:
+            show_class_docstring: false
