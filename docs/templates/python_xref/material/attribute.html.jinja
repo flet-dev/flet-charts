@@ -18,6 +18,8 @@ Context:
   {{ log.debug("Rendering " + attribute.path) }}
 {% endblock logs %}
 
+{% set attr_class_name = "doc-symbol-event" if attribute.name.startswith('on_') else "doc-symbol-attribute" %}
+
 <div class="doc doc-object doc-attribute">
   {% with obj = attribute, html_id = attribute.path %}
 
@@ -39,7 +41,7 @@ Context:
           role="data" if attribute.parent.kind.value == "module" else "attr",
           id=html_id,
           class="doc doc-heading",
-          toc_label=('<code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;'|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else attribute.name),
+          toc_label=(('<code class="doc-symbol doc-symbol-toc ' + attr_class_name + '"></code>&nbsp;')|safe if config.show_symbol_type_toc else '') + (config.toc_label if config.toc_label and root else attribute.name),
           skip_inventory=config.skip_local_inventory,
         ) %}
 
@@ -48,7 +50,7 @@ Context:
 
           This block renders the heading for the attribute.
           -#}
-          {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>{% endif %}
+          {% if config.show_symbol_type_heading %}<code class="doc-symbol doc-symbol-heading {{ attr_class_name }}"></code>{% endif %}
           {% if config.heading and root %}
             {{ config.heading }}
           {% elif config.separate_signature %}

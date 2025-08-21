@@ -37,23 +37,53 @@ Context:
           {% set extra_level = 0 %}
         {% endif %}
 
-        {% with attributes = obj.attributes|filter_objects(
-            filters=config.filters,
-            members_list=members_list,
-            inherited_members=config.inherited_members,
-            keep_no_docstrings=config.show_if_no_docstring,
-          ) %}
+        {# decide headings for properties #}
+        {% set attr_heading_id = "-properties" if obj.is_class else "-attributes" %}
+        {% set attr_heading_name = "Properties" if obj.is_class else "Attributes" %}
+
+        {% with attributes = obj.attributes | filter_objects(
+              filters=config.filters,
+              members_list=members_list,
+              inherited_members=config.inherited_members,
+              keep_no_docstrings=config.show_if_no_docstring,
+        ) %}
           {% if attributes %}
-            {% if config.show_category_heading %}
-              {% filter heading(heading_level, id=html_id ~ "-attributes", skip_inventory=config.skip_local_inventory) %}Attributes{% endfilter %}
-            {% endif %}
-            {% with heading_level = heading_level + extra_level %}
-              {% for attribute in attributes|order_members(config.members_order, members_list) %}
-                {% if config.filters == "public" or members_list is not none or (not attribute.is_imported or attribute.is_public) %}
-                  {% include attribute|get_template with context %}
+            {# order once, then split into two lists #}
+            {% set ordered = attributes | order_members(config.members_order, members_list) %}
+            {% set ns = namespace(props=[], events=[]) %}
+            {% for attribute in ordered %}
+              {% if config.filters == "public" or members_list is not none or (not attribute.is_imported or attribute.is_public) %}
+                {% if attribute.name.startswith("on_") %}
+                  {% set _ = ns.events.append(attribute) %}
+                {% else %}
+                  {% set _ = ns.props.append(attribute) %}
                 {% endif %}
-              {% endfor %}
-            {% endwith %}
+              {% endif %}
+            {% endfor %}
+
+            {# --- PROPERTIES --- #}
+            {% if ns.props %}
+              {% if config.show_category_heading %}
+                {% filter heading(heading_level, id=html_id ~ attr_heading_id, skip_inventory=config.skip_local_inventory) %}{{ attr_heading_name }}{% endfilter %}
+              {% endif %}
+              {% with heading_level = heading_level + extra_level %}
+                {% for attribute in ns.props %}
+                  {% include attribute|get_template with context %}
+                {% endfor %}
+              {% endwith %}
+            {% endif %}
+
+            {# --- EVENTS (on_*) --- #}
+            {% if ns.events %}
+              {% if config.show_category_heading %}
+                {% filter heading(heading_level, id=html_id ~ "-events", skip_inventory=config.skip_local_inventory) %}Events{% endfilter %}
+              {% endif %}
+              {% with heading_level = heading_level + extra_level %}
+                {% for attribute in ns.events %}
+                  {% include attribute|get_template with context %}
+                {% endfor %}
+              {% endwith %}
+            {% endif %}
           {% endif %}
         {% endwith %}
 
@@ -77,6 +107,8 @@ Context:
           {% endif %}
         {% endwith %}
 
+        {% set func_heading_id = "-methods" if obj.is_class else "-functions" %}
+        {% set func_heading_name = "Methods" if obj.is_class else "Functions" %}
         {% with functions = obj.functions|filter_objects(
             filters=config.filters,
             members_list=members_list,
@@ -85,7 +117,7 @@ Context:
           ) %}
           {% if functions %}
             {% if config.show_category_heading %}
-              {% filter heading(heading_level, id=html_id ~ "-functions", skip_inventory=config.skip_local_inventory) %}Functions{% endfilter %}
+              {% filter heading(heading_level, id=html_id ~ func_heading_id, skip_inventory=config.skip_local_inventory) %}{{ func_heading_name }}{% endfilter %}
             {% endif %}
             {% with heading_level = heading_level + extra_level %}
               {% for function in functions|order_members(config.members_order, members_list) %}
