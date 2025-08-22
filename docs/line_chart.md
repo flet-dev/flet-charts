@@ -30,6 +30,7 @@
 
 ::: flet_charts.line_chart.LineChart
     options:
+        show_root_toc_entry: false
         show_bases: false
         extra:
             show_class_docstring: false
