@@ -1,5 +1,5 @@
 # Project information
-site_name: "flet-charts"
+site_name: "Flet Charts"
 site_url: https://flet-dev.github.io/flet-charts/
 site_author: Flet Contributors
 site_description: A Flet extension for creating interactive charts and graphs.
@@ -21,20 +21,20 @@ theme:
     annotation: material/plus-circle
   palette:
     - scheme: default
-      primary: indigo
-      accent: pink
+      primary: pink
+      accent: light blue
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
-      primary: indigo
-      accent: pink
+      primary: pink
+      accent: light blue
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
     - scheme: slate
-      primary: indigo
-      accent: pink
+      primary: pink
+      accent: light blue
       toggle:
         icon: material/brightness-auto
         name: Switch to light mode
