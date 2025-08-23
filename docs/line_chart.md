@@ -1,8 +1,5 @@
 ::: flet_charts.line_chart.LineChart
     options:
-        summary:
-            attributes: true
-            functions: true
         extra:
             show_children: false
 
@@ -32,5 +29,8 @@
     options:
         show_root_toc_entry: false
         show_bases: false
+        summary:
+            attributes: false
+            functions: false
         extra:
             show_class_docstring: false

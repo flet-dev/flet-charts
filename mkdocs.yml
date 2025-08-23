@@ -179,6 +179,9 @@ plugins:
             docstring_section_style: list
             separate_signature: true
             inherited_members: false
+            summary:
+                attributes: true
+                functions: true
             preload_modules: [ flet ]
             filters:
               - "!^_"   # Exclude private members starting with only one underscore
