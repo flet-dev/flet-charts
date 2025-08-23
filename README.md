@@ -16,14 +16,9 @@ Detailed documentation to this package can be found [here](https://flet-dev.gith
 
 This package supports the following platforms:
 
-| Platform | Supported |
-|----------|:---------:|
-| Windows  |     ✅     |
-| macOS    |     ✅     |
-| Linux    |     ✅     |
-| iOS      |     ✅     |
-| Android  |     ✅     |
-| Web      |     ✅     |
+| Platform | Windows | macOS | Linux | iOS | Android | Web |
+|----------|---------|-------|-------|-----|---------|-----|
+| Supported|    ✅    |   ✅   |   ✅   |  ✅  |    ✅    |  ✅  |
 
 ## Usage
 
