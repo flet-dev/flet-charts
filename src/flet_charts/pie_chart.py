@@ -3,19 +3,17 @@ from typing import Optional
 
 import flet as ft
 
-from .pie_chart_section import PieChartSection
-from .types import ChartEventType
+from flet_charts.pie_chart_section import PieChartSection
+from flet_charts.types import ChartEventType
 
 __all__ = ["PieChart", "PieChartEvent"]
 
 
 @dataclass
-class PieChartEvent(ft.Event[ft.EventControlType]):
+class PieChartEvent(ft.Event["PieChart"]):
     type: ChartEventType
     """
     Type of the event.
-
-    Value is of type [`ChartEventType`][(p).].
     """
 
     section_index: Optional[int] = None
@@ -39,7 +37,7 @@ class PieChart(ft.ConstrainedControl):
     """
     A pie chart control displaying multiple sections as slices of a circle.
 
-    ![Overview](assets/pie-chart/diagram.svg)
+    ![Overview](assets/pie-chart-diagram.svg)
     """
 
     sections: list[PieChartSection] = field(default_factory=list)
@@ -50,7 +48,7 @@ class PieChart(ft.ConstrainedControl):
 
     center_space_color: Optional[ft.ColorValue] = None
     """
-    Free space [color](https://flet.dev/docs/reference/colors) in the middle of a chart.
+    Free space color in the middle of a chart.
     """
 
     center_space_radius: Optional[ft.Number] = None
@@ -77,13 +75,9 @@ class PieChart(ft.ConstrainedControl):
     )
     """
     Controls chart implicit animation.
-
-    Value is of type [`AnimationValue`](https://flet.dev/docs/reference/types/animationvalue).
     """
 
-    on_event: Optional[ft.EventHandler[PieChartEvent["PieChart"]]] = None
+    on_event: Optional[ft.EventHandler[PieChartEvent]] = None
     """
     Fires when a chart section is hovered or clicked.
-
-    Event data is an instance [`PieChartEvent`][(p).].
     """

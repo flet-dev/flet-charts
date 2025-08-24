@@ -1,10 +1,10 @@
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Optional, Union
 
 import flet as ft
 
-from .bar_chart_rod_stack_item import BarChartRodStackItem
-from .types import ChartDataPointTooltip
+from flet_charts.bar_chart_rod_stack_item import BarChartRodStackItem
+from flet_charts.types import ChartDataPointTooltip
 
 __all__ = ["BarChartRod", "BarChartRodTooltip"]
 
@@ -21,6 +21,28 @@ class BarChartRodTooltip(ChartDataPointTooltip):
 
     When `None`, defaults to [`BarChartRod.to_y`][(p).].
     """
+
+    def copy(
+        self,
+        *,
+        text: Optional[str] = None,
+        text_style: Optional[ft.TextStyle] = None,
+        text_align: Optional[ft.TextAlign] = None,
+        text_spans: Optional[list[ft.TextSpan]] = None,
+        rtl: Optional[bool] = None,
+    ) -> "BarChartRodTooltip":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return BarChartRodTooltip(
+            text=text if text is not None else self.text,
+            text_style=text_style if text_style is not None else self.text_style,
+            text_align=text_align if text_align is not None else self.text_align,
+            text_spans=text_spans.copy()
+            if text_spans is not None
+            else (self.text_spans.copy() if self.text_spans is not None else None),
+            rtl=rtl if rtl is not None else self.rtl,
+        )
 
 
 @ft.control("BarChartRod")
@@ -49,14 +71,12 @@ class BarChartRod(ft.BaseControl):
 
     color: Optional[ft.ColorValue] = None
     """
-    Rod [color](https://flet.dev/docs/reference/colors).
+    Rod color.
     """
 
     gradient: Optional[ft.Gradient] = None
     """
     Gradient to draw rod's background.
-
-    Value is of type [`Gradient`](https://flet.dev/docs/reference/types/gradient).
     """
 
     border_radius: Optional[ft.BorderRadiusValue] = None
@@ -67,9 +87,6 @@ class BarChartRod(ft.BaseControl):
     border_side: Optional[ft.BorderSide] = None
     """
     Border to draw around rod.
-
-    Value is of type [`BorderSide`](https://flet.dev/docs/reference/types/borderside)
-    class.
     """
 
     bg_from_y: Optional[ft.Number] = None
@@ -84,7 +101,7 @@ class BarChartRod(ft.BaseControl):
 
     bgcolor: Optional[ft.ColorValue] = None
     """
-    An optional [color](https://flet.dev/docs/reference/colors) of a background behind
+    An optional color of a background behind
     this rod.
     """
 
@@ -96,10 +113,12 @@ class BarChartRod(ft.BaseControl):
     selected: bool = False
     """
     If set to `True` a tooltip is always shown on top of the bar when
-    `BarChart.interactive` is set to `False`.
+    [`BarChart.interactive`][(p).] is set to `False`.
     """
 
-    tooltip: BarChartRodTooltip = field(default_factory=lambda: BarChartRodTooltip())
+    tooltip: Union[BarChartRodTooltip, str] = field(
+        default_factory=lambda: BarChartRodTooltip()
+    )
     """
     The rod's tooltip configuration for this rod.
     """
@@ -109,3 +128,10 @@ class BarChartRod(ft.BaseControl):
     Whether a tooltip should be shown on top of hovered bar.
     """
 
+    def before_update(self):
+        super().before_update()
+        self._internals["tooltip"] = (
+            BarChartRodTooltip(text=self.tooltip)
+            if isinstance(self.tooltip, str)
+            else self.tooltip
+        )

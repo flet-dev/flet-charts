@@ -20,12 +20,10 @@ class BarChartRodStackItem(ft.BaseControl):
 
     color: Optional[ft.ColorValue] = None
     """
-    The [color](https://flet.dev/docs/reference/colors) of this item.
+    The color of this item.
     """
 
     border_side: ft.BorderSide = field(default_factory=lambda: ft.BorderSide.none())
     """
     A border around this item.
-
-    Value is of type [`BorderSide`](https://flet.dev/docs/reference/types/borderside).
     """

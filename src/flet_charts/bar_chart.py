@@ -4,15 +4,15 @@ from typing import Any, Optional
 
 import flet as ft
 
-from .bar_chart_group import BarChartGroup
-from .chart_axis import ChartAxis
-from .types import ChartEventType, ChartGridLines
+from flet_charts.bar_chart_group import BarChartGroup
+from flet_charts.chart_axis import ChartAxis
+from flet_charts.types import ChartEventType, ChartGridLines, HorizontalAlignment
 
 __all__ = [
     "BarChart",
     "BarChartEvent",
-    "BarChartTooltipDirection",
     "BarChartTooltip",
+    "BarChartTooltipDirection",
 ]
 
 
@@ -35,7 +35,7 @@ class BarChartTooltip:
 
     bgcolor: ft.ColorValue = ft.Colors.SECONDARY
     """
-    Background [color](https://flet.dev/docs/reference/colors) of tooltips.
+    Background color of tooltips.
     """
 
     border_radius: Optional[ft.BorderRadiusValue] = None
@@ -43,12 +43,14 @@ class BarChartTooltip:
     The border radius of the tooltip.
     """
 
-    margin: Optional[ft.Number] = None
+    margin: ft.Number = 16
     """
     Applies a bottom margin for showing tooltip on top of rods.
     """
 
-    padding: Optional[ft.PaddingValue] = None
+    padding: ft.PaddingValue = field(
+        default_factory=lambda: ft.Padding.symmetric(vertical=8, horizontal=16)
+    )
     """
     Applies a padding for showing contents inside the tooltip.
     """
@@ -58,14 +60,14 @@ class BarChartTooltip:
     Restricts the tooltip's width.
     """
 
-    rotate_angle: Optional[ft.Number] = None
+    rotation: ft.Number = 0.0
     """
     The rotation angle of the tooltip.
     """
 
-    horizontal_offset: Optional[ft.Number] = None
+    horizontal_offset: ft.Number = 0.0
     """
-    Applies horizontal offset for showing tooltip.
+    The horizontal offset of this tooltip.
     """
 
     border_side: Optional[ft.BorderSide] = None
@@ -73,24 +75,69 @@ class BarChartTooltip:
     The tooltip border side.
     """
 
-    fit_inside_horizontally: Optional[bool] = None
+    fit_inside_horizontally: bool = False
     """
     Forces the tooltip to shift horizontally inside the chart, if overflow happens.
-
-    Value is of type `bool`.
     """
 
-    fit_inside_vertically: Optional[bool] = None
+    fit_inside_vertically: bool = False
     """
     Forces the tooltip to shift vertically inside the chart, if overflow happens.
-
-    Value is of type `bool`.
     """
 
-    direction: Optional[BarChartTooltipDirection] = None
+    direction: BarChartTooltipDirection = BarChartTooltipDirection.AUTO
     """
-    Controls showing tooltip on top or bottom, default is auto.
+    Defines the direction of this tooltip.
     """
+
+    horizontal_alignment: HorizontalAlignment = HorizontalAlignment.CENTER
+    """
+    Defines the horizontal alignment of this tooltip.
+    """
+
+    def copy(
+        self,
+        *,
+        bgcolor: Optional[ft.ColorValue] = None,
+        border_radius: Optional[ft.BorderRadiusValue] = None,
+        margin: Optional[ft.Number] = None,
+        padding: Optional[ft.PaddingValue] = None,
+        max_width: Optional[ft.Number] = None,
+        rotation: Optional[ft.Number] = None,
+        horizontal_offset: Optional[ft.Number] = None,
+        border_side: Optional[ft.BorderSide] = None,
+        fit_inside_horizontally: Optional[bool] = None,
+        fit_inside_vertically: Optional[bool] = None,
+        direction: Optional[BarChartTooltipDirection] = None,
+        horizontal_alignment: Optional[HorizontalAlignment] = None,
+    ) -> "BarChartTooltip":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return BarChartTooltip(
+            bgcolor=bgcolor if bgcolor is not None else self.bgcolor,
+            border_radius=border_radius
+            if border_radius is not None
+            else self.border_radius,
+            margin=margin if margin is not None else self.margin,
+            padding=padding if padding is not None else self.padding,
+            max_width=max_width if max_width is not None else self.max_width,
+            rotation=rotation if rotation is not None else self.rotation,
+            horizontal_offset=horizontal_offset
+            if horizontal_offset is not None
+            else self.horizontal_offset,
+            border_side=border_side if border_side is not None else self.border_side,
+            fit_inside_horizontally=fit_inside_horizontally
+            if fit_inside_horizontally is not None
+            else self.fit_inside_horizontally,
+            fit_inside_vertically=fit_inside_vertically
+            if fit_inside_vertically is not None
+            else self.fit_inside_vertically,
+            direction=direction if direction is not None else self.direction,
+            horizontal_alignment=horizontal_alignment
+            if horizontal_alignment is not None
+            else self.horizontal_alignment,
+        )
 
 
 @dataclass
@@ -121,7 +168,7 @@ class BarChart(ft.ConstrainedControl):
     """
     Draws a bar chart.
 
-    ![Overview](assets/bar-chart/diagram.svg)
+    ![Overview](assets/bar-chart-diagram.svg)
     """
 
     groups: list[BarChartGroup] = field(default_factory=list)
@@ -129,9 +176,17 @@ class BarChart(ft.ConstrainedControl):
     The list of [`BarChartGroup`][(p).]s to draw.
     """
 
-    spacing: Optional[ft.Number] = None
+    group_spacing: ft.Number = 16.0
     """
-    A amount of space between bar groups.
+    A amount of space between bar [`groups`][..].
+    """
+
+    group_alignment: ft.MainAxisAlignment = ft.MainAxisAlignment.SPACE_EVENLY
+    """
+    A alignment of the bar [`groups`][..] within this chart.
+
+    If set to [`MainAxisAlignment.CENTER`][flet.MainAxisAlignment.CENTER],
+    the space between the `groups` can be specified using [`group_spacing`][..].
     """
 
     animation: ft.AnimationValue = field(
@@ -141,9 +196,6 @@ class BarChart(ft.ConstrainedControl):
     )
     """
     Controls chart implicit animation.
-
-    Value is of [`AnimationValue`](https://flet.dev/docs/reference/types/animationvalue)
-    type.
     """
 
     interactive: bool = True
@@ -153,56 +205,42 @@ class BarChart(ft.ConstrainedControl):
 
     bgcolor: Optional[ft.ColorValue] = None
     """
-    Background [color](https://flet.dev/docs/reference/colors) of the chart.
+    Background color of the chart.
     """
 
     border: Optional[ft.Border] = None
     """
     The border around the chart.
-
-    Value is of type [`Border`](https://flet.dev/docs/reference/types/border).
     """
 
     horizontal_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's horizontal lines.
-
-    Value is of type [`ChartGridLines`][(p).].
     """
 
     vertical_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's vertical lines.
-
-    Value is of type [`ChartGridLines`][(p).].
     """
 
     left_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     The appearance of the left axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     top_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     The appearance of the top axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     right_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     The appearance of the right axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     The appearance of the bottom axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     baseline_y: Optional[ft.Number] = None
@@ -220,16 +258,18 @@ class BarChart(ft.ConstrainedControl):
     The maximum displayed value for Y axis.
     """
 
-    tooltip: Optional[BarChartTooltip] = None
+    tooltip: Optional[BarChartTooltip] = field(
+        default_factory=lambda: BarChartTooltip()
+    )
     """
-    The tooltip configuration for the chart.
+    The tooltip configuration for this chart.
+
+    If set to `None`, tooltips will not shown throughout this chart.
     """
 
     on_event: Optional[ft.EventHandler[BarChartEvent]] = None
     """
-    Fires when a bar is hovered or clicked.
-
-    Event handler receives an instance of [`BarChartEvent`][(p).].
+    Called when an event occurs on this chart, such as a click or hover.
     """
 
     def __post_init__(self, ref: Optional[ft.Ref[Any]]):

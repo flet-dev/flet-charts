@@ -52,15 +52,15 @@ class MatplotlibChart(ft.GestureDetector):
     Displays a [Matplotlib](https://matplotlib.org/) chart.
 
     Warning:
-        This control requires the [`matplotlib`](https://matplotlib.org/) Python package
-        to be installed.
+        This control requires the [`matplotlib`](https://matplotlib.org/)
+        Python package to be installed.
 
         See this [installation guide](index.md#installation) for more information.
     """
 
     figure: Figure = field(metadata={"skip": True})
     """
-    Matplotlib figure to draw - an instance of 
+    Matplotlib figure to draw - an instance of
     [`matplotlib.figure.Figure`](https://matplotlib.org/stable/api/_as_gen/matplotlib.figure.Figure.html#matplotlib.figure.Figure).
     """
 

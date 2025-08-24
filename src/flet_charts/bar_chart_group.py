@@ -3,7 +3,7 @@ from typing import Optional
 
 import flet as ft
 
-from .bar_chart_rod import BarChartRod
+from flet_charts.bar_chart_rod import BarChartRod
 
 __all__ = ["BarChartGroup"]
 

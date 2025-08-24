@@ -44,58 +44,6 @@ To install the `flet-charts` package and add it to your project dependencies:
     poetry add flet-charts
     ```
 
-
-???+ note annotate
-    If you plan to use the [`MatplotlibChart`](matplotlib_chart.md) and/or [`PlotlyChart`](plotly_chart.md) controls,
-    you need to install [`matplotlib`](https://matplotlib.org/) and/or [`plotly`](https://plotly.com/python/) packages
-    respectively as well.
-    
-    This can easily be done when installing `flet-charts` by specifying an extra:
-    
-    - `[matplotlib]` which installs _only_ `matplotlib`
-    - `[plotly]` which installs _only_ `plotly`
-    - `[all]` which installs _both_ `matplotlib` and `plotly`
-    
-    === "uv"
-        ```bash
-        uv add "flet-charts[all]"  # (1)!
-        ```
-    
-    === "pip"
-        ```bash
-        pip install flet-charts[all]  # (2)!
-        ```
-    
-    === "poetry"
-        ```bash
-        poetry add "flet-charts[all]" # (3)!
-        ```
-    
-    **Alternatively, you can also install them on their own:**
-    
-    === "uv"
-        ```bash
-        uv add matplotlib 
-        uv add plotly
-        ```
-    
-    === "pip"
-        ```bash
-        pip install matplotlib
-        pip install plotly
-        ```
-    
-    === "poetry"
-        ```bash
-        poetry add matplotlib
-        poetry add plotly
-        ```
-
-
-1. Replace `all` with `matplotlib` or `plotly` to install only one of them.
-2. Replace `all` with `matplotlib` or `plotly` to install only one of them.
-3. Replace `all` with `matplotlib` or `plotly` to install only one of them.
-
 ## Examples
 
 You can find examples in the respective documentation pages for each chart type:
@@ -106,4 +54,3 @@ You can find examples in the respective documentation pages for each chart type:
 - [`PieChart`](pie_chart.md#examples)
 - [`PlotlyChart`](plotly_chart.md#examples)
 - [`ScatterChart`](scatter_chart.md#examples)
-

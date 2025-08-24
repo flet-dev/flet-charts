@@ -3,9 +3,9 @@ from typing import Any, Optional
 
 import flet as ft
 
-from .chart_axis import ChartAxis
-from .line_chart_data import LineChartData
-from .types import ChartEventType, ChartGridLines
+from flet_charts.chart_axis import ChartAxis
+from flet_charts.line_chart_data import LineChartData
+from flet_charts.types import ChartEventType, ChartGridLines, HorizontalAlignment
 
 __all__ = [
     "LineChart",
@@ -27,6 +27,20 @@ class LineChartEventSpot:
     The line's point index or `-1` if no point was hovered.
     """
 
+    def copy(
+        self,
+        *,
+        bar_index: Optional[int] = None,
+        spot_index: Optional[int] = None,
+    ) -> "LineChartEventSpot":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return LineChartEventSpot(
+            bar_index=bar_index if bar_index is not None else self.bar_index,
+            spot_index=spot_index if spot_index is not None else self.spot_index,
+        )
+
 
 @dataclass
 class LineChartEvent(ft.Event["LineChart"]):
@@ -47,7 +61,7 @@ class LineChartTooltip:
 
     bgcolor: ft.ColorValue = "#FF607D8B"
     """
-    Background [color](https://flet.dev/docs/reference/colors) of tooltip.
+    Background color of tooltip.
     """
 
     border_radius: Optional[ft.BorderRadiusValue] = None
@@ -65,8 +79,6 @@ class LineChartTooltip:
     )
     """
     Applies a padding for showing contents inside the tooltip.
-
-    Value is of type [`PaddingValue`](https://flet.dev/docs/reference/types/aliases#paddingvalue).
     """
 
     max_width: ft.Number = 120
@@ -74,7 +86,7 @@ class LineChartTooltip:
     Restricts the tooltip's width.
     """
 
-    rotate_angle: ft.Number = 0.0
+    rotation: ft.Number = 0.0
     """
     The tooltip's rotation angle in degrees.
     """
@@ -86,7 +98,7 @@ class LineChartTooltip:
 
     border_side: ft.BorderSide = field(default_factory=lambda: ft.BorderSide.none())
     """
-    The tooltip's border side.
+    Defines the borders of this tooltip.
     """
 
     fit_inside_horizontally: bool = False
@@ -104,13 +116,60 @@ class LineChartTooltip:
     Whether to force the tooltip container to top of the line.
     """
 
+    horizontal_alignment: HorizontalAlignment = HorizontalAlignment.CENTER
+    """
+    The horizontal alignment of this tooltip.
+    """
+
+    def copy(
+        self,
+        *,
+        bgcolor: Optional[ft.ColorValue] = None,
+        border_radius: Optional[ft.BorderRadiusValue] = None,
+        margin: Optional[ft.Number] = None,
+        padding: Optional[ft.PaddingValue] = None,
+        max_width: Optional[ft.Number] = None,
+        rotation: Optional[ft.Number] = None,
+        horizontal_offset: Optional[ft.Number] = None,
+        border_side: Optional[ft.BorderSide] = None,
+        fit_inside_horizontally: Optional[bool] = None,
+        fit_inside_vertically: Optional[bool] = None,
+        show_on_top_of_chart_box_area: Optional[bool] = None,
+    ) -> "LineChartTooltip":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return LineChartTooltip(
+            bgcolor=bgcolor if bgcolor is not None else self.bgcolor,
+            border_radius=border_radius
+            if border_radius is not None
+            else self.border_radius,
+            margin=margin if margin is not None else self.margin,
+            padding=padding if padding is not None else self.padding,
+            max_width=max_width if max_width is not None else self.max_width,
+            rotation=rotation if rotation is not None else self.rotation,
+            horizontal_offset=horizontal_offset
+            if horizontal_offset is not None
+            else self.horizontal_offset,
+            border_side=border_side if border_side is not None else self.border_side,
+            fit_inside_horizontally=fit_inside_horizontally
+            if fit_inside_horizontally is not None
+            else self.fit_inside_horizontally,
+            fit_inside_vertically=fit_inside_vertically
+            if fit_inside_vertically is not None
+            else self.fit_inside_vertically,
+            show_on_top_of_chart_box_area=show_on_top_of_chart_box_area
+            if show_on_top_of_chart_box_area is not None
+            else self.show_on_top_of_chart_box_area,
+        )
+
 
 @ft.control("LineChart")
 class LineChart(ft.ConstrainedControl):
     """
     Draws a line chart.
 
-    ![Overview](assets/line-chart/diagram.svg)
+    ![Overview](assets/line-chart-diagram.svg)
     """
 
     data_series: list[LineChartData] = field(default_factory=list)
@@ -126,8 +185,6 @@ class LineChart(ft.ConstrainedControl):
     )
     """
     Controls chart implicit animation.
-
-    Value is of type [`AnimationValue`](https://flet.dev/docs/reference/types/animationvalue).
     """
 
     interactive: bool = True
@@ -151,56 +208,42 @@ class LineChart(ft.ConstrainedControl):
 
     bgcolor: Optional[ft.ColorValue] = None
     """
-    Background [color](https://flet.dev/docs/reference/colors) of the chart.
+    Background color of the chart.
     """
 
     border: Optional[ft.Border] = None
     """
     The border around the chart.
-
-    Value is of type [`Border`](https://flet.dev/docs/reference/types/border).
     """
 
     horizontal_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's horizontal lines.
-
-    Value is of type [`ChartGridLines`][(p).].
     """
 
     vertical_grid_lines: Optional[ChartGridLines] = None
     """
     Controls drawing of chart's vertical lines.
-
-    Value is of type [`ChartGridLines`][(p).].
     """
 
     left_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     Defines the appearance of the left axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     top_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     Defines the appearance of the top axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     right_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=44))
     """
     Defines the appearance of the right axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     bottom_axis: ChartAxis = field(default_factory=lambda: ChartAxis(label_size=30))
     """
     Defines the appearance of the bottom axis, its title and labels.
-
-    Value is of type [`ChartAxis`][(p).].
     """
 
     baseline_x: Optional[ft.Number] = None
@@ -233,16 +276,18 @@ class LineChart(ft.ConstrainedControl):
     Defines the maximum displayed value for Y axis.
     """
 
-    tooltip: LineChartTooltip = field(default_factory=lambda: LineChartTooltip())
+    tooltip: Optional[LineChartTooltip] = field(
+        default_factory=lambda: LineChartTooltip()
+    )
     """
     The tooltip configuration for this chart.
+
+    If set to `None`, no tooltips will be shown throughout this chart.
     """
 
     on_event: Optional[ft.EventHandler[LineChartEvent]] = None
     """
     Fires when a chart line is hovered or clicked.
-
-    Value is of type [`LineChartEvent`][(p).].
     """
 
     def __post_init__(self, ref: Optional[ft.Ref[Any]]):

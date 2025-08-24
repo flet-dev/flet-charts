@@ -5,15 +5,15 @@ from typing import Optional
 import flet as ft
 
 __all__ = [
-    "ChartPointShape",
     "ChartCirclePoint",
-    "ChartSquarePoint",
     "ChartCrossPoint",
-    "ChartPointLine",
+    "ChartDataPointTooltip",
     "ChartEventType",
     "ChartGridLines",
-    "ChartDataPointTooltip",
-    "ChartHorizontalAlignment",
+    "ChartPointLine",
+    "ChartPointShape",
+    "ChartSquarePoint",
+    "HorizontalAlignment",
 ]
 
 
@@ -30,7 +30,7 @@ class ChartGridLines:
 
     color: Optional[ft.ColorValue] = None
     """
-    The [color](https://flet.dev/docs/reference/colors) of a grid line.
+    The color of a grid line.
     """
 
     width: ft.Number = 2.0
@@ -45,8 +45,28 @@ class ChartGridLines:
     followed by blank spaces 10 pixels long. By default, a solid line is drawn.
     """
 
+    def copy(
+        self,
+        *,
+        interval: Optional[ft.Number] = None,
+        color: Optional[ft.ColorValue] = None,
+        width: Optional[ft.Number] = None,
+        dash_pattern: Optional[list[int]] = None,
+    ) -> "ChartGridLines":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartGridLines(
+            interval=interval if interval is not None else self.interval,
+            color=color if color is not None else self.color,
+            width=width if width is not None else self.width,
+            dash_pattern=dash_pattern.copy()
+            if dash_pattern is not None
+            else (self.dash_pattern.copy() if self.dash_pattern is not None else None),
+        )
 
-@dataclass(kw_only=True)  # todo
+
+@dataclass
 class ChartPointShape:
     """
     Base class for chart point shapes.
@@ -67,7 +87,7 @@ class ChartCirclePoint(ChartPointShape):
 
     color: Optional[ft.ColorValue] = None
     """
-    The fill [color](https://flet.dev/docs/reference/colors) to use for the circle.
+    The fill color to use for the circle.
     """
 
     radius: Optional[ft.Number] = None
@@ -77,7 +97,7 @@ class ChartCirclePoint(ChartPointShape):
 
     stroke_color: Optional[ft.ColorValue] = None
     """
-    The stroke [color](https://flet.dev/docs/reference/colors) to use for the circle
+    The stroke color to use for the circle
     """
 
     stroke_width: ft.Number = 0
@@ -88,6 +108,28 @@ class ChartCirclePoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartCirclePoint"
 
+    def copy(
+        self,
+        *,
+        color: Optional[ft.ColorValue] = None,
+        radius: Optional[ft.Number] = None,
+        stroke_color: Optional[ft.ColorValue] = None,
+        stroke_width: Optional[ft.Number] = None,
+    ) -> "ChartCirclePoint":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartCirclePoint(
+            color=color if color is not None else self.color,
+            radius=radius if radius is not None else self.radius,
+            stroke_color=stroke_color
+            if stroke_color is not None
+            else self.stroke_color,
+            stroke_width=stroke_width
+            if stroke_width is not None
+            else self.stroke_width,
+        )
+
 
 @dataclass
 class ChartSquarePoint(ChartPointShape):
@@ -95,7 +137,7 @@ class ChartSquarePoint(ChartPointShape):
 
     color: Optional[ft.ColorValue] = None
     """
-    The fill [color](https://flet.dev/docs/reference/colors) to use for the square.
+    The fill color to use for the square.
     """
 
     size: ft.Number = 4.0
@@ -105,7 +147,7 @@ class ChartSquarePoint(ChartPointShape):
 
     stroke_color: Optional[ft.ColorValue] = None
     """
-    The stroke [color](https://flet.dev/docs/reference/colors) to use for the square.
+    The stroke color to use for the square.
     """
 
     stroke_width: ft.Number = 1.0
@@ -116,14 +158,36 @@ class ChartSquarePoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartSquarePoint"
 
+    def copy(
+        self,
+        *,
+        color: Optional[ft.ColorValue] = None,
+        size: Optional[ft.Number] = None,
+        stroke_color: Optional[ft.ColorValue] = None,
+        stroke_width: Optional[ft.Number] = None,
+    ) -> "ChartSquarePoint":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartSquarePoint(
+            color=color if color is not None else self.color,
+            size=size if size is not None else self.size,
+            stroke_color=stroke_color
+            if stroke_color is not None
+            else self.stroke_color,
+            stroke_width=stroke_width
+            if stroke_width is not None
+            else self.stroke_width,
+        )
+
 
 @dataclass
 class ChartCrossPoint(ChartPointShape):
-    """Draws a cross-mark(X)."""
+    """Draws a cross-mark (X)."""
 
     color: Optional[ft.ColorValue] = None
     """
-    The fill [color](https://flet.dev/docs/reference/colors) to use for the 
+    The fill color to use for the
     cross-mark(X).
     """
 
@@ -140,14 +204,30 @@ class ChartCrossPoint(ChartPointShape):
     def __post_init__(self):
         self._type = "ChartCrossPoint"
 
+    def copy(
+        self,
+        *,
+        color: Optional[ft.ColorValue] = None,
+        size: Optional[ft.Number] = None,
+        width: Optional[ft.Number] = None,
+    ) -> "ChartCrossPoint":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartCrossPoint(
+            color=color if color is not None else self.color,
+            size=size if size is not None else self.size,
+            width=width if width is not None else self.width,
+        )
+
 
 @dataclass
 class ChartPointLine:
-    """"""
+    """Defines style of a line."""
 
     color: Optional[ft.ColorValue] = None
     """
-    The line's [color](https://flet.dev/docs/reference/colors).
+    The line's color.
     """
 
     width: ft.Number = 2
@@ -160,13 +240,40 @@ class ChartPointLine:
     The line's dash pattern.
     """
 
+    gradient: Optional[ft.Gradient] = None
+    """
+    The line's gradient.
+    """
+
+    def copy(
+        self,
+        *,
+        color: Optional[ft.ColorValue] = None,
+        width: Optional[ft.Number] = None,
+        dash_pattern: Optional[list[int]] = None,
+        gradient: Optional[ft.Gradient] = None,
+    ) -> "ChartPointLine":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartPointLine(
+            color=color if color is not None else self.color,
+            width=width if width is not None else self.width,
+            dash_pattern=dash_pattern.copy()
+            if dash_pattern is not None
+            else self.dash_pattern.copy()
+            if self.dash_pattern is not None
+            else None,
+            gradient=gradient if gradient is not None else self.gradient,
+        )
+
 
 class ChartEventType(Enum):
     """The type of event that occurred on the chart."""
 
     PAN_END = "panEnd"
     """
-    When a pointer that was previously in contact with 
+    When a pointer that was previously in contact with
     the screen and moving is no longer in contact with the screen.
     """
 
@@ -177,14 +284,14 @@ class ChartEventType(Enum):
 
     POINTER_EXIT = "pointerExit"
     """
-    The pointer has moved with respect to the device while the 
+    The pointer has moved with respect to the device while the
     pointer is or is not in contact with the device, and exited our chart.
     """
 
     LONG_PRESS_END = "longPressEnd"
     """
-    When a pointer stops contacting the screen after a long press 
-    gesture was detected. Also reports the position where the 
+    When a pointer stops contacting the screen after a long press
+    gesture was detected. Also reports the position where the
     pointer stopped contacting the screen.
     """
 
@@ -200,47 +307,54 @@ class ChartEventType(Enum):
 
     POINTER_ENTER = "pointerEnter"
     """
-    
+    The pointer has moved with respect to the device while the pointer is or is
+    not in contact with the device, and it has entered our chart.
     """
 
     POINTER_HOVER = "pointerHover"
     """
-
+    The pointer has moved with respect to the device while the pointer is not
+    in contact with the device.
     """
 
     PAN_DOWN = "panDown"
     """
-
+    When a pointer has contacted the screen and might begin to move
     """
 
     PAN_START = "panStart"
     """
-
+    When a pointer has contacted the screen and has begun to move.
     """
 
     PAN_UPDATE = "panUpdate"
     """
-
+    When a pointer that is in contact with the screen and moving
+    has moved again.
     """
 
     LONG_PRESS_MOVE_UPDATE = "longPressMoveUpdate"
     """
-
+    When a pointer is moving after being held in contact at the same
+    location for a long period of time. Reports the new position and its offset
+    from the original down position.
     """
 
     LONG_PRESS_START = "longPressStart"
     """
-
+    When a pointer has remained in contact with the screen at the
+    same location for a long period of time.
     """
 
     TAP_DOWN = "tapDown"
     """
-
+    When a pointer that might cause a tap has contacted the
+    screen.
     """
 
     UNDEFINED = "undefined"
     """
-
+    An undefined event.
     """
 
 
@@ -252,30 +366,55 @@ class ChartDataPointTooltip:
 
     text: Optional[str] = None
     """
-    The text to display in the tooltip.
+    The text to display in this tooltip.
     """
 
     text_style: ft.TextStyle = field(default_factory=lambda: ft.TextStyle())
     """
     A text style to display tooltip with.
-
-    Value is of type [`TextStyle`](https://flet.dev/docs/reference/types/textstyle).
     """
 
     text_align: ft.TextAlign = ft.TextAlign.CENTER
     """
-    An align for the tooltip.
-
-    Value is of type [`TextAlign`](https://flet.dev/docs/reference/types/textalign).
+    The text alignment of the tooltip.
     """
 
     text_spans: Optional[list[ft.TextSpan]] = None
     """
-    Additional text spans to show on a tooltip.
+    Additional text spans to show on this tooltip.
     """
 
+    rtl: bool = False
+    """
+    Whether the text is right-to-left.
+    """
 
-class ChartHorizontalAlignment(Enum):
+    def copy(
+        self,
+        *,
+        text: Optional[str] = None,
+        text_style: Optional[ft.TextStyle] = None,
+        text_align: Optional[ft.TextAlign] = None,
+        text_spans: Optional[list[ft.TextSpan]] = None,
+        rtl: Optional[bool] = None,
+    ) -> "ChartDataPointTooltip":
+        """
+        Returns a copy of this object with the specified properties overridden.
+        """
+        return ChartDataPointTooltip(
+            text=text if text is not None else self.text,
+            text_style=text_style if text_style is not None else self.text_style,
+            text_align=text_align if text_align is not None else self.text_align,
+            text_spans=text_spans.copy()
+            if text_spans is not None
+            else self.text_spans.copy()
+            if self.text_spans is not None
+            else None,
+            rtl=rtl if rtl is not None else self.rtl,
+        )
+
+
+class HorizontalAlignment(Enum):
     """Defines an element's horizontal alignment to given point."""
 
     LEFT = "left"

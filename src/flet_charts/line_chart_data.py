@@ -3,8 +3,8 @@ from typing import Optional, Union
 
 import flet as ft
 
-from .line_chart_data_point import LineChartDataPoint
-from .types import ChartPointLine, ChartPointShape
+from flet_charts.line_chart_data_point import LineChartDataPoint
+from flet_charts.types import ChartPointLine, ChartPointShape
 
 __all__ = ["LineChartData"]
 
@@ -19,19 +19,17 @@ class LineChartData(ft.BaseControl):
 
     curved: bool = False
     """
-    Set to `True` to draw chart line as a curve.
+    Whether to draw this chart line as a curve.
     """
 
     color: ft.ColorValue = ft.Colors.CYAN
     """
-    A [color](https://flet.dev/docs/reference/colors) of chart line.
+    A color of chart line.
     """
 
     gradient: Optional[ft.Gradient] = None
     """
     Gradient to draw line's background.
-
-    Value is of type [`Gradient`](https://flet.dev/docs/reference/types/gradient).
     """
 
     stroke_width: ft.Number = 2.0
@@ -51,7 +49,7 @@ class LineChartData(ft.BaseControl):
 
     prevent_curve_over_shooting_threshold: ft.Number = 10.0
     """
-    Threshold to prevent overshooting algorithm.
+    Threshold for [`prevent_curve_over_shooting`][..] algorithm.
     """
 
     dash_pattern: Optional[list[int]] = None
@@ -62,17 +60,17 @@ class LineChartData(ft.BaseControl):
     drawn.
     """
 
-    shadow: ft.BoxShadow = field(default_factory=lambda: ft.BoxShadow(color=ft.Colors.TRANSPARENT))
+    shadow: ft.BoxShadow = field(
+        default_factory=lambda: ft.BoxShadow(color=ft.Colors.TRANSPARENT)
+    )
     """
     Shadow to drop by a chart line.
-
-    Value is of type [`BoxShadow`](https://flet.dev/docs/reference/types/boxshadow).
     """
 
     above_line_bgcolor: Optional[ft.ColorValue] = None
     """
     Fill the area above chart line with the specified
-    [color](https://flet.dev/docs/reference/colors).
+    color.
     """
 
     above_line_gradient: Optional[ft.Gradient] = None
@@ -88,14 +86,12 @@ class LineChartData(ft.BaseControl):
     above_line: Optional[ChartPointLine] = None
     """
     A vertical line drawn between a line point and the top edge of the chart.
-
-    Value is of type [`ChartPointLine`][(p).].
     """
 
     below_line_bgcolor: Optional[ft.ColorValue] = None
     """
     Fill the area below chart line with the specified
-    [color](https://flet.dev/docs/reference/colors).
+    color.
     """
 
     below_line_gradient: Optional[ft.Gradient] = None
@@ -111,30 +107,50 @@ class LineChartData(ft.BaseControl):
     below_line: Optional[ChartPointLine] = None
     """
     A vertical line drawn between a line point and the bottom edge of the chart.
-
-    Value is of type [`ChartPointLine`][(p).].
     """
 
     selected_below_line: Union[None, bool, ChartPointLine] = None
     """
     A vertical line drawn between selected line point and the bottom adge of the
-    chart. The value is either `True` - draw a line with default style, `False` - do
-    not draw a line under selected point, or an instance of
-    [`ChartPointLine`][(p).] class to
-    specify line style to draw.
+    chart.
+
+    Setting this property to `True` will draw a line with default style.
     """
 
     point: Union[None, bool, ChartPointShape] = None
     """
     Defines the appearance and shape of a line point (dot).
 
-    Value is of type bool (`True` - draw a point with default style or `False` - do
-    not draw a line point) or of type [`ChartPointShape`][(p).].
+    Setting this property to `True` will draw a point with default style.
     """
 
     selected_point: Union[None, bool, ChartPointShape] = None
     """
     Defines the appearance and shape of a selected line point.
+    """
 
-    Value is of type [`ChartPointShape`][(p).].
+    curve_smoothness: ft.Number = 0.35
+    """
+    Defines the smoothness of a curve line,
+    when [`curved`][..] is set to `True`.
+    """
+
+    rounded_stroke_join: bool = False
+    """
+    Whether to draw rounded line joins.
+    """
+
+    step_direction: Optional[ft.Number] = None
+    """
+    Determines the direction of each step.
+
+    If not `None`, this chart will be drawn as a
+    [Step Line Chart](https://docs.anychart.com/Basic_Charts/Step_Line_Chart).
+
+    Below are some typical values:
+
+    - `0.0`: Go to the next spot directly, with the current point's y value.
+    - `0.5`: Go to the half with the current spot y, and with the next spot y
+        for the rest.
+    - `1.0`: Go to the next spot y and direct line to the next spot.
     """

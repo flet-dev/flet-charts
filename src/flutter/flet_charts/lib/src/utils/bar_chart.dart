@@ -64,15 +64,20 @@ BarTouchTooltipData? parseBarTouchTooltipData(
     getTooltipColor: (BarChartGroupData group) =>
         parseColor(tooltip["bgcolor"], theme, theme.colorScheme.secondary)!,
     tooltipBorderRadius: parseBorderRadius(tooltip["border_radius"]),
-    tooltipMargin: parseDouble(tooltip["margin"]),
-    tooltipPadding: parsePadding(tooltip["padding"]),
+    tooltipMargin: parseDouble(tooltip["margin"], 16)!,
+    tooltipPadding: parsePadding(tooltip["padding"],
+        const EdgeInsets.symmetric(horizontal: 16, vertical: 8))!,
     maxContentWidth: parseDouble(tooltip["max_width"]),
-    rotateAngle: parseDouble(tooltip["rotate_angle"]),
-    tooltipHorizontalOffset: parseDouble(tooltip["horizontal_offset"]),
+    rotateAngle: parseDouble(tooltip["rotation"], 0.0)!,
+    tooltipHorizontalOffset: parseDouble(tooltip["horizontal_offset"], 0)!,
     tooltipBorder: parseBorderSide(tooltip["border_side"], theme),
-    fitInsideHorizontally: parseBool(tooltip["fit_inside_horizontally"]),
-    fitInsideVertically: parseBool(tooltip["fit_inside_vertically"]),
-    direction: parseTooltipDirection(tooltip["direction"]),
+    fitInsideHorizontally:
+        parseBool(tooltip["fit_inside_horizontally"], false)!,
+    fitInsideVertically: parseBool(tooltip["fit_inside_vertically"], false)!,
+    direction:
+        parseTooltipDirection(tooltip["direction"], TooltipDirection.auto)!,
+    tooltipHorizontalAlignment: parseFLHorizontalAlignment(
+        tooltip["horizontal_alignment"], FLHorizontalAlignment.center)!,
     getTooltipItem: (group, groupIndex, rod, rodIndex) {
       var rod =
           control.children("groups")[groupIndex].children("rods")[rodIndex];
@@ -84,9 +89,10 @@ BarTouchTooltipData? parseBarTouchTooltipData(
 BarTooltipItem? parseBarTooltipItem(Control rod, BuildContext context) {
   if (!rod.getBool("show_tooltip", true)!) return null;
 
-  final theme = Theme.of(context);
+  var tooltip = rod.internals?["tooltip"];
+  if (tooltip == null) return null;
 
-  var tooltip = rod.get("tooltip");
+  final theme = Theme.of(context);
   var tooltipTextStyle =
       parseTextStyle(tooltip["text_style"], theme, const TextStyle())!;
   if (tooltipTextStyle.color == null) {
@@ -97,6 +103,9 @@ BarTooltipItem? parseBarTooltipItem(Control rod, BuildContext context) {
   return BarTooltipItem(
       tooltip["text"] ?? rod.getDouble("to_y", 0)!.toString(), tooltipTextStyle,
       textAlign: parseTextAlign(tooltip["text_align"], TextAlign.center)!,
+      textDirection: parseBool(tooltip["rtl"], false)!
+          ? TextDirection.rtl
+          : TextDirection.ltr,
       children: tooltip["text_spans"] != null
           ? parseTextSpans(tooltip["text_spans"], theme, (s, eventName,
               [eventData]) {
@@ -174,4 +183,12 @@ BarChartRodStackItem parseBarChartRodStackItem(
       rodStackItem.getColor("color", context)!,
       rodStackItem.getBorderSide("border_side", Theme.of(context),
           defaultValue: BorderSide.none)!);
+}
+
+BarChartAlignment? parseBarChartAlignment(String? value,
+    [BarChartAlignment? defaultValue]) {
+  if (value == null) return defaultValue;
+  return BarChartAlignment.values.firstWhereOrNull(
+          (e) => e.name.toLowerCase() == value.toLowerCase()) ??
+      defaultValue;
 }
