@@ -19,7 +19,11 @@ from flet_charts.line_chart_data_point import (
     LineChartDataPoint,
     LineChartDataPointTooltip,
 )
-from flet_charts.matplotlib_chart import MatplotlibChart
+from flet_charts.matplotlib_chart import (
+    MatplotlibChart,
+    MatplotlibChartMessageEvent,
+    MatplotlibChartToolbarButtonsUpdateEvent,
+)
 from flet_charts.pie_chart import PieChart, PieChartEvent
 from flet_charts.pie_chart_section import PieChartSection
 from flet_charts.plotly_chart import PlotlyChart
@@ -78,4 +82,6 @@ __all__ = [
     "ScatterChartSpot",
     "ScatterChartSpotTooltip",
     "ScatterChartTooltip",
+    "MatplotlibChartMessageEvent",
+    "MatplotlibChartToolbarButtonsUpdateEvent",
 ]

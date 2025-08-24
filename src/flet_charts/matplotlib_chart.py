@@ -268,7 +268,7 @@ class MatplotlibChart(ft.GestureDetector):
             if is_binary:
                 logger.debug(f"receive_binary({len(content)})")
                 if self.__image_mode == "full":
-                    await self.canvas.clear_capture_async()
+                    await self.canvas.clear_capture()
 
                 self.canvas.shapes = [
                     fc.Image(
@@ -280,7 +280,7 @@ class MatplotlibChart(ft.GestureDetector):
                     )
                 ]
                 self.canvas.update()
-                await self.canvas.capture_async()
+                await self.canvas.capture()
                 self.img_count += 1
                 self._waiting = False
             else:
