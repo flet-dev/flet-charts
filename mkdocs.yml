@@ -64,6 +64,8 @@ theme:
 extra:
   version:
     provider: mike
+  # hide the "Made with Material for MkDocs" message
+  generator: false
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/flet-dev
