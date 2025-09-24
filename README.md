@@ -10,7 +10,7 @@ It is based on the [fl_chart](https://pub.dev/packages/fl_chart) Flutter package
 
 ## Documentation
 
-Detailed documentation to this package can be found [here](https://flet-dev.github.io/flet-charts/).
+Detailed documentation to this package can be found [here](https://flet-charts.docs.flet.dev/).
 
 ## Platform Support
 
