@@ -19,6 +19,7 @@ theme:
   logo: 'images/logo.svg'
   icon:
     annotation: material/plus-circle
+    repo: fontawesome/brands/github
   palette:
     - scheme: default
       primary: pink
