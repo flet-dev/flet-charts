@@ -1,9 +1,9 @@
 ---
 class_name: flet_charts.line_chart.LineChart
-screenshot: assets/line-chart-diagram.svg
+image: assets/line-chart-diagram.svg
 ---
 
-{{ class_summary(class_name, screenshot) }}
+{{ class_summary(class_name, image) }}
 
 ## Examples
 

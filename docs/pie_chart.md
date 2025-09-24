@@ -1,9 +1,9 @@
 ---
 class_name: flet_charts.pie_chart.PieChart
-screenshot: assets/pie-chart-diagram.svg
+image: assets/pie-chart-diagram.svg
 ---
 
-{{ class_summary(class_name, screenshot) }}
+{{ class_summary(class_name, image) }}
 
 ## Examples
 

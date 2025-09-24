@@ -1,9 +1,9 @@
 ---
 class_name: flet_charts.bar_chart.BarChart
-screenshot: assets/bar-chart-diagram.svg
+image: assets/bar-chart-diagram.svg
 ---
 
-{{ class_summary(class_name, screenshot) }}
+{{ class_summary(class_name, image) }}
 
 ## Examples
 
