@@ -10,20 +10,15 @@ It is based on the [fl_chart](https://pub.dev/packages/fl_chart) Flutter package
 
 ## Documentation
 
-Detailed documentation to this package can be found [here](https://flet-dev.github.io/flet-charts/).
+Detailed documentation to this package can be found [here](https://flet-charts.docs.flet.dev/).
 
 ## Platform Support
 
 This package supports the following platforms:
 
-| Platform | Supported |
-|----------|:---------:|
-| Windows  |     ✅     |
-| macOS    |     ✅     |
-| Linux    |     ✅     |
-| iOS      |     ✅     |
-| Android  |     ✅     |
-| Web      |     ✅     |
+| Platform | Windows | macOS | Linux | iOS | Android | Web |
+|----------|---------|-------|-------|-----|---------|-----|
+| Supported|    ✅    |   ✅   |   ✅   |  ✅  |    ✅    |  ✅  |
 
 ## Usage
 
@@ -41,11 +36,6 @@ To install the `flet-charts` package and add it to your project dependencies:
     pip install flet-charts
     ```
     After this, you will have to manually add this package to your `requirements.txt` or `pyproject.toml`.
-
-- Using `poetry`:
-    ```bash
-    poetry add flet-charts
-    ```
 
 ### Examples
 

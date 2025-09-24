@@ -1,1 +1,1 @@
-::: flet_charts.types.ChartSquarePoint
+{{ class_all_options("flet_charts.types.ChartSquarePoint") }}

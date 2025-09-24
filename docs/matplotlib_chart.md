@@ -1,3 +1,9 @@
+---
+class_name: flet_charts.matplotlib_chart.MatplotlibChart
+---
+
+{{ class_summary(class_name) }}
+
 ## Examples
 
 ### Example 1
@@ -26,4 +32,4 @@ official [Matplotlib example](https://matplotlib.org/stable/gallery/lines_bars_a
 --8<-- "examples/charts_example/src/matplotlib_chart/example_2.py"
 ```
 
-::: flet_charts.matplotlib_chart.MatplotlibChart
+{{ class_members(class_name) }}

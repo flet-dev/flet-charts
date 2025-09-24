@@ -1,3 +1,1 @@
-::: flet_charts.types.ChartEventType
-    options:
-        separate_signature: false
+{{ class_all_options("flet_charts.types.ChartEventType", separate_signature=False) }}

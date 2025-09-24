@@ -164,11 +164,9 @@ class BarChartEvent(ft.Event["BarChart"]):
 
 
 @ft.control("BarChart")
-class BarChart(ft.ConstrainedControl):
+class BarChart(ft.LayoutControl):
     """
     Draws a bar chart.
-
-    ![Overview](assets/bar-chart-diagram.svg)
     """
 
     groups: list[BarChartGroup] = field(default_factory=list)

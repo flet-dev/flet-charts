@@ -1,1 +1,1 @@
-::: flet_charts.types.ChartCirclePoint
+{{ class_all_options("flet_charts.types.ChartCirclePoint") }}

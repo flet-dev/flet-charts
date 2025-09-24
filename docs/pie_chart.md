@@ -1,3 +1,10 @@
+---
+class_name: flet_charts.pie_chart.PieChart
+image: assets/pie-chart-diagram.svg
+---
+
+{{ class_summary(class_name, image) }}
+
 ## Examples
 
 ### Example 1
@@ -30,4 +37,4 @@
 --8<-- "examples/charts_example/src/pie_chart/example_3.py"
 ```
 
-::: flet_charts.pie_chart.PieChart
+{{ class_members(class_name) }}
