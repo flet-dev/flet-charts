@@ -1,7 +1,17 @@
 ::: flet_charts.line_chart.LineChart
     options:
+        show_root_toc_entry: true
         extra:
-            show_children: false
+            show_class_docstring: true
+
+![LineChart](assets/line-chart-diagram.svg)
+
+::: flet_charts.line_chart.LineChart
+    options:
+        show_bases: true
+        summary:
+            attributes: true
+            functions: true
 
 ## Examples
 
@@ -27,10 +37,5 @@
 
 ::: flet_charts.line_chart.LineChart
     options:
-        show_root_toc_entry: false
-        show_bases: false
-        summary:
-            attributes: false
-            functions: false
         extra:
-            show_class_docstring: false
+            show_children: true

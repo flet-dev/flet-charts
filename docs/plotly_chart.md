@@ -1,12 +1,12 @@
 ::: flet_charts.plotly_chart.PlotlyChart
     options:
-        filters:
-          - "!(init|before_update)"
+        show_root_toc_entry: true
+        show_bases: true
+        extra:
+            show_class_docstring: true
         summary:
             attributes: true
             functions: true
-        extra:
-            show_children: false
 
 ## Examples
 
@@ -60,8 +60,5 @@ Based on an official [Plotly example](https://plotly.com/python/box-plots).
 
 ::: flet_charts.plotly_chart.PlotlyChart
     options:
-        filters:
-          - "!(init|before_update)"
-        show_bases: false
         extra:
-            show_class_docstring: false
+            show_children: true

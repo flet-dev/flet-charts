@@ -81,22 +81,26 @@ nav:
   - API Reference:
       - Charts:
         - charts.md
-        - BarChart: bar_chart.md
-        - LineChart: line_chart.md
+        - BarChart:
+          - BarChart: bar_chart.md
+          - BarChartGroup: bar_chart_group.md
+          - BarChartRod: bar_chart_rod.md
+          - BarChartRodStackItem: bar_chart_rod_stack_item.md
+        - LineChart:
+          - LineChart: line_chart.md
+          - LineChartData: line_chart_data.md
+          - LineChartDataPoint: line_chart_data_point.md
         - MatplotlibChart: matplotlib_chart.md
-        - PieChart: pie_chart.md
+        - PieChart:
+          - PieChart: pie_chart.md
+          - PieChartSection: pie_chart_section.md
         - PlotlyChart: plotly_chart.md
-        - ScatterChart: scatter_chart.md
-      - BarChartGroup: bar_chart_group.md
-      - BarChartRod: bar_chart_rod.md
-      - BarChartRodStackItem: bar_chart_rod_stack_item.md
-      - ChartAxis: chart_axis.md
-      - ChartAxisLabel: chart_axis_label.md
-      - LineChartData: line_chart_data.md
-      - LineChartDataPoint: line_chart_data_point.md
-      - PieChartSection: pie_chart_section.md
-      - ScatterChartSpot: scatter_chart_spot.md
+        - ScatterChart:
+          - ScatterChart: scatter_chart.md
+          - ScatterChartSpot: scatter_chart_spot.md
       - Types:
+          - ChartAxis: chart_axis.md
+          - ChartAxisLabel: chart_axis_label.md
           - ChartPointShape:
               - types/chart_point_shape.md
               - ChartCirclePoint: types/chart_circle_point.md
@@ -168,9 +172,9 @@ plugins:
             show_symbol_type_heading: true
             show_symbol_type_toc: true
             show_root_heading: false
-            show_root_toc_entry: true
+            show_root_toc_entry: false
             show_root_full_path: false
-            show_bases: true
+            show_bases: false
             show_source: false
             group_by_category: true
             show_category_heading: true
@@ -180,17 +184,18 @@ plugins:
             separate_signature: true
             inherited_members: false
             summary:
-                attributes: true
-                functions: true
+                attributes: false
+                functions: false
             preload_modules: [ flet ]
             filters:
               - "!^_"   # Exclude private members starting with only one underscore
+              - "!(init|before_update)"
             extensions:
               - griffe_modernized_annotations
               - griffe_warnings_deprecated
             extra:
-              show_children: true
-              show_class_docstring: true
+              show_children: false
+              show_class_docstring: false
           inventories:
             - url: https://docs.flet.dev/objects.inv
             - url: https://docs.python.org/3/objects.inv

@@ -37,11 +37,6 @@ To install the `flet-charts` package and add it to your project dependencies:
     ```
     After this, you will have to manually add this package to your `requirements.txt` or `pyproject.toml`.
 
-- Using `poetry`:
-    ```bash
-    poetry add flet-charts
-    ```
-
 ### Examples
 
 For examples, see [these](./examples).

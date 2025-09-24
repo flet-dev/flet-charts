@@ -1,3 +1,16 @@
+::: flet_charts.matplotlib_chart.MatplotlibChart
+    options:
+        show_root_toc_entry: true
+        extra:
+            show_class_docstring: true
+
+::: flet_charts.matplotlib_chart.MatplotlibChart
+    options:
+        show_bases: true
+        summary:
+            attributes: true
+            functions: true
+
 ## Examples
 
 ### Example 1
@@ -27,3 +40,6 @@ official [Matplotlib example](https://matplotlib.org/stable/gallery/lines_bars_a
 ```
 
 ::: flet_charts.matplotlib_chart.MatplotlibChart
+    options:
+        extra:
+            show_children: true

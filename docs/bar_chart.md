@@ -1,3 +1,18 @@
+::: flet_charts.bar_chart.BarChart
+    options:
+        show_root_toc_entry: true
+        extra:
+            show_class_docstring: true
+
+![BarChart](assets/bar-chart-diagram.svg)
+
+::: flet_charts.bar_chart.BarChart
+    options:
+        show_bases: true
+        summary:
+            attributes: true
+            functions: true
+
 ## Examples
 
 ### Example 1
@@ -21,3 +36,6 @@
 ```
 
 ::: flet_charts.bar_chart.BarChart
+    options:
+        extra:
+            show_children: true
