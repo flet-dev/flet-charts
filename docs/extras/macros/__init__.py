@@ -16,9 +16,9 @@ def define_env(env):
 """
 
     @env.macro
-    def class_summary(class_name, screenshot=None):
+    def class_summary(class_name, image=None):
         control_name = class_name.split(".")[-1]
-        screenshot_md = f"\n\n![{control_name}]({screenshot})\n\n" if screenshot else ""
+        image_md = f"\n\n![{control_name}]({image})\n\n" if image else ""
         return f"""
 ::: {class_name}
     options:
@@ -26,7 +26,7 @@ def define_env(env):
         extra:
             show_class_docstring: true
 
-{screenshot_md}
+{image_md}
         
 ::: {class_name}
     options:
