@@ -1,10 +1,1 @@
-::: flet_charts.types.ChartPointLine
-    options:
-        show_root_toc_entry: true
-        show_bases: true
-        extra:
-            show_class_docstring: true
-            show_children: true
-        summary:
-            attributes: true
-            functions: true
+{{ class_all_options("flet_charts.types.ChartPointLine") }}

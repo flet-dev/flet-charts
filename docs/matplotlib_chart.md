@@ -1,15 +1,8 @@
-::: flet_charts.matplotlib_chart.MatplotlibChart
-    options:
-        show_root_toc_entry: true
-        extra:
-            show_class_docstring: true
+---
+class_name: flet_charts.matplotlib_chart.MatplotlibChart
+---
 
-::: flet_charts.matplotlib_chart.MatplotlibChart
-    options:
-        show_bases: true
-        summary:
-            attributes: true
-            functions: true
+{{ class_summary(class_name) }}
 
 ## Examples
 
@@ -39,7 +32,4 @@ official [Matplotlib example](https://matplotlib.org/stable/gallery/lines_bars_a
 --8<-- "examples/charts_example/src/matplotlib_chart/example_2.py"
 ```
 
-::: flet_charts.matplotlib_chart.MatplotlibChart
-    options:
-        extra:
-            show_children: true
+{{ class_members(class_name) }}

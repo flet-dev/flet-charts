@@ -1,17 +1,9 @@
-::: flet_charts.bar_chart.BarChart
-    options:
-        show_root_toc_entry: true
-        extra:
-            show_class_docstring: true
+---
+class_name: flet_charts.bar_chart.BarChart
+screenshot: assets/bar-chart-diagram.svg
+---
 
-![BarChart](assets/bar-chart-diagram.svg)
-
-::: flet_charts.bar_chart.BarChart
-    options:
-        show_bases: true
-        summary:
-            attributes: true
-            functions: true
+{{ class_summary(class_name, screenshot) }}
 
 ## Examples
 
@@ -35,7 +27,4 @@
 --8<-- "examples/charts_example/src/bar_chart/example_2.py"
 ```
 
-::: flet_charts.bar_chart.BarChart
-    options:
-        extra:
-            show_children: true
+{{ class_members(class_name) }}

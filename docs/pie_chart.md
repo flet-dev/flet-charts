@@ -1,17 +1,9 @@
-::: flet_charts.pie_chart.PieChart
-    options:
-        show_root_toc_entry: true
-        extra:
-            show_class_docstring: true
+---
+class_name: flet_charts.pie_chart.PieChart
+screenshot: assets/pie-chart-diagram.svg
+---
 
-![PieChart](assets/pie-chart-diagram.svg)
-
-::: flet_charts.pie_chart.PieChart
-    options:
-        show_bases: true
-        summary:
-            attributes: true
-            functions: true
+{{ class_summary(class_name, screenshot) }}
 
 ## Examples
 
@@ -45,7 +37,4 @@
 --8<-- "examples/charts_example/src/pie_chart/example_3.py"
 ```
 
-::: flet_charts.pie_chart.PieChart
-    options:
-        extra:
-            show_children: true
+{{ class_members(class_name) }}

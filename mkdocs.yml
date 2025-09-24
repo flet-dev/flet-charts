@@ -7,6 +7,7 @@ site_description: A Flet extension for creating interactive charts and graphs.
 # Repository
 repo_name: flet-dev/flet-charts
 repo_url: https://github.com/flet-dev/flet-charts
+edit_uri: edit/main/docs/
 
 # Copyright
 copyright: Copyright &copy; 2025 Appveyor Systems Inc.
@@ -20,24 +21,26 @@ theme:
     annotation: material/plus-circle
     repo: fontawesome/brands/github
   palette:
-    - scheme: default
+    - media: "(prefers-color-scheme)"
       primary: pink
-      accent: light blue
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - scheme: slate
-      primary: pink
-      accent: light blue
-      toggle:
-        icon: material/brightness-4
-        name: Switch to system preference
-    - scheme: slate
-      primary: pink
-      accent: light blue
+      accent: pink
       toggle:
         icon: material/brightness-auto
-        name: Switch to light mode
+        name: "Switch to light mode"
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: pink
+      accent: pink
+      toggle:
+        icon: material/brightness-7
+        name: "Switch to dark mode"
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: pink
+      accent: pink
+      toggle:
+        icon: material/brightness-4
+        name: "Switch to system preference"
   features:
     - content.action.annotate
     - content.action.copy
@@ -80,21 +83,21 @@ nav:
       - Charts:
         - charts.md
         - BarChart:
-          - BarChart: bar_chart.md
+          - bar_chart.md
           - BarChartGroup: bar_chart_group.md
           - BarChartRod: bar_chart_rod.md
           - BarChartRodStackItem: bar_chart_rod_stack_item.md
         - LineChart:
-          - LineChart: line_chart.md
+          - line_chart.md
           - LineChartData: line_chart_data.md
           - LineChartDataPoint: line_chart_data_point.md
         - MatplotlibChart: matplotlib_chart.md
         - PieChart:
-          - PieChart: pie_chart.md
+          - pie_chart.md
           - PieChartSection: pie_chart_section.md
         - PlotlyChart: plotly_chart.md
         - ScatterChart:
-          - ScatterChart: scatter_chart.md
+          - scatter_chart.md
           - ScatterChartSpot: scatter_chart_spot.md
       - Types:
           - ChartAxis: chart_axis.md
@@ -147,6 +150,8 @@ plugins:
   # - footnotes
   - search:
       lang: en
+  - macros:
+      module_name: docs/extras/macros/__init__
   - open-in-new-tab
   - mike:
       alias_type: symlink

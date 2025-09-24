@@ -1,12 +1,8 @@
-::: flet_charts.plotly_chart.PlotlyChart
-    options:
-        show_root_toc_entry: true
-        show_bases: true
-        extra:
-            show_class_docstring: true
-        summary:
-            attributes: true
-            functions: true
+---
+class_name: flet_charts.plotly_chart.PlotlyChart
+---
+
+{{ class_summary(class_name) }}
 
 ## Examples
 
@@ -58,7 +54,4 @@ Based on an official [Plotly example](https://plotly.com/python/box-plots).
 --8<-- "examples/charts_example/src/plotly_chart/example_4.py"
 ```
 
-::: flet_charts.plotly_chart.PlotlyChart
-    options:
-        extra:
-            show_children: true
+{{ class_members(class_name) }}

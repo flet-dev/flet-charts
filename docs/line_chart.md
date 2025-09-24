@@ -1,17 +1,9 @@
-::: flet_charts.line_chart.LineChart
-    options:
-        show_root_toc_entry: true
-        extra:
-            show_class_docstring: true
+---
+class_name: flet_charts.line_chart.LineChart
+screenshot: assets/line-chart-diagram.svg
+---
 
-![LineChart](assets/line-chart-diagram.svg)
-
-::: flet_charts.line_chart.LineChart
-    options:
-        show_bases: true
-        summary:
-            attributes: true
-            functions: true
+{{ class_summary(class_name, screenshot) }}
 
 ## Examples
 
@@ -35,7 +27,4 @@
 --8<-- "examples/charts_example/src/line_chart/example_2.py"
 ```
 
-::: flet_charts.line_chart.LineChart
-    options:
-        extra:
-            show_children: true
+{{ class_members(class_name) }}

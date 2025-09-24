@@ -1,12 +1,8 @@
-::: flet_charts.scatter_chart.ScatterChart
-    options:
-        show_root_toc_entry: true
-        show_bases: true
-        extra:
-            show_class_docstring: true
-        summary:
-            attributes: true
-            functions: true
+---
+class_name: flet_charts.scatter_chart.ScatterChart
+---
+
+{{ class_summary(class_name) }}
 
 ## Examples
 
@@ -16,7 +12,4 @@
 --8<-- "examples/charts_example/src/scatter_chart/example_1.py"
 ```
 
-::: flet_charts.scatter_chart.ScatterChart
-    options:
-        extra:
-            show_children: true
+{{ class_members(class_name) }}
