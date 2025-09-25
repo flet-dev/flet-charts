@@ -1,1 +1,1 @@
-::: flet_charts.types.ChartGridLines
+{{ class_all_options("flet_charts.types.ChartGridLines") }}

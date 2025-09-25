@@ -1,3 +1,9 @@
+---
+class_name: flet_charts.plotly_chart.PlotlyChart
+---
+
+{{ class_summary(class_name) }}
+
 ## Examples
 
 ### Example 1
@@ -24,7 +30,7 @@ Based on an official [Plotly example](https://plotly.com/python/bar-charts).
 --8<-- "examples/charts_example/src/plotly_chart/example_2.py"
 ```
 
-## Example 3
+### Example 3
 
 Based on an official [Plotly example](https://plotly.com/python/pie-charts).
 
@@ -48,4 +54,4 @@ Based on an official [Plotly example](https://plotly.com/python/box-plots).
 --8<-- "examples/charts_example/src/plotly_chart/example_4.py"
 ```
 
-::: flet_charts.plotly_chart.PlotlyChart
+{{ class_members(class_name) }}

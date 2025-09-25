@@ -121,7 +121,7 @@ class ScatterChartEvent(ft.Event["ScatterChart"]):
 
 
 @ft.control("ScatterChart")
-class ScatterChart(ft.ConstrainedControl):
+class ScatterChart(ft.LayoutControl):
     """
     A scatter chart control.
 

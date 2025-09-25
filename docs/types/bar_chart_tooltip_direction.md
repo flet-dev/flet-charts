@@ -1,3 +1,1 @@
-::: flet_charts.bar_chart.BarChartTooltipDirection
-    options:
-        separate_signature: false
+{{ class_all_options("flet_charts.bar_chart.BarChartTooltipDirection", separate_signature=False) }}

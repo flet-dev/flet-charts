@@ -1,3 +1,10 @@
+---
+class_name: flet_charts.line_chart.LineChart
+image: assets/line-chart-diagram.svg
+---
+
+{{ class_summary(class_name, image) }}
+
 ## Examples
 
 ### Example 1
@@ -20,4 +27,4 @@
 --8<-- "examples/charts_example/src/line_chart/example_2.py"
 ```
 
-::: flet_charts.line_chart.LineChart
+{{ class_members(class_name) }}

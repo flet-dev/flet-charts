@@ -1,1 +1,1 @@
-::: flet_charts.chart_axis.ChartAxisLabel
+{{ class_all_options("flet_charts.chart_axis.ChartAxisLabel") }}

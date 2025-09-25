@@ -1,1 +1,1 @@
-::: flet_charts.line_chart_data.LineChartData
+{{ class_all_options("flet_charts.line_chart_data.LineChartData") }}

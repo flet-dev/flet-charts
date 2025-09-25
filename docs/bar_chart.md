@@ -1,3 +1,10 @@
+---
+class_name: flet_charts.bar_chart.BarChart
+image: assets/bar-chart-diagram.svg
+---
+
+{{ class_summary(class_name, image) }}
+
 ## Examples
 
 ### Example 1
@@ -20,4 +27,4 @@
 --8<-- "examples/charts_example/src/bar_chart/example_2.py"
 ```
 
-::: flet_charts.bar_chart.BarChart
+{{ class_members(class_name) }}
