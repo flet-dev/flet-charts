@@ -355,6 +355,7 @@ class MatplotlibChart(ft.GestureDetector):
             manager.handle_json(message)
 
     def send_json(self, content):
+        print(f"send_json: {content}")
         self._main_loop.call_soon_threadsafe(
             lambda: self._receive_queue.put_nowait((False, content))
         )
@@ -378,4 +379,6 @@ class MatplotlibChart(ft.GestureDetector):
             self.send_message({"type": "refresh"})
         self._width = e.width
         self._height = e.height
-        self.send_message({"type": "resize", "width": e.width, "height": e.height})
+        self.send_message(
+            {"type": "resize", "width": self._width, "height": self._height}
+        )
