@@ -1,1 +1,1 @@
-::: flet_charts.types.ChartCrossPoint
+{{ class_all_options("flet_charts.types.ChartCrossPoint") }}

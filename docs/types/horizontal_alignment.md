@@ -1,3 +1,1 @@
-::: flet_charts.types.HorizontalAlignment
-    options:
-        separate_signature: false
+{{ class_all_options("flet_charts.types.HorizontalAlignment", separate_signature=False) }}
