@@ -1,7 +1,7 @@
 import asyncio
-from io import BytesIO
 import logging
 from dataclasses import dataclass, field
+from io import BytesIO
 from typing import Optional
 
 import flet as ft
@@ -14,7 +14,11 @@ except ImportError as e:
         'Install "matplotlib" Python package to use MatplotlibChart control.'
     ) from e
 
-__all__ = ["MatplotlibChart", "MatplotlibChartMessageEvent", "MatplotlibChartToolbarButtonsUpdateEvent"]
+__all__ = [
+    "MatplotlibChart",
+    "MatplotlibChartMessageEvent",
+    "MatplotlibChartToolbarButtonsUpdateEvent",
+]
 
 logger = logging.getLogger("flet-charts.matplotlib")
 
@@ -25,18 +29,20 @@ figure_cursors = {
     "move": ft.MouseCursor.MOVE,
     "wait": ft.MouseCursor.WAIT,
     "ew-resize": ft.MouseCursor.RESIZE_LEFT_RIGHT,
-    "ns-resize": ft.MouseCursor.RESIZE_UP_DOWN
+    "ns-resize": ft.MouseCursor.RESIZE_UP_DOWN,
 }
 
+
 @dataclass
-class MatplotlibChartMessageEvent(ft.Event["MatplotlibChart"]):    
+class MatplotlibChartMessageEvent(ft.Event["MatplotlibChart"]):
     message: str
     """
     Message text.
     """
 
+
 @dataclass
-class MatplotlibChartToolbarButtonsUpdateEvent(ft.Event["MatplotlibChart"]):    
+class MatplotlibChartToolbarButtonsUpdateEvent(ft.Event["MatplotlibChart"]):
     back_enabled: bool
     """
     Whether Back button is enabled or not.
@@ -45,6 +51,7 @@ class MatplotlibChartToolbarButtonsUpdateEvent(ft.Event["MatplotlibChart"]):
     """
     Whether Forward button is enabled or not.
     """
+
 
 @ft.control(kw_only=True)
 class MatplotlibChart(ft.GestureDetector):
@@ -69,7 +76,9 @@ class MatplotlibChart(ft.GestureDetector):
     The event is triggered on figure message update.
     """
 
-    on_toolbar_buttons_update: Optional[ft.EventHandler[MatplotlibChartToolbarButtonsUpdateEvent]] = None
+    on_toolbar_buttons_update: Optional[
+        ft.EventHandler[MatplotlibChartToolbarButtonsUpdateEvent]
+    ] = None
     """
     Triggers when toolbar buttons status is updated.
     """
@@ -88,7 +97,12 @@ class MatplotlibChart(ft.GestureDetector):
             on_resize=self.on_canvas_resize,
             expand=True,
         )
-        self.keyboard_listener = ft.KeyboardListener(self.canvas, autofocus=True, on_key_down=self._on_key_down, on_key_up=self._on_key_up)
+        self.keyboard_listener = ft.KeyboardListener(
+            self.canvas,
+            autofocus=True,
+            on_key_down=self._on_key_down,
+            on_key_up=self._on_key_up,
+        )
         self.content = self.keyboard_listener
         self.on_enter = self._on_enter
         self.on_hover = self._on_hover
@@ -156,7 +170,7 @@ class MatplotlibChart(ft.GestureDetector):
 
     def _pan_start(self, e: ft.DragStartEvent):
         logger.debug(f"_pan_start: {e.local_position.x}, {e.local_position.y}")
-        self.keyboard_listener.focus()
+        asyncio.create_task(self.keyboard_listener.focus())
         self.send_message(
             {
                 "type": "button_press",
@@ -164,7 +178,7 @@ class MatplotlibChart(ft.GestureDetector):
                 "y": e.local_position.y * self.__dpr,
                 "button": 0,
                 "buttons": 1,
-                "modifiers": []
+                "modifiers": [],
             }
         )
 
@@ -194,7 +208,7 @@ class MatplotlibChart(ft.GestureDetector):
             }
         )
 
-    def _right_pan_start(self, e: ft.DragStartEvent):
+    def _right_pan_start(self, e: ft.PointerEvent):
         logger.debug(f"_pan_start: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
@@ -207,7 +221,7 @@ class MatplotlibChart(ft.GestureDetector):
             }
         )
 
-    def _right_pan_update(self, e: ft.DragUpdateEvent):
+    def _right_pan_update(self, e: ft.PointerEvent):
         logger.debug(f"_pan_update: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
@@ -220,7 +234,7 @@ class MatplotlibChart(ft.GestureDetector):
             }
         )
 
-    def _right_pan_end(self, e: ft.DragEndEvent):
+    def _right_pan_end(self, e: ft.PointerEvent):
         logger.debug(f"_pan_end: {e.local_position.x}, {e.local_position.y}")
         self.send_message(
             {
@@ -279,6 +293,7 @@ class MatplotlibChart(ft.GestureDetector):
                         height=self.figure.bbox.size[1] / self.__dpr,
                     )
                 ]
+                ft.context.disable_auto_update()
                 self.canvas.update()
                 await self.canvas.capture()
                 self.img_count += 1
@@ -296,19 +311,42 @@ class MatplotlibChart(ft.GestureDetector):
                 elif content["type"] == "rubberband":
                     if len(self.canvas.shapes) == 2:
                         self.canvas.shapes.pop()
-                    if content["x0"] != -1 and content["y0"] != -1 and content["x1"] != -1 and content["y1"] != -1:
+                    if (
+                        content["x0"] != -1
+                        and content["y0"] != -1
+                        and content["x1"] != -1
+                        and content["y1"] != -1
+                    ):
                         x0 = content["x0"] / self.__dpr
                         y0 = self._height - content["y0"] / self.__dpr
                         x1 = content["x1"] / self.__dpr
                         y1 = self._height - content["y1"] / self.__dpr
-                        self.canvas.shapes.append(fc.Rect(x=x0, y=y0, width=x1 - x0, height = y1 - y0, paint=ft.Paint(stroke_width=1, style=ft.PaintingStyle.STROKE)))
+                        self.canvas.shapes.append(
+                            fc.Rect(
+                                x=x0,
+                                y=y0,
+                                width=x1 - x0,
+                                height=y1 - y0,
+                                paint=ft.Paint(
+                                    stroke_width=1, style=ft.PaintingStyle.STROKE
+                                ),
+                            )
+                        )
                     self.canvas.update()
                 elif content["type"] == "resize":
                     self.send_message({"type": "refresh"})
                 elif content["type"] == "message":
-                    await self._trigger_event("message", {"message": content["message"]})
+                    await self._trigger_event(
+                        "message", {"message": content["message"]}
+                    )
                 elif content["type"] == "history_buttons":
-                    await self._trigger_event("toolbar_buttons_update", {"back_enabled": content["Back"],"forward_enabled": content["Forward"]})
+                    await self._trigger_event(
+                        "toolbar_buttons_update",
+                        {
+                            "back_enabled": content["Back"],
+                            "forward_enabled": content["Forward"],
+                        },
+                    )
 
     def send_message(self, message):
         logger.debug(f"send_message({message})")
