@@ -1,13 +1,8 @@
 import flet as ft
-import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
 import flet_charts
-
-matplotlib.use("module://flet_charts.matplotlib_backends.backend_flet_agg")
-
-# logging.basicConfig(level=logging.DEBUG)
 
 state = {}
 

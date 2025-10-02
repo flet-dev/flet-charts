@@ -8,6 +8,7 @@ import flet as ft
 import flet.canvas as fc
 
 try:
+    import matplotlib
     from matplotlib.figure import Figure
 except ImportError as e:
     raise Exception(
@@ -21,6 +22,8 @@ __all__ = [
 ]
 
 logger = logging.getLogger("flet-charts.matplotlib")
+
+matplotlib.use("module://flet_charts.matplotlib_backends.backend_flet_agg")
 
 figure_cursors = {
     "default": None,
