@@ -107,5 +107,4 @@ class MatplotlibChartWithToolbar(ft.Column):
         fmt = self.download_fmt.value
         buffer = self.mpl.download(fmt)
         title = self.figure.canvas.manager.get_window_title()
-        fp = ft.FilePicker()
-        await fp.save_file(file_name=f"{title}.{fmt}", src_bytes=buffer)
+        await ft.FilePicker().save_file(file_name=f"{title}.{fmt}", src_bytes=buffer)
