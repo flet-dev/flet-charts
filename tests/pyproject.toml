@@ -1,0 +1,37 @@
+[project]
+name = "flet-charts-tests"
+version = "1.0.0"
+description = "flet-charts-tests"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+dependencies = [
+    "flet-charts",
+    "flet",
+]
+
+# Docs: https://flet.dev/docs/publish
+[tool.flet]
+org = "com.mycompany"
+product = "flet-charts-tests"
+company = "Flet"
+copyright = "Copyright (C) 2024 by Flet"
+
+[tool.flet.dev_packages]
+flet-charts = "../"
+
+[tool.uv]
+dev-dependencies = [
+    "flet-cli",
+    "flet-desktop",
+    "flet-web",
+    "matplotlib>=3.10.3",
+    "plotly>=6.2.0",
+]
+
+[tool.uv.sources]
+flet-charts = { path = "../", editable = true }
+flet = { path = "../../flet/sdk/python/packages/flet", editable = true }
+flet-cli = { path = "../../flet/sdk/python/packages/flet-cli", editable = true }
+flet-desktop = { path = "../../flet/sdk/python/packages/flet-desktop", editable = true }
+flet-web = { path = "../../flet/sdk/python/packages/flet-web", editable = true }
