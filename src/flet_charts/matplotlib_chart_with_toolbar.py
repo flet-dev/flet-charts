@@ -19,7 +19,7 @@ _download_formats = [
 ]
 
 
-@ft.control(kw_only=True)
+@ft.control(kw_only=True, isolated=True)
 class MatplotlibChartWithToolbar(ft.Column):
     figure: Figure = field(metadata={"skip": True})
     """
@@ -83,14 +83,15 @@ class MatplotlibChartWithToolbar(ft.Column):
                 self.width = self.figure.bbox.width
 
     def on_message(self, e: flet_charts.MatplotlibChartMessageEvent):
-        print(f"on_message: {e.message}")
         self.msg.value = e.message
+        self.msg.update()
 
     def on_toolbar_update(
         self, e: flet_charts.MatplotlibChartToolbarButtonsUpdateEvent
     ):
         self.back_btn.disabled = not e.back_enabled
         self.fwd_btn.disabled = not e.forward_enabled
+        self.update()
 
     def pan_click(self):
         self.mpl.pan()

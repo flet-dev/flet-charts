@@ -53,7 +53,7 @@ class MatplotlibChartToolbarButtonsUpdateEvent(ft.Event["MatplotlibChart"]):
     """
 
 
-@ft.control(kw_only=True)
+@ft.control(kw_only=True, isolated=True)
 class MatplotlibChart(ft.GestureDetector):
     """
     Displays a [Matplotlib](https://matplotlib.org/) chart.
@@ -84,8 +84,6 @@ class MatplotlibChart(ft.GestureDetector):
     """
 
     def build(self):
-        # self.on_resize = self.on_canvas_resize
-        # self.shapes = [fc.Line(x1=0, y1=0, x2=50, y2=50)]
         self.mouse_cursor = ft.MouseCursor.WAIT
         self.__started = False
         self.__dpr = self.page.media.device_pixel_ratio
@@ -119,9 +117,6 @@ class MatplotlibChart(ft.GestureDetector):
         self._width = 0
         self._height = 0
         self._waiting = False
-
-    # def before_update(self):
-    #     super().before_update()
 
     def _on_key_down(self, e):
         logger.debug(f"ON KEY DOWN: {e}")
@@ -355,7 +350,7 @@ class MatplotlibChart(ft.GestureDetector):
             manager.handle_json(message)
 
     def send_json(self, content):
-        print(f"send_json: {content}")
+        logger.debug(f"send_json: {content}")
         self._main_loop.call_soon_threadsafe(
             lambda: self._receive_queue.put_nowait((False, content))
         )

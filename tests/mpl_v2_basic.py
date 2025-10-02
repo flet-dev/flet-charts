@@ -13,42 +13,18 @@ logging.basicConfig(level=logging.INFO)
 
 
 def main(page: ft.Page):
-    # # Sample data
-    # x = np.linspace(0, 10, 100)
-    # y = np.sin(x)
-
-    # # Plot
-    # fig = plt.figure()
-    # print("Figure number:", fig.number)
-    # plt.plot(x, y)
-    # plt.title("Interactive Sine Wave")
-    # plt.xlabel("X axis")
-    # plt.ylabel("Y axis")
-    # plt.grid(True)
-
-    # ----------------------------------------------------------
-
-    plt.style.use("_mpl-gallery")
-
-    # Make data for a double helix
-    n = 50
-    theta = np.linspace(0, 2 * np.pi, n)
-    x1 = np.cos(theta)
-    y1 = np.sin(theta)
-    z1 = np.linspace(0, 1, n)
-    x2 = np.cos(theta + np.pi)
-    y2 = np.sin(theta + np.pi)
-    z2 = z1
+    # Sample data
+    x = np.linspace(0, 10, 100)
+    y = np.sin(x)
 
     # Plot
-    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-    ax.fill_between(x1, y1, z1, x2, y2, z2, alpha=0.5)
-    ax.plot(x1, y1, z1, linewidth=2, color="C0")
-    ax.plot(x2, y2, z2, linewidth=2, color="C0")
-
-    ax.set(xticklabels=[], yticklabels=[], zticklabels=[])
-
-    plt.show()
+    fig = plt.figure()
+    print("Figure number:", fig.number)
+    plt.plot(x, y)
+    plt.title("Interactive Sine Wave")
+    plt.xlabel("X axis")
+    plt.ylabel("Y axis")
+    plt.grid(True)
 
     page.add(flet_charts.MatplotlibChartWithToolbar(figure=fig, expand=True))
 
