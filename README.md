@@ -1,3 +1,7 @@
+# THIS PROJECT HAS BEEN ARCHIVED
+
+`flet-charts` is now part of the main [Flet repository](https://github.com/flet-dev/flet/tree/main/sdk/python/packages/flet-charts).
+
 # flet-charts
 
 [![pypi](https://img.shields.io/pypi/v/flet-charts.svg)](https://pypi.python.org/pypi/flet-charts)
